@@ -3,9 +3,8 @@
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DapartmentsController;
-
 // Route::get('/', [DashboardController::class, 'index']);
 
 
@@ -15,7 +14,7 @@ Auth::routes();
 Route::get('/', function() {
     return redirect('/login');
 });
-// check login 
+// check login
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
@@ -23,8 +22,12 @@ Route::get('/login', function () {
 // check middleware
 Route::middleware(['auth','isAdmin'])->group(function(){
     Route::get('/dashboard',[App\Http\Controllers\DashboardController::class, 'index']);
-    // route resource
-    Route::resource('department', DapartmentsController::class);
+
+    //route students
+    Route::get('students', [App\Http\Controllers\StudentsController::class, 'index']);
+    Route::get('students/reports', [App\Http\Controllers\StudentsController::class, 'report']);
+    Route::get('students/create', [App\Http\Controllers\StudentsController::class, 'create']);
+
 });
 // route for normal users
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
