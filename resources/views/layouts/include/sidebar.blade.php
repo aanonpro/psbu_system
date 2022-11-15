@@ -2,9 +2,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#!" class="brand-link">
-        <img src="{{ asset('admin/dist/img/psbu.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
-        <span class="brand-text font-weight-light">PSBU System</span>
+        <img src="{{ asset('admin/dist/img/psbu.jpg')}}" alt="psbu image" class="brand-image img-circle elevation-4" style="opacity: .8">
+        <span class="brand-text font-weight-light">PSBU SYSTEM</span>
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -15,9 +14,7 @@
                 <li class="nav-item ">
                     <a href="{{url('dashboard')}}" class="nav-link {{ Request::is('dashboard') ? 'active':'' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Dashboard
-                        </p>
+                        <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="nav-item {{ Request::is('students*') ? 'menu-open active':'' }}">
@@ -32,7 +29,7 @@
                         <li class="nav-item">
                             <a href="{{url('students')}}" class="nav-link {{ Request::is('students') ? 'active':'' }}">
                                 <i class="fa fa-list nav-icon"></i>
-                                <p>Students Lists</p>
+                                <p> Lists</p>
                             </a>
                         </li>
                     </ul>
@@ -40,7 +37,7 @@
                         <li class="nav-item">
                             <a href="{{url('students/reports')}}" class="nav-link {{ Request::is('students/reports') ? 'active':'' }}">
                                 <i class="fa fa-address-book nav-icon"></i>
-                                <p>Students Reports</p>
+                                <p> Reports</p>
                             </a>
                         </li>
                     </ul>
@@ -48,7 +45,7 @@
                         <li class="nav-item">
                             <a href="{{url('students/create')}}" class="nav-link {{ Request::is('students/create') ? 'active':'' }}">
                                 <i class="fa fa-plus-square nav-icon"></i>
-                                <p>Create Students</p>
+                                <p>Create </p>
                             </a>
                         </li>
                     </ul>
