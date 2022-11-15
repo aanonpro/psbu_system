@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use Illuminate\Contracts\View\View;
+use App\Http\Controllers\DapartmentsController;
 
 // Route::get('/', [DashboardController::class, 'index']);
 
@@ -22,6 +23,8 @@ Route::get('/login', function () {
 // check middleware
 Route::middleware(['auth','isAdmin'])->group(function(){
     Route::get('/dashboard',[App\Http\Controllers\DashboardController::class, 'index']);
+    // route resource
+    Route::resource('department', DapartmentsController::class);
 });
 // route for normal users
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);

@@ -41,7 +41,8 @@
         {{-- logout  --}}
         <div class="dropdown">
             <button class="btn dropdown-toggle text-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ Auth::user()->name }}
+                <img src="{{ asset('admin/dist/img/psbu.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                style="opacity: .8; width: 30px;" > {{ Auth::user()->name }}
             </button>
             <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="#">Profile</a>
