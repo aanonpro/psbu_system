@@ -18,7 +18,7 @@
                     </a>
                 </li>
                 <li class="nav-item {{ Request::is('students*') ? 'menu-open active':'' }}">
-                    <a href="#" class="nav-link {{ Request::is('students') || Request::is('students/reports') || Request::is('students/create') ? 'active':'' }}">
+                    <a href="#" class="nav-link {{ Request::is('students/lists') || Request::is('students/reports') || Request::is('students/create') ? 'active':'' }}">
                         <i class="nav-icon fa fa-graduation-cap"></i>
                         <p>
                             Students
@@ -27,7 +27,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{url('students')}}" class="nav-link {{ Request::is('students') ? 'active':'' }}">
+                            <a href="{{url('students/lists')}}" class="nav-link {{ Request::is('students/lists') ? 'active':'' }}">
                                 <i class="fa fa-list nav-icon"></i>
                                 <p> Lists</p>
                             </a>
@@ -49,6 +49,24 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item {{ Request::is('departments*') ? 'menu-open active':'' }}">
+                    <a href="#" class="nav-link {{ Request::is('departments/lists') || Request::is('departments/reports') || Request::is('students/create') ? 'active':'' }}">
+                        <i class="nav-icon fa fa-graduation-cap"></i>
+                        <p>
+                            Departments
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{url('departments/lists')}}" class="nav-link {{ Request::is('departments/lists') ? 'active':'' }}">
+                                <i class="fa fa-list nav-icon"></i>
+                                <p> Lists</p>
+                            </a>
+                        </li>
+                    </ul>
+
                 </li>
             </ul>
         </nav>
