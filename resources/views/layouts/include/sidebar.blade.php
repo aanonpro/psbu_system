@@ -28,7 +28,6 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-<<<<<<< HEAD
                             <a href="{{url('students/create')}}" class="nav-link {{ Request::is('students/create') ? 'active':'' }}">
                                 <i class="fa fa-plus-square nav-icon"></i>
                                 <p>Add Student </p>
@@ -40,11 +39,6 @@
                             <a href="{{url('students')}}" class="nav-link {{ Request::is('students') ? 'active':'' }}">
                                 <i class="fa fa-list nav-icon"></i>
                                 <p> List Students</p>
-=======
-                            <a href="{{url('students/lists')}}" class="nav-link {{ Request::is('students/lists') ? 'active':'' }}">
-                                <i class="fa fa-list nav-icon"></i>
-                                <p>Student Lists</p>
->>>>>>> 8c3855371c7434df9d131f87fab324a1eb2c8205
                             </a>
                         </li>
                     </ul>
@@ -55,18 +49,12 @@
                                 <p>Student Reports</p>
                             </a>
                         </li>
-<<<<<<< HEAD
                     </ul>                   
                 </li>
                 {{-- department --}}
-                <li class="nav-item {{ Request::is('departments*') ? 'menu-open active':'' }}">
-                    <a href="#" class="nav-link {{ Request::is('departments') || Request::is('departments/reports') || Request::is('departments/create') ? 'active':'' }}">
-=======
-                    </ul>
-                </li>
+
                 <li class="nav-item {{ Request::is('departments*') ? 'menu-open active':'' }}">
                     <a href="#" class="nav-link {{ Request::is('departments/lists') || Request::is('departments/reports') || Request::is('students/create') ? 'active':'' }}">
->>>>>>> 8c3855371c7434df9d131f87fab324a1eb2c8205
                         <i class="nav-icon fa fa-graduation-cap"></i>
                         <p>
                             Departments
@@ -75,11 +63,10 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-<<<<<<< HEAD
+
                             <a href="{{url('departments/create')}}" class="nav-link {{ Request::is('departments/create') ? 'active':'' }}">
                                 <i class="fa fa-plus-square nav-icon"></i>
                                 <p>Add Department </p>
-=======
                             <a href="{{url('departments/lists')}}" class="nav-link {{ Request::is('departments/lists') ? 'active':'' }}">
                                 <i class="fa fa-list nav-icon"></i>
                                 <p>Department lists</p>
@@ -89,7 +76,7 @@
                 </li>
                 <li class="nav-item {{ Request::is('faculties*') ? 'menu-open active':'' }}">
                     <a href="#" class="nav-link {{ Request::is('faculties') || Request::is('faculties/reports') || Request::is('faculties/create') ? 'active':'' }}">
-                        <i class="nav-icon fa fa-graduation-cap"></i>
+                        <i class="fa fa-university" aria-hidden="true"></i>
                         <p>
                             Faculties
                             <i class="right fas fa-angle-left"></i>
@@ -100,26 +87,9 @@
                             <a href="{{route('faculties.index')}}" class="nav-link {{ Request::is('faculties') ? 'active':'' }}">
                                 <i class="fa fa-list nav-icon"></i>
                                 <p>Faculties lists</p>
->>>>>>> 8c3855371c7434df9d131f87fab324a1eb2c8205
                             </a>
                         </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{url('departments')}}" class="nav-link {{ Request::is('departments') ? 'active':'' }}">
-                                <i class="fa fa-list nav-icon"></i>
-                                <p> List Departments</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{url('departments/reports')}}" class="nav-link {{ Request::is('departments/reports') ? 'active':'' }}">
-                                <i class="fa fa-address-book nav-icon"></i>
-                                <p> Reports</p>
-                            </a>
-                        </li>
-                    </ul>                    
+                    </ul>        
                 </li>
             </ul>
         </nav>

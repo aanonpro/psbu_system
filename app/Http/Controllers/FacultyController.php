@@ -45,7 +45,7 @@ class FacultyController extends Controller
         $input['created_by'] = Auth::user()->id;
         Faculty::create($input);
 
-        return redirect()->route('faculties.index')->with('message','Faculties created successfully.');
+        return redirect()->route('faculties.index')->flash('message','Faculties created successfully.');
     }
 
     /**

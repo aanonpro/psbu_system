@@ -14,19 +14,19 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="name" placeholder="Name en" autofocus>
+                  <input type="text" class="form-control name" name="name" placeholder="Name en" autofocus>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Khmer</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="khmer" placeholder="name kh">
+                  <input type="text" class="form-control khmer" name="khmer" placeholder="name kh">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Status</label>
                 <div class="col-sm-10">
-                  <select class="form-control" name="status" required>
+                  <select class="form-control" id="status" name="status" required>
                     <option value="">----select status----</option>
                     <option value="1">Active</option>
                     <option value="0">Inactive</option>
@@ -35,7 +35,7 @@
               </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger clear" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary swalDefaultSuccess">Save</button>
           </div>
         </form>
@@ -59,9 +59,23 @@
        $('.swalDefaultSuccess').click(function() {
            Toast.fire({
                icon: 'success',
-               title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+               title: "{{ session('message')}}"
            })
        });
+
+       //clear form fields
+       $('.clear').click(function(){
+          $('.name, .khmer').val('');
+          $('#status')
+            .find('option')
+            .remove()
+            .end()
+            .append(' <option value="">----select status----</option>')
+            .val('');
+       });
+
+
+
    });
 </script>
 

@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Faculties</h1>
+                    <h1 class="m-0">Faculties Page</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     {{-- <ol class="breadcrumb float-sm-right">
@@ -58,14 +58,19 @@
 
                           <td>
                             @if ($item->status == 1)
-                            <span class="badge bg-success">Active</span>
+                            <span class="badge bg-info">Active <i class="fa fa-check-circle" aria-hidden="true"></i></span>
                             @else
-                            <span class="badge bg-danger">/span>
+                            <span class="badge bg-danger">Inactive <i class="fa fa-times-circle" aria-hidden="true"></i></span>
                             @endif
                           </td>
                           <td>
-                            <button class="btn btn-sm btn-warning">edit</button>
-                            <button class="btn btn-sm btn-danger">edit</button>
+                            <form action="{{route('faculties.destroy',$item->id)}}" method="POST">
+                              <a href="{{route('faculties.show',$item->id)}}" class="btn btn-sm btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                              <a href="{{route('faculties.edit',$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                              @csrf
+                              @method('DELETE')
+                              <button class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                            </form>
                           </td>
 
                       </tr>
@@ -91,9 +96,6 @@
         </div>
     </section>
     <!-- /.content -->
-
-
-
 
 </div>
 
