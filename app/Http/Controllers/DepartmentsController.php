@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dapartments;
 use Illuminate\Http\Request;
 
-class DapartmentsController extends Controller
+class DepartmentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +40,10 @@ class DapartmentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Dapartments  $dapartments
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Dapartments $dapartments)
+    public function show($id)
     {
         //
     }
@@ -52,10 +51,10 @@ class DapartmentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Dapartments  $dapartments
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dapartments $dapartments)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +63,10 @@ class DapartmentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dapartments  $dapartments
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dapartments $dapartments)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +74,10 @@ class DapartmentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dapartments  $dapartments
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dapartments $dapartments)
+    public function destroy($id)
     {
         //
     }

@@ -3,6 +3,8 @@
 use App\Http\Controllers\DepartmentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\DepartmentsController;
 
 Auth::routes();
 
@@ -23,9 +25,17 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::resource('departments', DepartmentController::class);
 
     //route students
-    Route::get('students', [App\Http\Controllers\StudentsController::class, 'index']);
+    Route::get('students/lists', [App\Http\Controllers\StudentsController::class, 'index']);
     Route::get('students/reports', [App\Http\Controllers\StudentsController::class, 'report']);
     Route::get('students/create', [App\Http\Controllers\StudentsController::class, 'create']);
+
+    // get pdf
+    Route::get('generate-pdf', [App\Http\Controllers\StudentsController::class, 'generatePDF']);
+    //route departments
+    Route::resource('departments', DepartmentsController::class);
+    Route::resource('faculties', FacultyController::class);
+
+
 
 });
 // route for normal users

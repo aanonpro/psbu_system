@@ -39,48 +39,49 @@
                                         <form class="row" action="" method="POST" enctype="multipart/form-data">
                                         @csrf
                                             <div class="col-md-6">
-                                                <label class="form-label">First Name</label>
-                                                <input type="text" class="form-control" name="firstname" placeholder="Enter fistname" autofocus required>
+                                                <label class="form-label">First Name <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="firstname" placeholder="Firstname" autofocus required>
                                             </div>
                                             <div class="col-md-6">
-                                                <label class="form-label">Last Name</label>
-                                                <input type="text" class="form-control" name="lastname" placeholder="Enter lastname" required>
+                                                <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="lastname" placeholder="Lastname" required>
                                             </div>
                                             <div class="col-12">
-                                                <label class="form-label">Address</label>
+                                                <label class="form-label">Address <span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" name="address" placeholder="1234 Main St">
                                             </div>
                                             <div class="col-12">
-                                                <label class="form-label">Address 2</label>
+                                                <label class="form-label">Address 2 <span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" name="address2" placeholder="Apartment, studio, or floor">
                                             </div>
                                             <div class="col-md-6">
-                                                <label class="form-label">City</label>
-                                                <input type="text" class="form-control" name="city" placeholder="Enter city">
+                                                <label class="form-label">City <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="city" placeholder="City">
                                             </div>
                                             <div class="col-md-4">
-                                                <label class="form-label">State</label>
-                                                <select class="form-select" name="state" required>
+                                                <label class="form-label">State <span class="text-danger">*</span></label>
+                                                <select class="form-select form-control" name="state" required>
                                                     <option value="" selected>Choose...</option>
                                                     <option value="1">Phnom Penh</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-2">
-                                                <label class="form-label">Zip</label>
-                                                <input type="text" class="form-control" name="zip" placeholder="Enter zip">
+                                                <label class="form-label">Zip <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="zip" placeholder="Zip">
                                             </div>
                                             <div class="col-12">
                                                 <label class="form-label">Image</label>
                                                 <input type="file" class="form-control">
                                             </div>
                                             <div class="col-12 mt-3">
+                                                <a class="btn btn-primary btn-sm" href="{{ url('generate-pdf') }}">view PDF</a>
                                                 <button type="submit" class="btn btn-danger float-right">Register Now</button>
                                             </div>
                                         </form>
-        
+
                                     </div>
                                 </div>
-                              
+
                             </div>
                         </div><!-- /.card -->
                     </div>
