@@ -29,7 +29,7 @@
                         <li class="nav-item">
                             <a href="{{url('students/lists')}}" class="nav-link {{ Request::is('students/lists') ? 'active':'' }}">
                                 <i class="fa fa-list nav-icon"></i>
-                                <p> Lists</p>
+                                <p>Student Lists</p>
                             </a>
                         </li>
                     </ul>
@@ -37,15 +37,7 @@
                         <li class="nav-item">
                             <a href="{{url('students/reports')}}" class="nav-link {{ Request::is('students/reports') ? 'active':'' }}">
                                 <i class="fa fa-address-book nav-icon"></i>
-                                <p> Reports</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{url('students/create')}}" class="nav-link {{ Request::is('students/create') ? 'active':'' }}">
-                                <i class="fa fa-plus-square nav-icon"></i>
-                                <p>Create </p>
+                                <p>Student Reports</p>
                             </a>
                         </li>
                     </ul>
@@ -62,11 +54,27 @@
                         <li class="nav-item">
                             <a href="{{url('departments/lists')}}" class="nav-link {{ Request::is('departments/lists') ? 'active':'' }}">
                                 <i class="fa fa-list nav-icon"></i>
-                                <p> Lists</p>
+                                <p>Department lists</p>
                             </a>
                         </li>
                     </ul>
-
+                </li>
+                <li class="nav-item {{ Request::is('faculties*') ? 'menu-open active':'' }}">
+                    <a href="#" class="nav-link {{ Request::is('faculties') || Request::is('faculties/reports') || Request::is('faculties/create') ? 'active':'' }}">
+                        <i class="nav-icon fa fa-graduation-cap"></i>
+                        <p>
+                            Faculties
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('faculties.index')}}" class="nav-link {{ Request::is('faculties') ? 'active':'' }}">
+                                <i class="fa fa-list nav-icon"></i>
+                                <p>Faculties lists</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>

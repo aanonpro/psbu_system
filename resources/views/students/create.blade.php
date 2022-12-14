@@ -60,7 +60,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <label class="form-label">State <span class="text-danger">*</span></label>
-                                                <select class="form-select" name="state" required>
+                                                <select class="form-select form-control" name="state" required>
                                                     <option value="" selected>Choose...</option>
                                                     <option value="1">Phnom Penh</option>
                                                 </select>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\DepartmentsController;
 
 Auth::routes();
@@ -28,6 +29,7 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::get('generate-pdf', [App\Http\Controllers\StudentsController::class, 'generatePDF']);
     //route departments
     Route::resource('departments', DepartmentsController::class);
+    Route::resource('faculties', FacultyController::class);
 
 
 
