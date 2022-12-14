@@ -27,36 +27,48 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body">
                             <div class="row" >
-                                <div class="col-md-9 py-2" style="margin: 0 auto;">
-                                    <div class="mb-3 row">
-                                        <label class="col-sm-2 col-form-label">Name <span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="name" placeholder="Enter Name">
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label class="col-sm-2 col-form-label">Descripton <span class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                        <textarea class="form-control" name="description" placeholder="Description (Optional)" ></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label">Status <span class="text-danger">*</span> </label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" name="status" required>
-                                                <option value="">-----Select function------</option>
-                                                <option value="1">Active</option>
-                                                <option value="0">Disabled</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label"></label>
-                                        <div class="col-sm-10">
-                                            <button type="submit" class="btn btn-primary mt-4"> Save </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">N0</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Note</th>
+                                        <th scope="col"  style="width: 15%;">Status</th>
+                                        <th scope="col" style="width: 20%;">Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ( $products as $key => $item)
+                                        <tr>
+                                            <th scope="row">{{ $key+1 }}</th>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->description }}</td>
+                                            <td>
+                                                @if($item->status == 1)
+                                                <span class="badge badge-success"> <i class="bx bxs-circle align-middle me-1"></i>Active</span>
+                                                @else
+                                                <span class="badge badge-danger"> <i class="bx bxs-circle align-middle me-1"></i>Inactive</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <form action="{{route('departments.destroy', $item->id)}}" method="POST">
+                                                    <a href="{{route('departments.show', $item->id)}}" class="btn btn-sm btn-info text-light">View</a>
+                                                    <a href="{{route('departments.edit', $item->id)}}" class="btn btn-sm btn-warning text-light">Edit</a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-sm btn-danger sweetAlert" type="submit">Delete</button>
+                                                </form>
+                                            </td>
+                                          </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="5" class="text-center py-4"><h5>No Departments Record</h5></td>
+                                            </tr>
+                                        @endforelse
+                                     
+                                     
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div><!-- /.card -->
@@ -69,5 +81,17 @@
     <!-- /.content -->
 </div>
 
+@endsection
+@section('script')
+    <script>
+        $('.sweetAlert').on('click', function () {
+            swal({
+                title: "Good job!",
+                text: "Department delete successfully",
+                icon: "success",
+                button: "OK",
+            });
+        });
+    </script>
 @endsection
 

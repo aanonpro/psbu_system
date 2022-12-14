@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,9 @@ Route::get('/login', function () {
 // check middleware
 Route::middleware(['auth','isAdmin'])->group(function(){
     Route::get('/dashboard',[App\Http\Controllers\DashboardController::class, 'index']);
+
+    // route department
+    Route::resource('departments', DepartmentController::class);
 
     //route students
     Route::get('students', [App\Http\Controllers\StudentsController::class, 'index']);
