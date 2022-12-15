@@ -22,7 +22,7 @@
     <!-- /.content-header -->
 
 <!-- Modal create form -->
-@include('faculty.create-modal')
+{{-- @include('faculty.create-modal') --}}
 
     <!-- Main content -->
     <section class="content">
@@ -32,9 +32,7 @@
               <div class="card card-primary card-outline">
                 <div class="card-header">
                   <h3 class="card-title" style="text-transform: uppercase">Faculties list</h3>
-                  <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#staticBackdrop">
-                    Add Faculty
-                  </button>
+                    <a href="{{route('faculties.create')}}" class="btn btn-sm btn-primary float-right"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">

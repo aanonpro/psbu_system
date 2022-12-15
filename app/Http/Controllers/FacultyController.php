@@ -26,7 +26,7 @@ class FacultyController extends Controller
      */
     public function create()
     {
-        return view('faculty.create');
+        return view('faculty.form');
     }
 
     /**
@@ -45,7 +45,7 @@ class FacultyController extends Controller
         $input['created_by'] = Auth::user()->id;
         Faculty::create($input);
 
-        return redirect()->route('faculties.index')->flash('message','Faculties created successfully.');
+        return redirect()->route('faculties.index')->with('message','Faculties created successfully.');
     }
 
     /**
@@ -67,7 +67,7 @@ class FacultyController extends Controller
      */
     public function edit(faculty $faculty)
     {
-        //
+        return view('faculty.form', compact('faculty'));
     }
 
     /**
@@ -79,7 +79,10 @@ class FacultyController extends Controller
      */
     public function update(Request $request, faculty $faculty)
     {
-        //
+        // $faculty['updated_by'] = Auth::user()->id;
+        $faculty->update($request->all());
+        // dd($faculty);
+        return redirect()->route('faculties.index');
     }
 
     /**
