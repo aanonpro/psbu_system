@@ -26,74 +26,63 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card card-primary card-outline">
+                        <div class="card card-info ">
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        <div>{{ $error }}</div>
+                                    @endforeach
+                                </div>
+                            @endif
                             <div class="card-header">
                                 <h3 class="card-title" style="text-transform: uppercase">{{ isset($faculty) ? 'Faculty Edit' : 'Faculty Add' }}</h3>
-                                <a href="{{ route('faculties.index') }}" class="btn btn-sm btn-danger float-right">{{ isset($faculty) ? 'Cancel' : 'Back' }}</a>
                             </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-2">
+                            <form action="{{ isset($faculty) ?  route('faculties.update',$faculty->id) : route('faculties.store') }}" method="POST">
+                                @csrf
+                                @if (isset($faculty))
+                                    @method('PUT')
+                                @endif
+                            <div class="card-body">                               
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">{{ __('Name') }} <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="name"
+                                        @if (isset($faculty)) value="{{ $faculty->name }}" @endif placeholder="Name en" autofocus>
                                     </div>
-                                    <div class="col-md-10">
-                                        <form action="{{ isset($faculty) ?  route('faculties.update',$faculty->id) : route('faculties.store') }}" method="POST">
-                                            @csrf
-                                            @if (isset($faculty))
-                                                @method('PUT')
-                                            @endif
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">{{ __('Name') }} <span
-                                                        class="text-danger">*</span></label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" name="name"
-                                                    @if (isset($faculty)) value="{{ $faculty->name }}" @endif placeholder="Name en" autofocus>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">{{ __('Khmer') }} <span
-                                                        class="text-danger">*</span></label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" name="khmer"
-                                                    @if (isset($faculty)) value="{{$faculty->khmer}}" @endif  placeholder="name kh">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">{{ __('Stutus') }} <span
-                                                        class="text-danger">*</span></label>
-                                                <div class="col-sm-10">
-                                                    <select class="form-control" id="status" name="status" required>
-                                                        @if (!isset($faculty)) <option value="">----select status----</option>@endif
-                                                        <option value="1"@if (isset($faculty)) {{ $faculty->status == '1' ? 'selected' : '' }}  @endif>Active</option>
-                                                        <option value="0"@if (isset($faculty)) {{ $faculty->status == '0' ? 'selected' : '' }}  @endif>Inactive</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label"></label>
-                                                <div class="col-sm-10">
-                                                    @if (isset($faculty))
-                                                    <button type="submit" class="btn btn-primary mt-4"> Update </button>
-                                                    @else
-                                                    <button type="submit" class="btn btn-primary mt-4"> Save </button>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </form>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">{{ __('Khmer') }} <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="khmer"
+                                        @if (isset($faculty)) value="{{$faculty->khmer}}" @endif  placeholder="name kh">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">{{ __('Stutus') }} <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" id="status" name="status" required>
+                                            @if (!isset($faculty)) <option value="">----select status----</option>@endif
+                                            <option value="1"@if (isset($faculty)) {{ $faculty->status == '1' ? 'selected' : '' }}  @endif>Active</option>
+                                            <option value="0"@if (isset($faculty)) {{ $faculty->status == '0' ? 'selected' : '' }}  @endif>Inactive</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                            <!-- /.card-body -->
-
+                             <!-- /.card-body -->
+                             <div class="card-footer">
+                                <button type="submit" class="btn btn-info btn-sm  "> {{isset($faculty) ? 'Update':'Save' }}</button>
+                                <a href="{{ route('faculties.index') }}" class="btn btn-sm btn-default float-right ">{{ isset($faculty) ? 'Cancel' : 'Back' }}</a>
+                              </div>
+                              <!-- /.card-footer -->
+                            </form>
                         </div>
-                        <!-- /.card -->
                     </div>
                 </div>
             </div>
         </section>
         <!-- /.content -->
-
     </div>
-
-
 @endsection

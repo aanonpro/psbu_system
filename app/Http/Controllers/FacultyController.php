@@ -15,8 +15,9 @@ class FacultyController extends Controller
      */
     public function index()
     {
+        $counts = Faculty::count();
         $faculties = Faculty::all();
-        return view('faculty.index', compact('faculties'));
+        return view('faculty.index', compact('faculties','counts'));
     }
 
     /**
@@ -45,7 +46,7 @@ class FacultyController extends Controller
         $input['created_by'] = Auth::user()->id;
         Faculty::create($input);
 
-        return redirect()->route('faculties.index')->with('message','Faculties created successfully.');
+        return redirect()->route('faculties.index')->with('message','Faculties created');
     }
 
     /**
@@ -79,10 +80,9 @@ class FacultyController extends Controller
      */
     public function update(Request $request, faculty $faculty)
     {
-        // $faculty['updated_by'] = Auth::user()->id;
+        $faculty['updated_by'] = Auth::user()->id;
         $faculty->update($request->all());
-        // dd($faculty);
-        return redirect()->route('faculties.index');
+        return redirect()->route('faculties.index')->with('message','Faculty updated');
     }
 
     /**
@@ -93,6 +93,7 @@ class FacultyController extends Controller
      */
     public function destroy(faculty $faculty)
     {
-        //
+        $faculty->delete();
+        return redirect()->back()->with('message','Faculty updated');
     }
 }

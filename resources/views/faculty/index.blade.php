@@ -21,21 +21,24 @@
     </div>
     <!-- /.content-header -->
 
-<!-- Modal create form -->
-{{-- @include('faculty.create-modal') --}}
-
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <div class="card card-primary card-outline">
+              <div class="card card-info card-outline">
                 <div class="card-header">
                   <h3 class="card-title" style="text-transform: uppercase">Faculties list</h3>
-                    <a href="{{route('faculties.create')}}" class="btn btn-sm btn-primary float-right"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+                    <a href="{{route('faculties.create')}}" class="btn btn-sm btn-info float-right"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                  @if(session('message'))
+                    <div class="alert alert-info" role="alert">
+                      {{session('message')}} <i class="fa fa-check" aria-hidden="true"></i>
+                    </div>
+                  @endif
+                 
                   <table class="table table-bordered">
                     <thead>
                       <tr>
@@ -47,10 +50,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($faculties as $item )
-
+                      @foreach ($faculties as $key => $item )
                       <tr>
-                        <td>{{$item->id}}</td>
+                        <td>{{$key+1}}</td>
                         <td>{{$item->name}}</td>
                         <td>{{$item->khmer}}</td>
 
@@ -58,16 +60,16 @@
                             @if ($item->status == 1)
                             <span class="badge bg-info">Active <i class="fa fa-check-circle" aria-hidden="true"></i></span>
                             @else
-                            <span class="badge bg-danger">Inactive <i class="fa fa-times-circle" aria-hidden="true"></i></span>
+                            <span class="badge bg-danger">Inactive <i class="fa fa-ban" aria-hidden="true"></i></span>
                             @endif
                           </td>
                           <td>
                             <form action="{{route('faculties.destroy',$item->id)}}" method="POST">
-                              <a href="{{route('faculties.show',$item->id)}}" class="btn btn-sm btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                              <a href="{{route('faculties.edit',$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                              <a href="{{route('faculties.show',$item->id)}}" class=" btn btn-sm btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                              <a href="{{route('faculties.edit',$item->id)}}" class=" btn btn-sm btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                               @csrf
                               @method('DELETE')
-                              <button class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                              <button class="btn btn-sm btn-danger "><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                             </form>
                           </td>
 
@@ -79,13 +81,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
-                  <ul class="pagination pagination-sm m-0 float-right">
-                    <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                  </ul>
+                 <span>Faculties page: {{$counts}}</span>
                 </div>
               </div>
               <!-- /.card -->
