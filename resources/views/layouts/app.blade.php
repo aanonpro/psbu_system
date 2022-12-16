@@ -66,9 +66,9 @@
     <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
 
     {{-- calendar  --}}
-    <script src="{{ asset('calendar/js/jquery.min.js')}}"></script>
-    <script src="{{ asset('calendar/js/popper.js')}}"></script>
-    <script src="{{ asset('calendar/js/bootstrap.min.js')}}"></script>
+    {{-- <script src="{{ asset('calendar/js/jquery.min.js')}}"></script> --}}
+    {{-- <script src="{{ asset('calendar/js/popper.js')}}"></script> --}}
+    {{-- <script src="{{ asset('calendar/js/bootstrap.min.js')}}"></script> --}}
     <script src="{{ asset('calendar/js/main.js')}}"></script>
 
 @yield('script')

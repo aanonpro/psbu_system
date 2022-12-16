@@ -10,16 +10,14 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Dashboard</h1>
+                        <h1 class="m-0">{{__('Dashboard')}}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         {{-- <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#!">Home</a></li>
                     </ol> --}}
-
                     <h1 id="ct7" class="float-right "></h1>
                     {{-- <p>{{$dateTime}}</p> --}}
-
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -35,14 +33,12 @@
                         <div class="small-box bg-info">
                             <div class="inner">
                                 <h3>{{ $count }}</h3>
-
                                 <p>{{ __('Faculties') }}</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
                             </div>
-                            <a href="{{ route('faculties.index') }}" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{ route('faculties.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -51,7 +47,6 @@
                         <div class="small-box bg-success">
                             <div class="inner">
                                 <h3>53<sup style="font-size: 20px">%</sup></h3>
-
                                 <p>Bounce Rate</p>
                             </div>
                             <div class="icon">
@@ -67,7 +62,6 @@
                         <div class="small-box bg-warning">
                             <div class="inner">
                                 <h3>44</h3>
-
                                 <p>User Registrations</p>
                             </div>
                             <div class="icon">
@@ -105,7 +99,7 @@
                 </div>
 
                 <div class="row ">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="elegant-calencar d-md-flex">
                             <div class="wrap-header d-flex align-items-center img"
                                 style="background-image: url({{ asset('calendar/images/bg.jpg') }});">
@@ -237,6 +231,6 @@ function display_ct7() {
     mytime=setTimeout('display_ct7()',refresh)
     }
     display_c7()
-    </script>
+</script>
 
 @endsection
