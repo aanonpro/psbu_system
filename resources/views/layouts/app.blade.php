@@ -20,8 +20,16 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="{{ asset('admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
-
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="{{asset('admin/plugins/fullcalendar/main.css')}}">
     <link rel="stylesheet" href="{{ asset('admin/font-awesome/css/font-awesome.min.css')}}">
+
+    {{-- calendar  --}}
+    {{-- <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet"> --}}
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="{{asset('calendar/css/style.css')}}">
 
 
 
@@ -56,6 +64,12 @@
     <script src="{{ asset('admin/plugins/toastr/toastr.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
+
+    {{-- calendar  --}}
+    <script src="{{ asset('calendar/js/jquery.min.js')}}"></script>
+    <script src="{{ asset('calendar/js/popper.js')}}"></script>
+    <script src="{{ asset('calendar/js/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('calendar/js/main.js')}}"></script>
 
 @yield('script')
 

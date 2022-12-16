@@ -42,7 +42,7 @@
                                 @if (isset($faculty))
                                     @method('PUT')
                                 @endif
-                            <div class="card-body">                               
+                            <div class="card-body">
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">{{ __('Name') }} <span
                                             class="text-danger">*</span></label>
@@ -65,8 +65,8 @@
                                     <div class="col-sm-10">
                                         <select class="form-control" id="status" name="status" required>
                                             @if (!isset($faculty)) <option value="">----select status----</option>@endif
-                                            <option value="1"@if (isset($faculty)) {{ $faculty->status == '1' ? 'selected' : '' }}  @endif>Active</option>
-                                            <option value="0"@if (isset($faculty)) {{ $faculty->status == '0' ? 'selected' : '' }}  @endif>Inactive</option>
+                                            <option value="1"@if (isset($faculty)) {{ $faculty->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option>
+                                            <option value="0"@if (isset($faculty)) {{ $faculty->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
                                         </select>
                                     </div>
                                 </div>

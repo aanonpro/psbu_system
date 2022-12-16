@@ -46,7 +46,7 @@
                 <li class="nav-item ">
                     <a href="{{url('dashboard')}}" class="nav-link {{ Request::is('dashboard') ? 'active':'' }}">
                         <i class="fa fa-tachometer" aria-hidden="true"></i>
-                        <p>Dashboard</p>
+                        <p>{{__('Dashboard')}}</p>
                     </a>
                 </li>
                 {{-- faculties  --}}
@@ -54,7 +54,7 @@
                     <a href="#" class="nav-link {{ Request::is('faculties*') ? 'active':'' }}">
                         <i class="fa fa-university" aria-hidden="true"></i>
                         <p>
-                            Faculties
+                            {{__('Faculties')}}
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -62,7 +62,7 @@
                         <li class="nav-item ">
                             <a href="{{route('faculties.index')}}" class="nav-link navPan {{ Request::is('faculties*')  ? 'active':''  }}">
                                 <i class="fa fa-list-ul" aria-hidden="true"></i>
-                                <p>Faculties lists</p>
+                                <p>{{__('Faculties lists')}}</p>
                             </a>
                         </li>
                     </ul>
@@ -72,7 +72,7 @@
                     <a href="#" class="nav-link {{ Request::is('departments*') ? 'active':'' }}">
                         <i class="fa fa-map-o" aria-hidden="true"></i>
                         <p>
-                            Departments
+                            {{__('Departments')}}
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -80,7 +80,7 @@
                         <li class="nav-item">
                             <a href="{{url('departments/lists')}}" class="nav-link navPan {{ Request::is('departments*')  ? 'active':''  }}">
                                 <i class="fa fa-list-ul" aria-hidden="true"></i>
-                                <p>Department lists</p>
+                                <p>{{__('Department lists')}}</p>
                             </a>
                         </li>
                     </ul>
@@ -90,7 +90,7 @@
                     <a href="#" class="nav-link  {{ Request::is('students/lists') || Request::is('students/reports') || Request::is('students/create') ? 'active':'' }}">
                         <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                         <p>
-                            Students
+                            {{__('Students')}}
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -98,11 +98,11 @@
                         <li class="nav-item ">
                             <a href="{{url('students')}}" class="nav-link navPan {{ Request::is('students') ? 'active':'' }}">
                                 <i class="fa fa-list-ul" aria-hidden="true"></i>
-                                <p> List Students</p>
+                                <p>{{__('List Students')}}</p>
                             </a>
                             <a href="{{url('students/reports')}}" class="nav-link navPan {{ Request::is('students/reports') ? 'active':'' }}">
                                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                <p>Student Reports</p>
+                                <p>{{__('Student Reports')}}</p>
                             </a>
                         </li>
                     </ul>
