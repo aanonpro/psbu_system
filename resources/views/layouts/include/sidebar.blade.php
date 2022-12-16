@@ -19,6 +19,26 @@
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+              <img src="{{asset('admin/img/anon.jpg')}}" class="img-circle elevation-2 " alt="User Image">
+            </div>
+            <div class="info">
+              <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+            </div>
+          </div>
+
+          <!-- SidebarSearch Form -->
+          <div class="form-inline">
+            <div class="input-group" data-widget="sidebar-search">
+              <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+              <div class="input-group-append">
+                <button class="btn btn-sidebar">
+                  <i class="fas fa-search fa-fw"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -45,9 +65,9 @@
                                 <p>Faculties lists</p>
                             </a>
                         </li>
-                    </ul>        
+                    </ul>
                 </li>
-                {{-- department --}}         
+                {{-- department --}}
                 <li class="nav-item {{ Request::is('departments*') ? 'menu-open active':'' }}">
                     <a href="#" class="nav-link {{ Request::is('departments*') ? 'active':'' }}">
                         <i class="fa fa-map-o" aria-hidden="true"></i>
@@ -85,8 +105,8 @@
                                 <p>Student Reports</p>
                             </a>
                         </li>
-                    </ul>                                 
-                </li>    
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
