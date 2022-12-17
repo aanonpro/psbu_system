@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('khmer',200)->nullable();
             $table->string('status',1)->default('1');
             $table->string('trash',1)->default('0');
-            $table->integer('created_by');
+            $table->integer('created_by')->default('0');
             $table->integer('updated_by')->default('0');
             $table->timestamps();
         });

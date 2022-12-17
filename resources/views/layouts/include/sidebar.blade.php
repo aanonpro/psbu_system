@@ -78,7 +78,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{url('departments/lists')}}" class="nav-link navPan {{ Request::is('departments*')  ? 'active':''  }}">
+                            <a href="{{route('departments.index')}}" class="nav-link navPan {{ Request::is('departments*')  ? 'active':''  }}">
                                 <i class="fa fa-list-ul" aria-hidden="true"></i>
                                 <p>{{__('Department lists')}}</p>
                             </a>

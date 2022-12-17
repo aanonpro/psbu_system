@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\faculty;
 use Illuminate\Http\Request;
+use App\Exports\FacultiesExport;
+use App\Imports\FacultiesImport;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FacultyController extends Controller
 {
@@ -20,6 +23,19 @@ class FacultyController extends Controller
         return view('faculty.index', compact('faculties','counts'));
     }
 
+    public function export()
+    {
+        return Excel::download(new FacultiesExport, 'faculties.xlsx');
+    }
+
+    public function import()
+    {
+        // Excel::import(new FacultiesImport, $request->file('file')->store('files'));
+        // return redirect()->back();
+        Excel::import(new FacultiesImport,request()->file('file'));
+        return back();
+        // return Excel::download(new BookingExport($data),'booking-report.xlsx',ExcelExcel::XLSX);
+    }
     /**
      * Show the form for creating a new resource.
      *

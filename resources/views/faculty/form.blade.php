@@ -1,5 +1,7 @@
 @extends('layouts.app')
-@section('title', 'form faculties')
+@section('title')
+    {{isset($faculty) ? 'Edit faculty':'Create faculty '}}
+@endsection
 @section('content')
 
 
