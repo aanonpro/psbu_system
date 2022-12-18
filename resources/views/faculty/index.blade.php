@@ -34,12 +34,12 @@
                             <div class="input-group mb-3">
                                 <input type="file" class="form-control" id="inputGroupFile04"
                                     aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="file" required>
-                                <button class="btn btn-success" id="inputGroupFileAddon04"><i class="fa fa-plus" aria-hidden="true"></i> Import Excel</button>
+                                <button class="btn btn-success" id="inputGroupFileAddon04"><i class="fa fa-plus" aria-hidden="true"></i> CSV Import</button>
                             </div>                           
                         </form>
                     </div>
                     <div class="col-md-2">
-                        <a class="btn btn-warning float-left" href="{{ route('faculty.export') }}"><i class="fa fa-arrow-right"></i> Export Excel</a>
+                        <a class="btn btn-warning float-left" href="{{ route('faculty.export') }}"><i class="fa fa-arrow-right"></i> CSV Export</a>
                     </div>
                     <div class="col-md-12">
                         <div class="card card-info card-outline">
@@ -76,11 +76,9 @@
 
                                                 <td>
                                                     @if ($item->status == 1)
-                                                        <span class="badge bg-info">Active <i class="fa fa-check-circle"
-                                                                aria-hidden="true"></i></span>
+                                                    <span class="badge bg-defalt">Active <i class="fa fa-circle text-success" aria-hidden="true"></i></span>                           
                                                     @else
-                                                        <span class="badge bg-danger">Inactive <i class="fa fa-ban"
-                                                                aria-hidden="true"></i></span>
+                                                    <span class="badge bg-defalt">Inactive <i class="fa fa-circle text-danger" aria-hidden="true"></i></span>
                                                     @endif
                                                 </td>
                                                 <td>

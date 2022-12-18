@@ -55,8 +55,7 @@ class FacultyController extends Controller
     public function store(Request $request)
     {
         $this->Validate($request, [
-            'name' => 'required',
-            'khmer' => 'required'
+            'status' => 'required'
         ]);
         $input = $request->all();
         $input['created_by'] = Auth::user()->id;
@@ -96,6 +95,9 @@ class FacultyController extends Controller
      */
     public function update(Request $request, faculty $faculty)
     {
+        $this->Validate($request, [
+            'status' => 'required'
+        ]);
         $faculty['updated_by'] = Auth::user()->id;
         $faculty->update($request->all());
         return redirect()->route('faculties.index')->with('message','Faculty updated');

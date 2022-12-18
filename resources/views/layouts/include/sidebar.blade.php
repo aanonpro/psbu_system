@@ -70,7 +70,7 @@
                 {{-- department --}}
                 <li class="nav-item {{ Request::is('departments*') ? 'menu-open active':'' }}">
                     <a href="#" class="nav-link {{ Request::is('departments*') ? 'active':'' }}">
-                        <i class="fa fa-map-o" aria-hidden="true"></i>
+                        <i class="fa fa-columns" aria-hidden="true"></i>
                         <p>
                             {{__('Departments')}}
                             <i class="right fas fa-angle-left"></i>

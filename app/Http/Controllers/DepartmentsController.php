@@ -40,6 +40,10 @@ class DepartmentsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->Validate($request, [
+            'faculty_id' => 'required',
+            'status' => 'required'
+        ]);
         $input = $request->all();
         $input['created_by'] = Auth::user()->id;
         Department::create($input);
@@ -78,6 +82,10 @@ class DepartmentsController extends Controller
      */
     public function update(Request $request, Department $department)
     {
+        $this->Validate($request, [
+            'faculty_id' => 'required',
+            'status' => 'required'
+        ]);
         $department['updated_by'] = Auth::user()->id;
         $department->update($request->all());
         return redirect()->route('departments.index')->with('message','Departments updated ');

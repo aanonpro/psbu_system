@@ -49,8 +49,8 @@
                                     <label class="col-sm-2 col-form-label">{{ __('Faculty') }} <span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" id="faculty" name="faculty_id" required>
-                                            @if (!isset($department)) <option value="">----faculty type----</option>@endif
+                                        <select class="form-control select2" id="faculty" name="faculty_id" >
+                                            @if (!isset($department)) <option value="">Choose faculties</option>@endif
                                             @if(isset($department))
                                                 @foreach ($faculties as $item)
                                                     <option value="{{ $item->id }}" {{ $department->faculty_id == $item->id ? 'selected' : '' }}>
@@ -92,8 +92,8 @@
                                     <label class="col-sm-2 col-form-label">{{ __('Stutus') }} <span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" id="status" name="status" required>
-                                            @if (!isset($department)) <option value="">----select status----</option>@endif
+                                        <select class="form-control select2" id="status" name="status" >
+                                            @if (!isset($department)) <option value="">Choose Status</option>@endif
                                             <option value="1"@if (isset($department)) {{ $department->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option>
                                             <option value="0"@if (isset($department)) {{ $department->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
                                         </select>

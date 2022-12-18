@@ -65,11 +65,13 @@
                                     <label class="col-sm-2 col-form-label">{{ __('Stutus') }} <span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" id="status" name="status" required>
-                                            @if (!isset($faculty)) <option value="">----select status----</option>@endif
-                                            <option value="1"@if (isset($faculty)) {{ $faculty->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option>
-                                            <option value="0"@if (isset($faculty)) {{ $faculty->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
-                                        </select>
+                                        <div class="form-group">                                         
+                                            <select class="form-control select2" name="status" style="width: 100%;">
+                                                @if (!isset($faculty)) <option value="">Choose Status</option>@endif
+                                                <option value="1"@if (isset($faculty)) {{ $faculty->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option>
+                                                <option value="0"@if (isset($faculty)) {{ $faculty->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -62,9 +62,9 @@
 
                           <td>
                             @if ($item->status == 1)
-                            <span class="badge bg-info">Active <i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                            <span class="badge bg-defalt">Active <i class="fa fa-circle text-success" aria-hidden="true"></i></span>                           
                             @else
-                            <span class="badge bg-danger">Inactive <i class="fa fa-ban" aria-hidden="true"></i></span>
+                            <span class="badge bg-defalt">Inactive <i class="fa fa-circle text-danger" aria-hidden="true"></i></span>
                             @endif
                           </td>
                           <td>
