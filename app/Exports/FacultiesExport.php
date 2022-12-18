@@ -19,6 +19,6 @@ class FacultiesExport implements FromCollection, WithHeadings
     }
     public function headings(): array
     {
-        return ["ID", "Name", "Khmer","Status","Trash","User","Update"];
+        return ["ID", "Name", "Khmer","Status","Trash","Created_by","updated_by"];
     }
 }

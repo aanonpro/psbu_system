@@ -30,11 +30,11 @@ class FacultyController extends Controller
 
     public function import()
     {
-        // Excel::import(new FacultiesImport, $request->file('file')->store('files'));
-        // return redirect()->back();
-        Excel::import(new FacultiesImport,request()->file('file'));
-        return back();
-        // return Excel::download(new BookingExport($data),'booking-report.xlsx',ExcelExcel::XLSX);
+       $import_fac = Excel::import(new FacultiesImport,request()->file('file'));
+       if($import_fac){
+        return back()->with('message', 'faculties imported successfully');
+       }
+        return back()->with('message', 'import failed');
     }
     /**
      * Show the form for creating a new resource.

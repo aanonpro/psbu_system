@@ -22,23 +22,25 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-
+      
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                        <form action="{{ route('users.import') }}" method="POST" enctype="multipart/form-data">
+                
+                    <div class="col-md-4">
+                        <form action="{{ route('faculty.import') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="input-group mb-3">
-                                <input type="file" class="form-control form-control-lg" id="inputGroupFile04"
+                                <input type="file" class="form-control" id="inputGroupFile04"
                                     aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="file" required>
-                                <button class="btn btn-success" id="inputGroupFileAddon04"><i class="fa fa-plus"
-                                        aria-hidden="true"></i> Import faculty</button>
-                                        <a class="btn btn-warning" href="{{ route('users.export') }}">
-                                            <i class="fa fa-arrow-right"></i> Export faculty</a>
-                            </div>
+                                <button class="btn btn-success" id="inputGroupFileAddon04"><i class="fa fa-plus" aria-hidden="true"></i> Import Excel</button>
+                            </div>                           
                         </form>
-
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-warning float-left" href="{{ route('faculty.export') }}"><i class="fa fa-arrow-right"></i> Export Excel</a>
+                    </div>
                     <div class="col-md-12">
                         <div class="card card-info card-outline">
                             <div class="card-header">

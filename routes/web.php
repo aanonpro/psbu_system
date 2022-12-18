@@ -32,8 +32,8 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::get('generate-pdf', [App\Http\Controllers\StudentsController::class, 'generatePDF']);
     //route departments
     Route::resource('departments', DepartmentsController::class);
-    Route::get('users-export', [FacultyController::class,'export'])->name('users.export');
-    Route::post('users-import', [FacultyController::class,'import'])->name('users.import');
+    Route::get('faculties-export', [FacultyController::class,'export'])->name('faculty.export');
+    Route::post('faculties-import', [FacultyController::class,'import'])->name('faculty.import');
     Route::resource('faculties', FacultyController::class);
 
 

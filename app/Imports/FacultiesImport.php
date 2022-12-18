@@ -20,7 +20,10 @@ class FacultiesImport implements ToModel, WithHeadingRow
             'khmer'    => $row['khmer'],
             'status'   => $row['status'],
             'trash'    => $row['trash'],
+            'created_by' => $row['created_by'],
+            'updated_by' => $row['updated_by'],
             // 'password' => Hash::make($row['password']),
         ]);
     }
+    
 }
