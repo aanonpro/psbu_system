@@ -60,7 +60,6 @@ class FacultyController extends Controller
         $input = $request->all();
         $input['created_by'] = Auth::user()->id;
         Faculty::create($input);
-
         return redirect()->route('faculties.index')->with('message','Faculties created');
     }
 

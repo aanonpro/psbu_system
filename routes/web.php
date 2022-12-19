@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\DepartmentsController;
 
@@ -35,6 +36,7 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::get('faculties-export', [FacultyController::class,'export'])->name('faculty.export');
     Route::post('faculties-import', [FacultyController::class,'import'])->name('faculty.import');
     Route::resource('faculties', FacultyController::class);
+    Route::resource('shifts', ShiftController::class);
 
 
 
