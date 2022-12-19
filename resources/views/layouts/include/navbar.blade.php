@@ -1,5 +1,5 @@
  <!-- Navbar -->
- <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
+ <nav class="main-header navbar navbar-expand navbar-default navbar-light" style="background-color: rgb(231, 231, 231);">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -40,12 +40,12 @@
         </li>
         {{-- logout  --}}
         <div class="dropdown">
-            <button class="btn dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="{{ asset('admin/img/anon.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3 "
+            <button class="btn dropdown-toggle text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{{ asset('admin/img/anon.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                 style=" width: 30px;" > {{ Auth::user()->name }}
             </button>
             <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Profile</a>
+              <a class="dropdown-item" href="{{url('profiles')}}">Profile</a>
               <a class="dropdown-item" href="#">Settings</a>
               <hr>
               <a class="dropdown-item" href="{{ route('logout') }}"

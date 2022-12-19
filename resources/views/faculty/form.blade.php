@@ -27,8 +27,10 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
+                  @include('faculty.excel')
+                  
                     <div class="col-md-12">
-                        <div class="card card-info ">
+                        <div class="card card-info card-outline">
                             @if($errors->any())
                                 <div class="alert alert-danger">
                                     @foreach ($errors->all() as $error)
@@ -67,8 +69,8 @@
                                     <div class="col-sm-10">
                                         <div class="form-group">                                         
                                             <select class="form-control select2" name="status" style="width: 100%;">
-                                                @if (!isset($faculty)) <option value="">Choose Status</option>@endif
-                                                <option value="1"@if (isset($faculty)) {{ $faculty->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option>
+                                                @if (!isset($faculty)) <option value="">Choose Status </option>@endif
+                                                <option value="1"@if (isset($faculty)) {{ $faculty->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option> 
                                                 <option value="0"@if (isset($faculty)) {{ $faculty->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
                                             </select>
                                         </div>
