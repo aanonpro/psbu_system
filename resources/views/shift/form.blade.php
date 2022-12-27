@@ -28,7 +28,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card card-info ">
+                        <div class="card card-info card-outline">
                             @if($errors->any())
                                 <div class="alert alert-danger">
                                     @foreach ($errors->all() as $error)
@@ -46,16 +46,14 @@
                                 @endif
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">{{ __('Name') }} <span
-                                            class="text-danger">*</span></label>
+                                    <label class="col-sm-2 col-form-label">{{ __('Name') }} </label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="name"
                                         @if (isset($shift)) value="{{ $shift->name }}" @endif placeholder="Name en" autofocus>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">{{ __('Khmer') }} <span
-                                            class="text-danger">*</span></label>
+                                    <label class="col-sm-2 col-form-label">{{ __('Khmer') }} </label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="khmer"
                                         @if (isset($shift)) value="{{$shift->khmer}}" @endif  placeholder="name kh">

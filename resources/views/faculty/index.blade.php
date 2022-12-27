@@ -22,12 +22,12 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-      
+
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                
+
                   @include('faculty.excel')
                     <div class="col-md-12">
                         <div class="card card-info card-outline">
@@ -56,7 +56,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($faculties as $key => $item)
+                                        @forelse ($faculties as $key => $item)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $item->name }}</td>
@@ -64,7 +64,7 @@
 
                                                 <td>
                                                     @if ($item->status == 1)
-                                                    <span class="badge bg-defalt">Active <i class="fa fa-circle text-success" aria-hidden="true"></i></span>                           
+                                                    <span class="badge bg-defalt">Active <i class="fa fa-circle text-success" aria-hidden="true"></i></span>
                                                     @else
                                                     <span class="badge bg-defalt">Inactive <i class="fa fa-circle text-danger" aria-hidden="true"></i></span>
                                                     @endif
@@ -86,7 +86,9 @@
                                                 </td>
 
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <td colspan="5" class="text-center py-3">No Data Available</td>
+                                        @endforelse
 
                                     </tbody>
                                 </table>

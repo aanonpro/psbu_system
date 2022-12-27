@@ -52,7 +52,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($departments as $key => $item )
+                      @forelse ($departments as $key => $item )
                       <tr>
                         <td>{{$key+1}}</td>
                         <td>{{$item->faculty->name}}</td>
@@ -62,7 +62,7 @@
 
                           <td>
                             @if ($item->status == 1)
-                            <span class="badge bg-defalt">Active <i class="fa fa-circle text-success" aria-hidden="true"></i></span>                           
+                            <span class="badge bg-defalt">Active <i class="fa fa-circle text-success" aria-hidden="true"></i></span>
                             @else
                             <span class="badge bg-defalt">Inactive <i class="fa fa-circle text-danger" aria-hidden="true"></i></span>
                             @endif
@@ -78,7 +78,9 @@
                           </td>
 
                       </tr>
-                      @endforeach
+                      @empty
+                        <td colspan="7" class="text-center py-3">No Data Available</td>
+                    @endforelse
 
                     </tbody>
                   </table>

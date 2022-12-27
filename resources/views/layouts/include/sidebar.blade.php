@@ -46,60 +46,48 @@
                 data-accordion="false">
                 <li class="nav-item ">
                     <a href="{{url('dashboard')}}" class="nav-link {{ Request::is('dashboard') ? 'active':'' }}">
-                        <i class="fa fa-tachometer text-warning" aria-hidden="true"></i>
+                        <i class="fa fa-tachometer" aria-hidden="true"></i>
                         <p style="padding-left: 20px">{{__('Dashboard')}}</p>
                     </a>
                 </li>
                 {{-- faculties  --}}
-                <li class="nav-item {{ Request::is('faculties*') ? 'menu-open active':'' }}">
-                    <a href="#" class="nav-link {{ Request::is('faculties*') ? 'active':'' }}">
-                        <i class="fa fa-university text-warning" aria-hidden="true"></i>
+                <li class="nav-item {{ Request::is('faculties*')|| Request::is('majors*') || Request::is('departments*') || Request::is('shifts*') ? 'menu-open active':'' }}">
+                    <a href="#" class="nav-link {{ Request::is('faculties*') || Request::is('majors*') || Request::is('departments*') || Request::is('shifts*') ? 'active':'' }}">
+                        <i class="fa fa-university" aria-hidden="true"></i>
                         <p style="padding-left: 20px">
-                            {{__('Faculties')}}
+                            {{__('Academic')}}
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item ">
                             <a href="{{route('faculties.index')}}" class="nav-link  {{ Request::is('faculties*')  ? 'active':''  }}">
-                                <i class="fa fa-list-ul text-warning pl-3" aria-hidden="true"></i>
-                                <p class="pl-3">{{__('Faculties lists')}}</p>
+                                <i class="fa fa-bars pl-3" aria-hidden="true"></i>
+                                <p class="pl-3">{{__('Faculties')}}</p>
                             </a>
                         </li>
                     </ul>
-                </li>
-                {{-- department --}}
-                <li class="nav-item {{ Request::is('departments*') ? 'menu-open active':'' }}">
-                    <a href="#" class="nav-link {{ Request::is('departments*') ? 'active':'' }}">
-                        <i class="fa fa-columns text-warning" aria-hidden="true"></i>
-                        <p style="padding-left: 20px">
-                            {{__('Departments')}}
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
                     <ul class="nav nav-treeview ">
                         <li class="nav-item">
                             <a href="{{route('departments.index')}}" class="nav-link  {{ Request::is('departments*')  ? 'active':''  }}">
-                                <i class="fa fa-list-ul text-warning pl-3" aria-hidden="true"></i>
-                                <p class="pl-3">{{__('Department lists')}}</p>
+                                <i class="fa fa-bars pl-3" aria-hidden="true"></i>
+                                <p class="pl-3">{{__('Department')}}</p>
                             </a>
                         </li>
                     </ul>
-                </li>
-                  {{-- department --}}
-                <li class="nav-item {{ Request::is('shifts*') ? 'menu-open active':'' }}">
-                    <a href="#" class="nav-link {{ Request::is('shifts*') ? 'active':'' }}">
-                        <i class="fa fa-columns text-warning" aria-hidden="true"></i>
-                        <p style="padding-left: 20px">
-                            {{__('Shifts')}}
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{route('shifts.index')}}" class="nav-link  {{ Request::is('shifts*')  ? 'active':''  }}">
-                                <i class="fa fa-list-ul text-warning pl-3" aria-hidden="true"></i>
-                                <p class="pl-3">{{__('Shifts lists')}}</p>
+                                <i class="fa fa-bars pl-3" aria-hidden="true"></i>
+                                <p class="pl-3">{{__('Shifts')}}</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('majors.index')}}" class="nav-link  {{ Request::is('majors*')  ? 'active':''  }}">
+                                <i class="fa fa-bars pl-3" aria-hidden="true"></i>
+                                <p class="pl-3">{{__('Majors')}}</p>
                             </a>
                         </li>
                     </ul>
@@ -107,7 +95,7 @@
                 {{-- students  --}}
                 <li class="nav-item {{ Request::is('students*') ? 'menu-open active':'' }}">
                     <a href="#" class="nav-link  {{ Request::is('students/lists') || Request::is('students/reports') || Request::is('students/create') ? 'active':'' }}">
-                        <i class="fa fa-graduation-cap text-warning" aria-hidden="true"></i>
+                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                         <p style="padding-left: 20px">
                             {{__('Students')}}
                             <i class="right fas fa-angle-left"></i>
@@ -116,11 +104,11 @@
                     <ul class="nav nav-treeview ">
                         <li class="nav-item ">
                             <a href="{{url('students')}}" class="nav-link  {{ Request::is('students') ? 'active':'' }}">
-                                <i class="fa fa-list-ul text-warning pl-3" aria-hidden="true"></i>
+                                <i class="fa fa-bars pl-3" aria-hidden="true"></i>
                                 <p class="pl-3">{{__('List Students')}}</p>
                             </a>
                             <a href="{{url('students/reports')}}" class="nav-link  {{ Request::is('students/reports') ? 'active':'' }}">
-                                <i class="fa fa-file-pdf-o text-warning pl-3" aria-hidden="true"></i>
+                                <i class="fa fa-file-pdf-o pl-3" aria-hidden="true"></i>
                                 <p class="pl-3">{{__('Student Reports')}}</p>
                             </a>
                         </li>

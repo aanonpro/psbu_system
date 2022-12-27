@@ -28,7 +28,7 @@
             <div class="container-fluid">
                 <div class="row">
                   @include('faculty.excel')
-                  
+
                     <div class="col-md-12">
                         <div class="card card-info card-outline">
                             @if($errors->any())
@@ -48,16 +48,14 @@
                                 @endif
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">{{ __('Name') }} <span
-                                            class="text-danger">*</span></label>
+                                    <label class="col-sm-2 col-form-label">{{ __('Name') }} </label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="name"
                                         @if (isset($faculty)) value="{{ $faculty->name }}" @endif placeholder="Name en" autofocus>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">{{ __('Khmer') }} <span
-                                            class="text-danger">*</span></label>
+                                    <label class="col-sm-2 col-form-label">{{ __('Khmer') }}</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="khmer"
                                         @if (isset($faculty)) value="{{$faculty->khmer}}" @endif  placeholder="name kh">
@@ -67,10 +65,10 @@
                                     <label class="col-sm-2 col-form-label">{{ __('Stutus') }} <span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <div class="form-group">                                         
+                                        <div class="form-group">
                                             <select class="form-control select2" name="status" style="width: 100%;">
                                                 @if (!isset($faculty)) <option value="">Choose Status </option>@endif
-                                                <option value="1"@if (isset($faculty)) {{ $faculty->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option> 
+                                                <option value="1"@if (isset($faculty)) {{ $faculty->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option>
                                                 <option value="0"@if (isset($faculty)) {{ $faculty->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
                                             </select>
                                         </div>

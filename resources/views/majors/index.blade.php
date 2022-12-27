@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Shifts Dashboard')
+@section('title', 'Majors Dashboard')
 @section('content')
 
 
@@ -9,7 +9,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-12">
-                        <h1 class="m-0">Shifts Page
+                        <h1 class="m-0">Majors Page
 
                         </h1>
                     </div><!-- /.col -->
@@ -28,24 +28,12 @@
             <div class="container-fluid">
                 <div class="row">
 
-                    {{-- <div class="col-md-4">
-                        <form action="{{ route('faculty.import') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="inputGroupFile04"
-                                    aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="file" required>
-                                <button class="btn btn-success" id="inputGroupFileAddon04"><i class="fa fa-plus" aria-hidden="true"></i> CSV Import</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-2">
-                        <a class="btn btn-warning float-left" href="{{ route('faculty.export') }}"><i class="fa fa-arrow-right"></i> CSV Export</a>
-                    </div> --}}
+                  {{-- @include('faculty.excel') --}}
                     <div class="col-md-12">
                         <div class="card card-info card-outline">
                             <div class="card-header">
-                                <h3 class="card-title" style="text-transform: uppercase">Shifts list</h3>
-                                <a href="{{ route('shifts.create') }}" class="btn btn-sm btn-info float-right"><i
+                                <h3 class="card-title" style="text-transform: uppercase">Majors list</h3>
+                                <a href="{{ route('majors.create') }}" class="btn btn-sm btn-info float-right"><i
                                         class="fa fa-plus" aria-hidden="true"></i> Add New</a>
                             </div>
 
@@ -61,6 +49,8 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#</th>
+                                            <th>Faculty</th>
+                                            <th>Code</th>
                                             <th>Name</th>
                                             <th>Khmer</th>
                                             <th>Status</th>
@@ -68,11 +58,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($shifts as $key => $item)
+                                        @forelse ($majors as $key => $item)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $item->name }}</td>
-                                                <td>{{ $item->khmer }}</td>
+                                                <td>{{$item->faculty->name ?? '---'}}</td>
+                                                <td>{{ $item->code ?? '---' }}</td>
+                                                <td>{{ $item->name ?? '---' }}</td>
+                                                <td>{{ $item->name_latin ?? '---' }}</td>
 
                                                 <td>
                                                     @if ($item->status == 1)
@@ -82,12 +74,12 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <form action="{{ route('shifts.destroy', $item->id) }}"
+                                                    <form action="{{ route('majors.destroy', $item->id) }}"
                                                         method="POST">
-                                                        <a href="{{ route('shifts.show', $item->id) }}"
+                                                        <a href="{{ route('majors.show', $item->id) }}"
                                                             class=" btn btn-sm btn-info"><i class="fa fa-eye"
                                                                 aria-hidden="true"></i></a>
-                                                        <a href="{{ route('shifts.edit', $item->id) }}"
+                                                        <a href="{{ route('majors.edit', $item->id) }}"
                                                             class=" btn btn-sm btn-warning"><i class="fa fa-pencil-square-o"
                                                                 aria-hidden="true"></i></a>
                                                         @csrf
@@ -99,7 +91,7 @@
 
                                             </tr>
                                         @empty
-                                            <td colspan="5" class="text-center py-3">No Data Available</td>
+                                            <td colspan="7" class="text-center py-3">No Data Available</td>
                                         @endforelse
 
                                     </tbody>
@@ -107,7 +99,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
-                                <span>Shifts page: {{ $counts }}</span>
+                                <span>Majors page: {{ $counts }}</span>
                             </div>
                         </div>
                         <!-- /.card -->
