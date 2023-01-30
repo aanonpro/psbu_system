@@ -2,13 +2,14 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MajorsController;
 use App\Http\Controllers\FacultyController;
-use App\Http\Controllers\DepartmentsController;
-use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\DepartmentsController;
 
 Auth::routes();
 
@@ -42,7 +43,7 @@ Route::middleware(['auth','isAdmin'])->group(function(){
 //
     Route::get('faculties-export', [FacultyController::class,'export'])->name('faculty.export');
     Route::post('faculties-import', [FacultyController::class,'import'])->name('faculty.import');
-// 
+//
     Route::resource('faculties', FacultyController::class);
     // paginate routes
     Route::post('faculties/fetch_data', [FacultyController::class, 'fetch_data'])->name('faculties.fetch_data');
@@ -58,7 +59,10 @@ Route::middleware(['auth','isAdmin'])->group(function(){
 //
     Route::resource('subjects', SubjectController::class);
     Route::post('subjects/fetch_subjects', [SubjectController::class, 'fetch_subjects'])->name('subjects.fetch_subjects');
-    
+
+    Route::resource('teachers', TeacherController::class);
+    Route::post('teachers/fetch_teachers', [TeacherController::class, 'fetch_teachers'])->name('teachers.fetch_teachers');
+
 
     // route users
     route::get('profiles', [UsersController::class,'index']);

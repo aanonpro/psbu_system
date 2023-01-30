@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Subject;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class SubjectController extends Controller
+class TeacherController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,17 +15,14 @@ class SubjectController extends Controller
      */
     public function index(Request $request)
     {
-        $rows=Subject::query();
-        // search name
-        $rows->where([
-            ['parent', '!=', Null],
+        $rows=Teacher::query();
+         // search name
+         $rows->where([
+            ['teacher_name_en', '!=', Null],
             [function ($query) use ($request) {
                 if (($s = $request->search)) {
-                    $query->orWhere('parent', 'LIKE', '%' . $s . '%')
-                        ->orWhere('title_en', 'LIKE', '%' . $s . '%')
-                        ->orWhere('title_kh', 'LIKE', '%' . $s . '%')
-                        ->orWhere('shortcut', 'LIKE', '%' . $s . '%')
-                        ->orWhere('score_parent', 'LIKE', '%' . $s . '%')
+                    $query->orWhere('teacher_name_en', 'LIKE', '%' . $s . '%')
+                        ->orWhere('teacher_name_kh', 'LIKE', '%' . $s . '%')
                         ->first();
                 }
             }]
@@ -43,22 +40,21 @@ class SubjectController extends Controller
             $status = 'All Status';
         }
 
-        $subjects = $rows->simplePaginate(6);
+        $teachers = $rows->simplePaginate(6);
         $counts = $rows->count();
         $count_stt = $rows->where('status','1')->count();
-        return view('subject.index', compact('subjects','status','counts','count_stt'));
+        return view('teacher.index', compact('teachers','status','counts','count_stt'));
     }
 
-     // paginate with ajax request
-     public function fetch_subjects(Request $request)
-     {
-         if($request->ajax())
-         {
-             $subjects = Subject::simplePaginate(6);
-             return view('subject.table-paginate', compact('subjects'))->render();
-         }
-     }
-
+    // paginate with ajax request
+    public function fetch_teachers(Request $request)
+    {
+        if($request->ajax())
+        {
+            $teachers = Teacher::simplePaginate(6);
+            return view('teacher.table-paginate', compact('teachers'))->render();
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -66,7 +62,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        return view('subject.form');
+        return view('teacher.form');
     }
 
     /**
@@ -82,17 +78,17 @@ class SubjectController extends Controller
         ]);
         $input = $request->all();
         $input['created_by'] = Auth::user()->id;
-        Subject::create($input);
-        return redirect()->route('subjects.index')->with('message','Subject created');
+        Teacher::create($input);
+        return redirect()->route('teachers.index')->with('message','Teacher created');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function show(Subject $subject)
+    public function show(Teacher $teacher)
     {
         //
     }
@@ -100,40 +96,40 @@ class SubjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function edit(Subject $subject)
+    public function edit(Teacher $teacher)
     {
-        return view('subject.form',compact('subject'));
+        return view('teacher.form',compact('teacher'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subject $subject)
+    public function update(Request $request, Teacher $teacher)
     {
         $this->Validate($request, [
             'status' => 'required'
         ]);
-        $subject['updated_by'] = Auth::user()->id;
-        $subject->update($request->all());
-        return redirect()->route('subjects.index')->with('message','Subjects updated');
+        $teacher['updated_by'] = Auth::user()->id;
+        $teacher->update($request->all());
+        return redirect()->route('teachers.index')->with('message','Teachers updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subject $subject)
+    public function destroy(Teacher $teacher)
     {
-        $subject->delete();
-        return redirect()->route('subjects.index')->with('message','Subject deleted');
+        $teacher->delete();
+        return redirect()->route('teachers.index')->with('message','Teacher deleted');
     }
 }

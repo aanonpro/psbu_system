@@ -20,20 +20,14 @@
                                     <li><a class="dropdown-item" href="{{route('rooms.index','status=inactive')}}">Inactive</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                 </ul>
-                            </div>  
+                            </div>
                             <a href="{{ route('rooms.index') }}" class="btn btn-success text-light"><i class="fa fa-history" aria-hidden="true"></i> Reload page</a>
-                            {{-- @if (session('message'))                          
-                          
-                                <div class="alert alert-success float-right" role="alert">
-                                    {{ session('message') }} <i class="fa fa-check" aria-hidden="true"></i>
-                                </div>
-                            @endif --}}
                         </h1>
                         <div class="mt-3">
                             <span>All rooms ({{ $counts }}) | Public : <span class="text-success">({{$count_stt}})</span></span>
                           </div>
                     </div><!-- /.col -->
-                    
+
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
@@ -48,18 +42,18 @@
                             <div class="card-header">
                                 <h3 class="card-title" style="text-transform: uppercase">rooms list</h3>
                                 <form action="{{route('rooms.index')}}" method="GET" class="d-flex float-right" role="search">
-                                    <div class="form-row "> 
+                                    <div class="form-row ">
                                         <div class="d-flex">
                                             <input class="form-control" value="{{ \Request::get('search') }}" title="type to search"
                                             name="search" id="search" type="text" placeholder="Search...">
                                             <button class="btn btn-success" type="submit" title="search"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                        </div>                      
+                                        </div>
                                     </div>
-                                </form>     
+                                </form>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body " id="show-rooms" >
-                               
+
                                     @include('rooms.table-paginate')
                             </div>
                             <!-- /.card-body -->
@@ -103,7 +97,7 @@
                 method: "POST",
                 url: "{{route('rooms.fetch_rooms')}}",
                 data:  {_token: _token, page:page},
-                success: function(data) {                    
+                success: function(data) {
                     $('#show-rooms').html(data);
                 }
             });

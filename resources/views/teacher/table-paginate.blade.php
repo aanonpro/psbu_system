@@ -3,24 +3,20 @@
     <thead>
         <tr>
             <th style="width: 10px">#</th>
-            <th>Parent</th>
-            <th>Name en</th>
-            <th>Name kh</th>
-            <th>Shortcut</th>
-            <th>Score parent</th>
+            <th>Teacher name en</th>
+            <th>Teacher name kh</th>
+            <th>Date</th>
             <th>Status</th>
             <th style="width: 200px">Action</th>
         </tr>
     </thead>
     <tbody>
-        @forelse ($subjects as $key => $item)
+        @forelse ($teachers as $key => $item)
             <tr>
                 <td>{{ $key + 1 }}</td>
-                <td>{{ $item->parent ?? '--' }}</td>
-                <td>{{ $item->title_en ?? '--' }}</td>
-                <td>{{ $item->title_kh ?? '--' }}</td>
-                <td>{{ $item->shortcut ?? '--' }}</td>
-                <td>{{ $item->score_parent ?? '--' }}</td>
+                <td>{{ $item->teacher_name_en ?? '--' }}</td>
+                <td>{{ $item->teacher_name_kh ?? '--' }}</td>
+                <td>{{ $item->created_at }}</td>
 
                 <td>
                     @if ($item->status == 1)
@@ -30,12 +26,12 @@
                     @endif
                 </td>
                 <td>
-                    <form action="{{ route('subjects.destroy', $item->id) }}"
+                    <form action="{{ route('teachers.destroy', $item->id) }}"
                         method="POST">
-                        <a href="{{ route('subjects.show', $item->id) }}"
+                        <a href="{{ route('teachers.show', $item->id) }}"
                             class=" btn btn-sm btn-success text-light"><i class="fa fa-eye"
                                 aria-hidden="true"></i></a>
-                        <a href="{{ route('subjects.edit', $item->id) }}"
+                        <a href="{{ route('teachers.edit', $item->id) }}"
                             class=" btn btn-sm btn-warning"><i class="fa fa-pencil-square-o"
                                 aria-hidden="true"></i></a>
                         @csrf
@@ -47,11 +43,11 @@
 
             </tr>
         @empty
-            <td colspan="8" class="text-center py-3">No Data Available</td>
+            <td colspan="6" class="text-center py-3">No Data Available</td>
         @endforelse
 
     </tbody>
 </table>
-<div class="subjects_paginate float-right mt-4 ">
-    {!! $subjects->appends($_GET)->links() !!}
+<div class="teachers_paginate float-right mt-4 ">
+    {!! $teachers->appends($_GET)->links() !!}
 </div>

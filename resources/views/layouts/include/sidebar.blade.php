@@ -18,7 +18,7 @@
    .nav-link.active{
     background-color: rgb(204, 204, 204) !important;
    }
-   
+
 </style>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-info elevation-1" style="background-color: rgb(231, 231, 231);">
@@ -43,7 +43,7 @@
           </div>
 
           <!-- SidebarSearch Form -->
-         
+
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -146,6 +146,28 @@
                             <a href="{{ route('subjects.index')}}" class="nav-link {{ Request::is('subjects*') ? 'active':'' }}">
                                 <i class="fa fa-file-pdf-o pl-3" aria-hidden="true"></i>
                                 <p class="pl-3">{{__('Subjects')}}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- techer  --}}
+                <li class="nav-item {{ Request::is('teachers*') ? 'menu-open active':'' }}">
+                    <a href="#" class="nav-link {{ Request::is('teachers*')  ? 'active':'' }}">
+                        <i class="fa fa-university" aria-hidden="true"></i>
+                        <p style="padding-left: 20px">
+                            {{__('Teacher')}}
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item ">
+                            <a href="{{route('teachers.index')}}" class="nav-link  {{ Request::is('teachers*')  ? 'active':''  }}">
+                                @if (Request::is('teachers*'))
+                                <i class="fa fa-circle pl-3" aria-hidden="true"></i>
+                                @else
+                                <i class="fa fa-circle-o pl-3" aria-hidden="true"></i>
+                                @endif
+                                <p class="pl-3">{{__('Teachers')}}</p>
                             </a>
                         </li>
                     </ul>
