@@ -14,17 +14,52 @@ class DepartmentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $counts = Department::count();
-        $departments = Department::all();
-        return view('department.index',compact('departments', 'counts'));
+        $rows = Department::query();
+        // search with name and with name foreign keys
+        if($request->search) {
+            $u = Faculty::where('name', 'like', '%' . $request->search . '%')->select('id')->take(4)->pluck('id')->toArray();
+            $rows->where(function ($w) use ($u){     // use where function for call name from table user
+                $w->whereIn('faculty_id', $u);
+            });
+            $rows->Orwhere('name', 'like', '%' .$request->search .'%')->Orwhere('khmer', 'like', '%' . $request->search.'%')->get();
+           
+         }
+        
+         // search with button selection
+         if ($request->status == 'active') {
+            $rows->where('status',1);
+            $status = 'Active';
+        }
+        elseif ($request->status == 'inactive') {
+            $rows->where('status', 0);
+            $status = 'Inactive';
+        }
+        else {
+            $status = 'All Status';
+        }       
+
+        $departments = $rows->simplePaginate(6);
+        $counts = $rows->count();
+        $count_stt = $rows->where('status','1')->count();     
+
+        return view('department.index',compact('departments','status', 'counts','count_stt'));
+    }
+
+    // paginate with ajax request
+    public function fetch_department(Request $request)
+    {
+        if($request->ajax())
+        {
+            $departments = Department::simplePaginate(6);
+            return view('department.table-paginate', compact('departments'))->render();
+        }
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * route create
+     
      */
     public function create()
     {
@@ -33,10 +68,7 @@ class DepartmentsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * route store
      */
     public function store(Request $request)
     {
@@ -51,21 +83,16 @@ class DepartmentsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * route views
      */
     public function show($id)
     {
-        //
+        $departments = Department::findByID($id);
+        return view('department.view',compact('departments'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * route edit
      */
     public function edit(Department $department)
     {
@@ -74,11 +101,7 @@ class DepartmentsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * route update
      */
     public function update(Request $request, Department $department)
     {
@@ -92,10 +115,7 @@ class DepartmentsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * routes delete 
      */
     public function destroy(Department $department)
     {

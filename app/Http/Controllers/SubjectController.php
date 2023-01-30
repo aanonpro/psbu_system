@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Shift;
+use App\Models\Subject;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class ShiftController extends Controller
+class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class ShiftController extends Controller
      */
     public function index(Request $request)
     {
-        $rows=Shift::query();
+        $rows=Subject::query();
         // search with button selection
         if ($request->status == 'active') {
             $rows->where('status',1);
@@ -29,21 +28,11 @@ class ShiftController extends Controller
             $status = 'All Status';
         }  
 
-        $shifts = $rows->simplePaginate(6);
+        $subjects = $rows->simplePaginate(6);
         $counts = $rows->count();
         $count_stt = $rows->where('status','1')->count();     
-        return view('shift.index', compact('shifts','status','counts','count_stt'));
+        return view('subject.index', compact('subjects','status','counts','count_stt'));
     }
-
-     // paginate with ajax request
-     public function fetch_shifts(Request $request)
-     {
-         if($request->ajax())
-         {
-             $shifts = Shift::simplePaginate(6);
-             return view('shift.table-paginate', compact('shifts'))->render();
-         }
-     }
 
     /**
      * Show the form for creating a new resource.
@@ -52,7 +41,7 @@ class ShiftController extends Controller
      */
     public function create()
     {
-        return view('shift.form');
+        //
     }
 
     /**
@@ -63,22 +52,16 @@ class ShiftController extends Controller
      */
     public function store(Request $request)
     {
-        $this->Validate($request, [
-            'status' => 'required'
-        ]);
-        $input = $request->all();
-        $input['created_by'] = Auth::user()->id;
-        Shift::create($input);
-        return redirect()->route('shifts.index')->with('message','Shift created');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Shift  $shift
+     * @param  \App\Models\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function show(Shift $shift)
+    public function show(Subject $subject)
     {
         //
     }
@@ -86,40 +69,34 @@ class ShiftController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Shift  $shift
+     * @param  \App\Models\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function edit(Shift $shift)
+    public function edit(Subject $subject)
     {
-        return view('shift.form',compact('shift'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Shift  $shift
+     * @param  \App\Models\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Shift $shift)
+    public function update(Request $request, Subject $subject)
     {
-        $this->Validate($request, [
-            'status' => 'required'
-        ]);
-        $shift['updated_by'] = Auth::user()->id;
-        $shift->update($request->all());
-        return redirect()->route('shifts.index')->with('message','Shifts updated');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Shift  $shift
+     * @param  \App\Models\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Shift $shift)
+    public function destroy(Subject $subject)
     {
-        $shift->delete();
-        return redirect()->route('shifts.index')->with('message','Shift deleted');
+        //
     }
 }

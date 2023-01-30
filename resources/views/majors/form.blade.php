@@ -10,13 +10,11 @@
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">Majors Page</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        {{-- <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#!">Home</a></li>
-                    </ol> --}}
+                    <div class="col-sm-12">
+                        <h1 class="m-0">
+                            <a href="{{ route('majors.index') }}" class="btn btn-danger text-light "><i
+                                class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+                        </h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -29,13 +27,6 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-info card-outline">
-                            @if($errors->any())
-                                <div class="alert alert-danger">
-                                    @foreach ($errors->all() as $error)
-                                        <div>{{ $error }}</div>
-                                    @endforeach
-                                </div>
-                            @endif
                             <div class="card-header">
                                 <h3 class="card-title" style="text-transform: uppercase">{{ isset($major) ? 'Majors Edit' : 'Majors Add' }}</h3>
                             </div>
@@ -46,22 +37,22 @@
                                 @endif
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">{{ __('Majors') }} <span
+                                    <label class="col-sm-2 col-form-label">{{ __('Department') }} <span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control select2" id="faculty" name="faculty_id" >
-                                            @if (!isset($major)) <option value="">---   </option>@endif
+                                        <select class="form-control select2" id="department" name="department_id" >
+                                            @if (!isset($major)) <option value="" selected disabled>chose department  </option>@endif
                                             @if(isset($major))
-                                                @foreach ($faculties as $item)
-                                                    <option value="{{ $item->id }}" {{ $major->faculty_id == $item->id ? 'selected' : '' }}>
+                                                @foreach ($departments as $item)
+                                                    <option value="{{ $item->id }}" {{ $major->department_id == $item->id ? 'selected' : '' }}>
                                                         {{ $item->name }}
                                                     </option>
                                                 @endforeach
                                             @else
-                                                @forelse ($faculties as $item)
+                                                @forelse ($departments as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @empty
-                                                    <option value="">No faculties available</option>
+                                                    <option value="">No departments available</option>
                                                 @endforelse
                                             @endif
                                         </select>
@@ -93,8 +84,8 @@
                                     <label class="col-sm-2 col-form-label">{{ __('Stutus') }} <span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control select2" id="status" name="status" >
-                                            @if (!isset($major)) <option value="">Choose Status</option>@endif
+                                        <select class="form-control" id="status" name="status" >
+                                            <option value="" disabled selected>Choose Status</option>
                                             <option value="1"@if (isset($major)) {{ $major->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option>
                                             <option value="0"@if (isset($major)) {{ $major->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
                                         </select>
@@ -103,8 +94,7 @@
                             </div>
                              <!-- /.card-body -->
                              <div class="card-footer">
-                                <button type="submit" class="btn btn-info btn-sm  "> {{isset($major) ? 'Update':'Save' }}</button>
-                                <a href="{{ route('majors.index') }}" class="btn btn-sm btn-default float-right ">{{ isset($major) ? 'Cancel' : 'Back' }}</a>
+                                <button type="submit" class="btn btn-success"> {{isset($major) ? 'Update':'Publish' }}</button>
                               </div>
                               <!-- /.card-footer -->
                             </form>
@@ -116,3 +106,16 @@
         <!-- /.content -->
     </div>
 @endsection
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        @section('script')
+        <script>
+           Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{!! $error !!}',
+            })
+        </script>
+        @endsection
+    @endforeach
+@endif

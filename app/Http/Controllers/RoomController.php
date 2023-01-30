@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\faculty;
+use App\Models\Room;
 use Illuminate\Http\Request;
-use App\Exports\FacultiesExport;
-use App\Imports\FacultiesImport;
 use Illuminate\Support\Facades\Auth;
-use Maatwebsite\Excel\Facades\Excel;
-
-class FacultyController extends Controller
+use Exception;
+class RoomController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +15,7 @@ class FacultyController extends Controller
      */
     public function index(Request $request)
     {
-        $rows = faculty::query();
+        $rows = Room::query();
         
         // search name 
         $rows->where([
@@ -27,6 +24,11 @@ class FacultyController extends Controller
                 if (($s = $request->search)) {
                     $query->orWhere('name', 'LIKE', '%' . $s . '%')
                         ->orWhere('khmer', 'LIKE', '%' . $s . '%')
+                        ->orWhere('number', 'LIKE', '%' . $s . '%')
+                        ->orWhere('floor', 'LIKE', '%' . $s . '%')
+                        ->orWhere('chair', 'LIKE', '%' . $s . '%')
+                        ->orWhere('table', 'LIKE', '%' . $s . '%')
+                        ->orWhere('property', 'LIKE', '%' . $s . '%')
                         ->first();
                 }
             }]
@@ -45,35 +47,21 @@ class FacultyController extends Controller
             $status = 'All Status';
         }        
         
-        $faculties = $rows->simplePaginate(6);
+        $rooms = $rows->simplePaginate(6);
         $counts = $rows->count();
         $count_stt = $rows->where('status','1')->count();
-        return view('faculty.index', compact('faculties','counts','count_stt', 'status'));
+        return view('rooms.index', compact('rooms','counts','count_stt', 'status'));
     }
-
      // paginate with ajax request
-     public function fetch_data(Request $request)
+     public function fetch_rooms(Request $request)
      {
          if($request->ajax())
          {
-             $faculties = Faculty::simplePaginate(6);
-             return view('faculty.table-paginate', compact('faculties'))->render();
+             $rooms = Room::simplePaginate(6);
+             return view('rooms.table-paginate', compact('rooms'))->render();
          }
      }
 
-    public function export()
-    {
-        return Excel::download(new FacultiesExport, 'faculties.xlsx');
-    }
-
-    public function import()
-    {
-       $import_fac = Excel::import(new FacultiesImport,request()->file('file'));
-       if($import_fac){
-        return back()->with('message', 'faculties imported successfully');
-       }
-        return back()->with('message', 'import failed');
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -81,7 +69,7 @@ class FacultyController extends Controller
      */
     public function create()
     {
-        return view('faculty.form');
+        return view('rooms.form');
     }
 
     /**
@@ -92,22 +80,28 @@ class FacultyController extends Controller
      */
     public function store(Request $request)
     {
-        $this->Validate($request, [
-            'status' => 'required'
-        ]);
-        $input = $request->all();
-        $input['created_by'] = Auth::user()->id;
-        Faculty::create($input);
-        return redirect()->route('faculties.index')->with('message','Faculties created');
+        try{
+            $this->Validate($request, [
+                'status' => 'required'
+            ]);
+            $input = $request->all();
+            $input['created_by'] = Auth::user()->id;
+            Room::create($input);
+           
+        }catch(Exception $e){
+            return back()->withError($e->getMessage())->withInput();
+        }
+        return redirect()->route('rooms.index')->with('message','Rooms created');
+       
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\faculty  $faculty
+     * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
-    public function show(faculty $faculty)
+    public function show(Room $room)
     {
         //
     }
@@ -115,40 +109,40 @@ class FacultyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\faculty  $faculty
+     * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
-    public function edit(faculty $faculty)
-    {        
-        return view('faculty.form', compact('faculty'));
+    public function edit(Room $room)
+    {
+        return view('rooms.form', compact('room'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\faculty  $faculty
+     * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, faculty $faculty)
+    public function update(Request $request, Room $room)
     {
         $this->Validate($request, [
             'status' => 'required'
         ]);
-        $faculty['updated_by'] = Auth::user()->id;
-        $faculty->update($request->all());
-        return redirect()->route('faculties.index')->with('message','Faculty updated');
+        $room['updated_by'] = Auth::user()->id;
+        $room->update($request->all());
+        return redirect()->route('rooms.index')->with('message','Room updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\faculty  $faculty
+     * @param  \App\Models\Room  $room
      * @return \Illuminate\Http\Response
      */
-    public function destroy(faculty $faculty)
+    public function destroy(Room $room)
     {
-        $faculty->delete();
-        return redirect()->back()->with('message','Faculty updated');
+        $room->delete();
+        return redirect()->back()->with('message','Room deleted');
     }
 }

@@ -7,6 +7,8 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MajorsController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\DepartmentsController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\SubjectController;
 
 Auth::routes();
 
@@ -33,13 +35,30 @@ Route::middleware(['auth','isAdmin'])->group(function(){
 
     // get pdf
     Route::get('generate-pdf', [App\Http\Controllers\StudentsController::class, 'generatePDF']);
-    //route departments
+//
     Route::resource('departments', DepartmentsController::class);
+    // paginate routes
+    Route::post('departments/fetch_department', [DepartmentsController::class, 'fetch_department'])->name('departments.fetch_department');
+//
     Route::get('faculties-export', [FacultyController::class,'export'])->name('faculty.export');
     Route::post('faculties-import', [FacultyController::class,'import'])->name('faculty.import');
+// 
     Route::resource('faculties', FacultyController::class);
+    // paginate routes
+    Route::post('faculties/fetch_data', [FacultyController::class, 'fetch_data'])->name('faculties.fetch_data');
+//
     Route::resource('shifts', ShiftController::class);
+    Route::post('shifts/fetch_shifts', [ShiftController::class, 'fetch_shifts'])->name('shifts.fetch_shifts');
+//
     Route::resource('majors', MajorsController::class);
+    Route::post('majors/fetch_majors', [MajorsController::class, 'fetch_majors'])->name('majors.fetch_majors');
+
+    Route::resource('rooms', RoomController::class);
+    Route::post('rooms/fetch_rooms', [RoomController::class, 'fetch_rooms'])->name('rooms.fetch_rooms');
+//
+    Route::resource('subjects', SubjectController::class);
+    Route::post('subjects/fetch_subjects', [SubjectController::class, 'fetch_subjects'])->name('subjects.fetch_subjects');
+    
 
     // route users
     route::get('profiles', [UsersController::class,'index']);

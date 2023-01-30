@@ -8,14 +8,26 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">{{__('Departments Page')}}</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    {{-- <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#!">Home</a></li>
-                    </ol> --}}
-                </div><!-- /.col -->
+                <div class="col-sm-12">
+                    <h1 class="m-0">
+                      <a href="{{ route('departments.create') }}" class="btn btn-outline-success  text-success  "><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+                      <!-- Example single danger button -->
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                         {{$status}}
+                          </button>
+                          <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="{{route('departments.index')}}">All Status</a></li>
+                          <li><a class="dropdown-item" href="{{route('departments.index','status=active')}}">Active</a></li>
+                          <li><a class="dropdown-item" href="{{route('departments.index','status=inactive')}}">Inactive</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          </ul>
+                        </div>  
+                    </h1>
+                    <div class="mt-3">
+                      <span>All departments ({{ $counts }}) | Public : <span class="text-success">({{$count_stt}})</span></span>
+                    </div>
+                </div><!-- /.col -->                
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
@@ -29,66 +41,22 @@
               <div class="card card-info card-outline">
                 <div class="card-header">
                   <h3 class="card-title" style="text-transform: uppercase">{{__('Departments List')}}</h3>
-                    <a href="{{route('departments.create')}}" class="btn btn-sm btn-info float-right"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+                  <form action="{{route('departments.index')}}" method="GET" class="d-flex float-right" role="search">
+                    <div class="form-row "> 
+                        <div class="d-flex">
+                            <input class="form-control" value="{{ \Request::get('search') }}" title="type to search"
+                            name="search" id="search" type="text" placeholder="Search...">
+                            <button class="btn btn-success" type="submit" title="search"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </div>                      
+                    </div>
+                </form>     
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body">
-                  @if(session('message'))
-                    <div class="alert alert-info" role="alert">
-                      {{session('message')}} <i class="fa fa-check" aria-hidden="true"></i>
-                    </div>
-                  @endif
+                <div class="card-body" id="show-departments">
 
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th style="width: 10px">#</th>
-                        <th>{{__('faculties type')}}</th>
-                        <th>{{__('Name')}}</th>
-                        <th>{{__('Khmer')}}</th>
-                        <th>{{__('Noted')}}</th>
-                        <th>{{__('Status')}}</th>
-                        <th style="width: 200px">{{__('Action')}}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @forelse ($departments as $key => $item )
-                      <tr>
-                        <td>{{$key+1}}</td>
-                        <td>{{$item->faculty->name}}</td>
-                        <td>{{$item->name ? $item->name : '---'}}</td>
-                        <td>{{$item->khmer ? $item->khmer:'---'}}</td>
-                        <td>{{$item->description ? $item->description : '---'}}</td>
-
-                          <td>
-                            @if ($item->status == 1)
-                            <span class="badge bg-defalt">Active <i class="fa fa-circle text-success" aria-hidden="true"></i></span>
-                            @else
-                            <span class="badge bg-defalt">Inactive <i class="fa fa-circle text-danger" aria-hidden="true"></i></span>
-                            @endif
-                          </td>
-                          <td>
-                            <form action="{{route('departments.destroy',$item->id)}}" method="POST">
-                              <a href="{{route('departments.show',$item->id)}}" class=" btn btn-sm btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                              <a href="{{route('departments.edit',$item->id)}}" class=" btn btn-sm btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                              @csrf
-                              @method('DELETE')
-                              <button class="btn btn-sm btn-danger "><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                            </form>
-                          </td>
-
-                      </tr>
-                      @empty
-                        <td colspan="7" class="text-center py-3">No Data Available</td>
-                    @endforelse
-
-                    </tbody>
-                  </table>
+                 @include('department.table-paginate')
                 </div>
                 <!-- /.card-body -->
-                <div class="card-footer clearfix">
-                 <span>Departments page: {{$counts}}</span>
-                </div>
               </div>
               <!-- /.card -->
             </div>
@@ -96,7 +64,41 @@
         </div>
     </section>
     <!-- /.content -->
-
 </div>
+@endsection
 
+@if (session('message'))
+    @section('script')
+    <script>
+        Swal.fire(
+        'Good job!',
+        '{!! Session::get('message') !!}',
+        'success')
+    </script>
+    @endsection
+@endif
+
+@section('script')
+<script>
+      // pagination
+   $(function (){
+        $('body').delegate('.departments_paginate a','click',function (){
+            event.preventDefault();
+            var page = $(this).attr('href').split('page=')[1];
+            fetch_department(page);
+        });
+
+        function fetch_department(page){
+            var _token = $("input[name=_token]").val();
+            $.ajax({
+                method: "POST",
+                url: "{{route('departments.fetch_department')}}",
+                data:  {_token: _token, page:page},
+                success: function(data) {                    
+                    $('#show-departments').html(data);
+                }
+            });
+        }
+    });
+</script>
 @endsection

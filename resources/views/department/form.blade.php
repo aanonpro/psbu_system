@@ -11,7 +11,10 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Departments Page</h1>
+                        <h1 class="m-0">
+                            <a href="{{ route('departments.index') }}" class="btn btn-danger text-light "><i
+                                class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+                        </h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         {{-- <ol class="breadcrumb float-sm-right">
@@ -29,13 +32,6 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-info card-outline">
-                            @if($errors->any())
-                                <div class="alert alert-danger">
-                                    @foreach ($errors->all() as $error)
-                                        <div>{{ $error }}</div>
-                                    @endforeach
-                                </div>
-                            @endif
                             <div class="card-header">
                                 <h3 class="card-title" style="text-transform: uppercase">{{ isset($department) ? 'Department Edit' : 'Department Add' }}</h3>
                             </div>
@@ -91,8 +87,8 @@
                                     <label class="col-sm-2 col-form-label">{{ __('Stutus') }} <span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <select class="form-control select2" id="status" name="status" >
-                                            @if (!isset($department)) <option value="">Choose Status</option>@endif
+                                        <select class="form-control " id="status" name="status" >
+                                           <option value="" disabled selected>Choose Status</option>
                                             <option value="1"@if (isset($department)) {{ $department->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option>
                                             <option value="0"@if (isset($department)) {{ $department->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
                                         </select>
@@ -101,8 +97,7 @@
                             </div>
                              <!-- /.card-body -->
                              <div class="card-footer">
-                                <button type="submit" class="btn btn-info btn-sm  "> {{isset($department) ? 'Update':'Save' }}</button>
-                                <a href="{{ route('departments.index') }}" class="btn btn-sm btn-default float-right ">{{ isset($department) ? 'Cancel' : 'Back' }}</a>
+                                <button type="submit" class="btn btn-info"> {{isset($department) ? 'Update':'Publish' }}</button>
                               </div>
                               <!-- /.card-footer -->
                             </form>
@@ -114,3 +109,16 @@
         <!-- /.content -->
     </div>
 @endsection
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        @section('script')
+        <script>
+           Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{!! $error !!}',
+            })
+        </script>
+        @endsection
+    @endforeach
+@endif

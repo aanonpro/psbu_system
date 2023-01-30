@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Majors;
 use App\Models\Faculty;
 use Illuminate\Http\Request;
@@ -14,11 +15,47 @@ class MajorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $counts = Majors::count();
-        $majors = Majors::all();
-        return view('majors.index', compact('majors','counts'));
+        $rows = Majors::query();
+        // search with name and with name foreign keys
+        if($request->search) {
+            $u = Department::where('name', 'like', '%' . $request->search . '%')->select('id')->take(4)->pluck('id')->toArray();
+            $rows->where(function ($w) use ($u){     // use where function for call name from table user
+                $w->whereIn('department_id', $u);
+            });
+            $rows->Orwhere('name', 'like', '%' .$request->search .'%')
+            ->Orwhere('name_latin', 'like', '%' . $request->search.'%')
+            ->Orwhere('code', 'like', '%' . $request->search.'%')->get();
+         }
+        
+         // search with button selection
+         if ($request->status == 'active') {
+            $rows->where('status',1);
+            $status = 'Active';
+        }
+        elseif ($request->status == 'inactive') {
+            $rows->where('status', 0);
+            $status = 'Inactive';
+        }
+        else {
+            $status = 'All Status';
+        }       
+
+        $majors = $rows->simplePaginate(6);
+        $counts = $rows->count();
+        $count_stt = $rows->where('status','1')->count();    
+        return view('majors.index', compact('majors','status','count_stt','counts'));
+    }
+
+    // paginate with ajax request
+    public function fetch_majors(Request $request)
+    {
+        if($request->ajax())
+        {
+            $majors = Majors::simplePaginate(6);
+            return view('majors.table-paginate', compact('majors'))->render();
+        }
     }
 
     /**
@@ -28,8 +65,8 @@ class MajorsController extends Controller
      */
     public function create()
     {
-        $faculties = Faculty::where('status',1)->get();
-        return view('majors.form',compact('faculties'));
+        $departments = Department::where('status',1)->get();
+        return view('majors.form',compact('departments'));
     }
 
     /**
@@ -41,7 +78,7 @@ class MajorsController extends Controller
     public function store(Request $request)
     {
         $this->Validate($request, [
-            'faculty_id' => 'required',
+            'department_id' => 'required',
             'status' => 'required'
         ]);
         $input = $request->all();
@@ -69,8 +106,8 @@ class MajorsController extends Controller
      */
     public function edit(Majors $major)
     {
-        $faculties = Faculty::where('status','1')->get();
-        return view('majors.form',compact('major','faculties'));
+        $departments = Department::where('status','1')->get();
+        return view('majors.form',compact('major','departments'));
     }
 
     /**
