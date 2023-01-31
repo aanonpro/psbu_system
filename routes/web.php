@@ -9,7 +9,9 @@ use App\Http\Controllers\MajorsController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\DepartmentsController;
+use App\Http\Controllers\TeacherDetailController;
 
 Auth::routes();
 
@@ -59,9 +61,17 @@ Route::middleware(['auth','isAdmin'])->group(function(){
 //
     Route::resource('subjects', SubjectController::class);
     Route::post('subjects/fetch_subjects', [SubjectController::class, 'fetch_subjects'])->name('subjects.fetch_subjects');
-
+//
     Route::resource('teachers', TeacherController::class);
     Route::post('teachers/fetch_teachers', [TeacherController::class, 'fetch_teachers'])->name('teachers.fetch_teachers');
+//
+    Route::resource('teachers-details', TeacherDetailController::class);
+    Route::post('teachers-details/fetch_teachers_details', [TeacherDetailController::class, 'fetch_teachers_details'])->name('teachers-details.fetch_teachers_details');
+//
+    Route::resource('positions', PositionController::class);
+    Route::post('positions/fetch_positions', [PositionController::class, 'fetch_positions'])->name('positions.fetch_positions');
+// 
+   
 
 
     // route users

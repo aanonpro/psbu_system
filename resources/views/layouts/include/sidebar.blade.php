@@ -151,8 +151,8 @@
                     </ul>
                 </li>
                 {{-- techer  --}}
-                <li class="nav-item {{ Request::is('teachers*') ? 'menu-open active':'' }}">
-                    <a href="#" class="nav-link {{ Request::is('teachers*')  ? 'active':'' }}">
+                <li class="nav-item {{  Request::is('teachers*') || Request::is('teachers-details*') || Request::is('positions*') ? 'menu-open active':'' }}">
+                    <a href="#" class="nav-link {{  Request::is('teachers*') || Request::is('teachers-details*') || Request::is('positions*') ? 'active':'' }}">
                         <i class="fa fa-university" aria-hidden="true"></i>
                         <p style="padding-left: 20px">
                             {{__('Teacher')}}
@@ -168,6 +168,30 @@
                                 <i class="fa fa-circle-o pl-3" aria-hidden="true"></i>
                                 @endif
                                 <p class="pl-3">{{__('Teachers')}}</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item ">
+                            <a href="{{route('positions.index')}}" class="nav-link  {{ Request::is('positions*')  ? 'active':''  }}">
+                                @if (Request::is('positions*'))
+                                <i class="fa fa-circle pl-3" aria-hidden="true"></i>
+                                @else
+                                <i class="fa fa-circle-o pl-3" aria-hidden="true"></i>
+                                @endif
+                                <p class="pl-3">{{__('Positions')}}</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item ">
+                            <a href="{{route('teachers-details.index')}}" class="nav-link  {{ Request::is('teachers-details*')  ? 'active':''  }}">
+                                @if (Request::is('teachers-details*'))
+                                <i class="fa fa-circle pl-3" aria-hidden="true"></i>
+                                @else
+                                <i class="fa fa-circle-o pl-3" aria-hidden="true"></i>
+                                @endif
+                                <p class="pl-3">{{__('Teacher details')}}</p>
                             </a>
                         </li>
                     </ul>

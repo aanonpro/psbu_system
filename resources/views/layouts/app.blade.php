@@ -31,7 +31,6 @@
     {{-- <link rel="stylesheet" href="{{asset('admin/plugins/fullcalendar/main.css')}}"> --}}
     <link rel="stylesheet" href="{{ asset('admin/font-awesome/css/font-awesome.min.css')}}">
 
-
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -86,6 +85,4 @@
 </script>
 
 </body>
-
-
 </html>
