@@ -18,7 +18,7 @@ class TeacherDetail extends Model
     ];
 
     public function teacher(){
-        return $this->hasMany(Teacher::class, 'teacher_id', 'id');
+        return $this->belongsTo(Teacher::class, 'teacher_id', 'id');
     }
 
     public function position(){

@@ -4,6 +4,7 @@
 @endsection
 @section('content')
 <style>
+
     .file-upload {
   background-color: #ffffff;
   max-width: 500px;
@@ -142,7 +143,7 @@
                             <div class="card-header">
                                 <h3 class="card-title" style="text-transform: uppercase">{{ isset($teacherDetail) ? 'teacher details Edit' : 'teacher details Add' }}</h3>
                             </div>
-                            <form action="{{ isset($teacherDetail) ?  route('teachers-details.update',$teacherDetail->id) : route('teachers-details.store') }}" method="POST">
+                            <form action="{{ isset($teacherDetail) ?  route('teachers-details.update', $teacherDetail->id) : route('teachers-details.store') }}" method="POST">
                                 @csrf
                                 @if (isset($teacherDetail))
                                     @method('PUT')
@@ -183,7 +184,7 @@
                                                 <option value="" disabled selected>Gender</option>
                                                 <option value="1">Male</option>
                                                 <option value="2">Female</option>
-                                                <option value="3">Other</option>                                        
+                                                <option value="3">Other</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -191,7 +192,7 @@
                                             <input type="text" class="form-control" name="nationality"
                                             @if (isset($teacherDetail)) value="{{ $teacherDetail->nationality }}" @endif placeholder="nationality" >
                                         </div>
-                                       
+
                                         <div class="form-group">
                                             <label>Phone</label>
                                             <input type="text" class="form-control" name="phone"
@@ -227,7 +228,7 @@
                                                 <option value="1"@if (isset($teacherDetail)) {{ $teacherDetail->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option>
                                                 <option value="0"@if (isset($teacherDetail)) {{ $teacherDetail->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
                                             </select>
-                                        </div>                                    
+                                        </div>
                                       <!-- /.form-group -->
                                     </div>
                                     <!-- /.col -->
@@ -237,10 +238,10 @@
                                             <div class="file-upload">
                                                 {{-- <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button> --}}
                                                 <div class="image-upload-wrap">
-                                                <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                                                <input class="file-upload-input" name="photo" type='file' onchange="readURL(this);" accept="image/*" />
                                                 <div class="drag-text">
                                                     <h3>
-                                                    <i class="fa fa-cloud-upload  fa-3x" aria-hidden="true"></i><br>                                                   
+                                                    <i class="fa fa-cloud-upload  fa-3x" aria-hidden="true"></i><br>
                                                         Drag and drop Image</h3>
                                                 </div>
                                                 </div>
@@ -269,7 +270,7 @@
                                             <textarea name="noted" class="form-control" cols="50" rows="3"> @if (isset($teacherDetail)) {{$teacherDetail->noted}} @endif </textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label>Noted</label>
+                                            <label>Expired date</label>
                                             <div class="md-form md-outline input-with-post-icon datepicker">
                                                 <input placeholder="Select date" type="date" name="expired_date" id="example" class="form-control">
                                             </div>
@@ -278,7 +279,7 @@
                                     </div>
                                     <!-- /.col -->
                                 </div>
-                               
+
                             </div>
                              <!-- /.card-body -->
                              <div class="card-footer">

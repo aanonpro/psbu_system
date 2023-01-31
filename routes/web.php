@@ -70,8 +70,8 @@ Route::middleware(['auth','isAdmin'])->group(function(){
 //
     Route::resource('positions', PositionController::class);
     Route::post('positions/fetch_positions', [PositionController::class, 'fetch_positions'])->name('positions.fetch_positions');
-// 
-   
+//
+
 
 
     // route users

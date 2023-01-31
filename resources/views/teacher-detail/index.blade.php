@@ -22,12 +22,12 @@
                           <li><a class="dropdown-item" href="{{route('teachers-details.index','status=inactive')}}">Inactive</a></li>
                           <li><hr class="dropdown-divider"></li>
                           </ul>
-                        </div>  
+                        </div>
                     </h1>
                     <div class="mt-3">
                       <span>All teachers details ({{ $counts }}) | Public : <span class="text-success">({{$count_stt}})</span></span>
                     </div>
-                </div><!-- /.col -->                
+                </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
@@ -41,15 +41,15 @@
               <div class="card card-info card-outline">
                 <div class="card-header">
                   <h3 class="card-title" style="text-transform: uppercase">{{__('teachers details List')}}</h3>
-                  <form action="{{route('departments.index')}}" method="GET" class="d-flex float-right" role="search">
-                    <div class="form-row "> 
+                  <form action="{{route('teachers-details.index')}}" method="GET" class="d-flex float-right" role="search">
+                    <div class="form-row ">
                         <div class="d-flex">
                             <input class="form-control" value="{{ \Request::get('search') }}" title="type to search"
                             name="search" id="search" type="text" placeholder="Search...">
                             <button class="btn btn-success" type="submit" title="search"><i class="fa fa-search" aria-hidden="true"></i></button>
-                        </div>                      
+                        </div>
                     </div>
-                </form>     
+                </form>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body" id="show-teachers-details">
@@ -85,16 +85,16 @@
         $('body').delegate('.teachers_details_paginate a','click',function (){
             event.preventDefault();
             var page = $(this).attr('href').split('page=')[1];
-            fetch_department(page);
+            fetch_teachers_details(page);
         });
 
-        function fetch_department(page){
+        function fetch_teachers_details(page){
             var _token = $("input[name=_token]").val();
             $.ajax({
                 method: "POST",
                 url: "{{route('teachers-details.fetch_teachers_details')}}",
                 data:  {_token: _token, page:page},
-                success: function(data) {                    
+                success: function(data) {
                     $('#show-teachers-details').html(data);
                 }
             });

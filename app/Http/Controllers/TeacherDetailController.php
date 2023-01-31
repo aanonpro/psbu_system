@@ -25,9 +25,9 @@ class TeacherDetailController extends Controller
                 $w->whereIn('teacher_id', $u);
             });
             $rows->Orwhere('teacher_code', 'like', '%' .$request->search .'%')->Orwhere('phone', 'like', '%' . $request->search.'%')->get();
-           
+
          }
-        
+
          // search with button selection
          if ($request->status == 'active') {
             $rows->where('status',1);
@@ -39,11 +39,11 @@ class TeacherDetailController extends Controller
         }
         else {
             $status = 'All Status';
-        }       
+        }
 
-        $teachers_details = $rows->simplePaginate(6);
+        $teachers_details = $rows->simplePaginate(1);
         $counts = $rows->count();
-        $count_stt = $rows->where('status','1')->count();     
+        $count_stt = $rows->where('status','1')->count();
 
         return view('teacher-detail.index',compact('teachers_details','status', 'counts','count_stt'));
     }
@@ -53,7 +53,7 @@ class TeacherDetailController extends Controller
       {
           if($request->ajax())
           {
-              $teachers_details = TeacherDetail::simplePaginate(6);
+              $teachers_details = TeacherDetail::simplePaginate(1);
               return view('teacher-detail.table-paginate', compact('teachers_details'))->render();
           }
       }
@@ -84,6 +84,22 @@ class TeacherDetailController extends Controller
         ]);
         $input = $request->all();
         $input['created_by'] = Auth::user()->id;
+
+        // if ($image = $request->file('photo')) {
+        //     $destinationPath = 'profileTeachers/';
+        //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        //     $image->move($destinationPath, $profileImage);
+        //     $input['photo'] = "$profileImage";
+        // }
+
+        if($request->hasfile('image')){
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file ->move('uploads/post', $filename);
+            $input -> photo = $filename;
+        }
+
+
         TeacherDetail::create($input);
         return redirect()->route('teachers-details.index')->with('message','Teacher details created ');
     }
