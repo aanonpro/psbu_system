@@ -18,7 +18,13 @@
       @forelse ($teachers_details as $key => $item )
       <tr>
         <td>{{$key+1}}</td>
-        <td>{{$item->photo}}</td>
+        <td>
+          @if($item->photo)
+          <img src="/photo/{{ $item->photo }}" width="100px">
+          @else
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjLE9Ylr4f4BXaJfXkLC0YGydJDZVQoxK0Dg&usqp=CAU" width="100px">
+          @endif
+        </td>
         <td>{{$item->teacher->teacher_name_en}}</td>
         <td>{{$item->teacher_code ?? '---'}}</td>
         <td>{{$item->sex ?? '---'}}</td>

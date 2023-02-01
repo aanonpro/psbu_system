@@ -41,7 +41,7 @@ class TeacherDetailController extends Controller
             $status = 'All Status';
         }
 
-        $teachers_details = $rows->simplePaginate(1);
+        $teachers_details = $rows->simplePaginate(6);
         $counts = $rows->count();
         $count_stt = $rows->where('status','1')->count();
 
@@ -53,7 +53,7 @@ class TeacherDetailController extends Controller
       {
           if($request->ajax())
           {
-              $teachers_details = TeacherDetail::simplePaginate(1);
+              $teachers_details = TeacherDetail::simplePaginate(6);
               return view('teacher-detail.table-paginate', compact('teachers_details'))->render();
           }
       }
@@ -85,19 +85,19 @@ class TeacherDetailController extends Controller
         $input = $request->all();
         $input['created_by'] = Auth::user()->id;
 
-        // if ($image = $request->file('photo')) {
-        //     $destinationPath = 'profileTeachers/';
-        //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-        //     $image->move($destinationPath, $profileImage);
-        //     $input['photo'] = "$profileImage";
-        // }
-
-        if($request->hasfile('image')){
-            $file = $request->file('image');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file ->move('uploads/post', $filename);
-            $input -> photo = $filename;
+        if ($image = $request->file('photo')) {
+            $destinationPath = 'photo/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['photo'] = "$profileImage";
         }
+
+        // if($request->hasfile('image')){
+        //     $file = $request->file('image');
+        //     $filename = time() . '.' . $file->getClientOriginalExtension();
+        //     $file ->move('uploads/post', $filename);
+        //     $input -> photo = $filename;
+        // }
 
 
         TeacherDetail::create($input);
@@ -121,11 +121,11 @@ class TeacherDetailController extends Controller
      * @param  \App\Models\TeacherDetail  $teacherDetail
      * @return \Illuminate\Http\Response
      */
-    public function edit(TeacherDetail $teacherDetail)
+    public function edit(TeacherDetail $teachers_detail)
     {
         $teachers = Teacher::where('status','1')->get();
         $positions = Position::where('status','1')->get();
-        return view('teacher-detail.form',compact('teacherDetail','teachers','positions'));
+        return view('teacher-detail.form',compact('teachers_detail','teachers','positions'));
     }
 
     /**
@@ -135,9 +135,29 @@ class TeacherDetailController extends Controller
      * @param  \App\Models\TeacherDetail  $teacherDetail
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TeacherDetail $teacherDetail)
+    public function update(Request $request, TeacherDetail $teachers_detail)
     {
-        //
+        $this->Validate($request, [
+            'teacher_id' => 'required',
+            'position_id' => 'required',
+            'status' => 'required',
+        ]);
+
+        $input = $request->all();
+        $input['updated_by'] = Auth::user()->id;
+
+        if ($image = $request->file('photo')) {
+            $destinationPath = 'photo/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['photo'] = "$profileImage";
+        }else{
+            unset($input['photo']);
+        }
+
+        // $teachers_detail['updated_by'] = Auth::user()->id;
+        $teachers_detail->update($input);
+        return redirect()->route('teachers-details.index')->with('message','teacherDetail updated ');
     }
 
     /**

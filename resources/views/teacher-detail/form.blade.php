@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    {{isset($teacherDetail) ? 'Edit teacher details':'Create teacher details '}}
+    {{isset($teachers_detail) ? 'Edit teacher details':'Create teacher details '}}
 @endsection
 @section('content')
 <style>
@@ -141,11 +141,11 @@
                     <div class="col-md-12">
                         <div class="card card-info card-outline">
                             <div class="card-header">
-                                <h3 class="card-title" style="text-transform: uppercase">{{ isset($teacherDetail) ? 'teacher details Edit' : 'teacher details Add' }}</h3>
+                                <h3 class="card-title" style="text-transform: uppercase">{{ isset($teachers_detail) ? 'teacher details Edit' : 'teacher details Add' }}</h3>
                             </div>
-                            <form action="{{ isset($teacherDetail) ?  route('teachers-details.update', $teacherDetail->id) : route('teachers-details.store') }}" method="POST">
+                            <form action="{{ isset($teachers_detail) ? route('teachers-details.update',$teachers_detail->id) : route('teachers-details.store') }}" method="POST">
                                 @csrf
-                                @if (isset($teacherDetail))
+                                @if (isset($teachers_detail))
                                     @method('PUT')
                                 @endif
                             <div class="card-body">
@@ -155,17 +155,17 @@
                                         <div class="form-group">
                                             <label>Teacher code</label>
                                             <input type="text" class="form-control" name="teacher_code"
-                                            @if (isset($teacherDetail)) value="{{ $teacherDetail->teacher_code }}" @endif placeholder="teacher code" autofocus>
+                                            @if (isset($teachers_detail)) value="{!! $teachers_detail->teacher_code !!}" @endif placeholder="teacher code" autofocus>
                                             </select>
                                         </div>
                                         <!-- /.form-group -->
                                         <div class="form-group">
                                             <label>Teacher name</label>
                                             <select class="form-control select2" id="teacher_id" name="teacher_id" >
-                                                @if (!isset($teacherDetail)) <option value="" selected disabled>---</option>@endif
-                                                @if(isset($teacherDetail))
+                                                <option value="" selected disabled>---</option>
+                                                @if(isset($teachers_detail))
                                                     @foreach ($teachers as $item)
-                                                        <option value="{{ $item->id }}" {{ $teacherDetail->teacher_id == $item->id ? 'selected' : '' }}>
+                                                        <option value="{{ $item->id }}" {{ $teachers_detail->teacher_id == $item->id ? 'selected' : '' }}>
                                                             {{ $item->teacher_name_en }}
                                                         </option>
                                                     @endforeach
@@ -182,33 +182,33 @@
                                             <label>Gender</label>
                                             <select class="form-control " id="status" name="sex" >
                                                 <option value="" disabled selected>Gender</option>
-                                                <option value="1">Male</option>
-                                                <option value="2">Female</option>
-                                                <option value="3">Other</option>
+                                                <option value="1" @if (isset($teachers_detail)) {{ $teachers_detail->status == '1' ? 'selected' : '' }}  @endif>Male</option>
+                                                <option value="2" @if (isset($teachers_detail)) {{ $teachers_detail->status == '2' ? 'selected' : '' }}  @endif>Female</option>
+                                                <option value="3" @if (isset($teachers_detail)) {{ $teachers_detail->status == '3' ? 'selected' : '' }}  @endif>Other</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Nationality</label>
                                             <input type="text" class="form-control" name="nationality"
-                                            @if (isset($teacherDetail)) value="{{ $teacherDetail->nationality }}" @endif placeholder="nationality" >
+                                            @if (isset($teachers_detail)) value="{{ $teachers_detail->nationality }}" @endif placeholder="Nationality" >
                                         </div>
 
                                         <div class="form-group">
                                             <label>Phone</label>
                                             <input type="text" class="form-control" name="phone"
-                                            @if (isset($teacherDetail)) value="{{ $teacherDetail->phone }}" @endif placeholder="phone" >
+                                            @if (isset($teachers_detail)) value="{{ $teachers_detail->phone }}" @endif placeholder="Phone" >
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>
-                                            <textarea name="address" class="form-control" cols="50" rows="3"> @if (isset($teacherDetail)) {{$teacherDetail->address}} @endif </textarea>
+                                            <textarea name="address" class="form-control" cols="50" rows="3"> @if (isset($teachers_detail)) {{$teachers_detail->address}} @endif </textarea>
                                           </div>
                                         <div class="form-group">
                                             <label>Position <span class="text-danger">*</span></label>
                                             <select class="form-control select2" id="position_id" name="position_id" >
-                                                @if (!isset($teacherDetail)) <option value="" selected disabled>---</option>@endif
-                                                @if(isset($teacherDetail))
+                                               <option value="" selected disabled>---</option>
+                                                @if(isset($teachers_detail))
                                                     @foreach ($positions as $item)
-                                                        <option value="{{ $item->id }}" {{ $teacherDetail->position_id == $item->id ? 'selected' : '' }}>
+                                                        <option value="{{ $item->id }}" {{ $teachers_detail->position_id == $item->id ? 'selected' : '' }}>
                                                             {{ $item->name }}
                                                         </option>
                                                     @endforeach
@@ -225,8 +225,8 @@
                                             <label>Status <span class="text-danger">*</span></label>
                                             <select class="form-control " id="status" name="status" >
                                                 <option value="" disabled selected>Choose Status</option>
-                                                <option value="1"@if (isset($teacherDetail)) {{ $teacherDetail->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option>
-                                                <option value="0"@if (isset($teacherDetail)) {{ $teacherDetail->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
+                                                <option value="1"@if (isset($teachers_detail)) {{ $teachers_detail->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option>
+                                                <option value="0"@if (isset($teachers_detail)) {{ $teachers_detail->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
                                             </select>
                                         </div>
                                       <!-- /.form-group -->
@@ -235,10 +235,12 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Photo</label>
-                                            <div class="file-upload">
-                                                {{-- <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button> --}}
+                                            <input class=" form-control" name="photo" type="file">
+                                            <img src="/photo/{{ $teachers_detail->photo }}" width="300px">
+                                            {{-- <div class="file-upload">
+                                                <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
                                                 <div class="image-upload-wrap">
-                                                <input class="file-upload-input" name="photo" type='file' onchange="readURL(this);" accept="image/*" />
+                                                <input class="file-upload-input" name="photo" type="file" onchange="readURL(this);" accept="image/*" />
                                                 <div class="drag-text">
                                                     <h3>
                                                     <i class="fa fa-cloud-upload  fa-3x" aria-hidden="true"></i><br>
@@ -251,7 +253,7 @@
                                                     <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
                                                 </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <div class="form-group">
                                             <label>Date of birth</label>
@@ -262,12 +264,12 @@
                                         <div class="form-group">
                                             <label>Email</label>
                                             <input type="text" class="form-control" name="email"
-                                            @if (isset($teacherDetail)) value="{{ $teacherDetail->phone }}" @endif placeholder="email" >
+                                            @if (isset($teachers_detail)) value="{{ $teachers_detail->email }}" @endif placeholder="Email" >
                                         </div>
                                       <!-- /.form-group -->
                                         <div class="form-group">
                                             <label>Noted</label>
-                                            <textarea name="noted" class="form-control" cols="50" rows="3"> @if (isset($teacherDetail)) {{$teacherDetail->noted}} @endif </textarea>
+                                            <textarea name="noted" class="form-control" cols="50" rows="3"> @if (isset($teachers_detail)) {{$teachers_detail->noted}} @endif </textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Expired date</label>
@@ -283,7 +285,7 @@
                             </div>
                              <!-- /.card-body -->
                              <div class="card-footer">
-                                <button type="submit" class="btn btn-success"> {{isset($teacherDetail) ? 'Update':'Publish' }}</button>
+                                <button type="submit" class="btn btn-success"> {{isset($teachers_detail) ? 'Update':'Publish' }}</button>
                               </div>
                               <!-- /.card-footer -->
                             </form>
