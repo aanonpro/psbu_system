@@ -2,10 +2,10 @@
     <thead>
       <tr>
         <th style="max-width: 15px;">#</th>
-        <th  style="max-width: 40px;">Teacher code</th>
+        <th  style="max-width: 40px;">code</th>
         <th>Photo</th>
-        <th>Teacher name</th>
-        <th>Gender</th>
+        <th style="max-width: 80px;">Teacher name</th>
+        <th>Position</th>
         <th>Address</th>
         <th>Phone</th>
         <th>Status</th>
@@ -25,7 +25,7 @@
           @endif
         </td>
         <td>{{$item->teacher->teacher_name_en}}</td>
-        <td>{{$item->sex ?? '---'}}</td>
+        <td>{{$item->position->name ?? '---'}}</td>
         <td>{{$item->address ??'---'}}</td>
         <td>{{$item->phone ??'---'}}</td>
           <td>

@@ -31,7 +31,7 @@
     {{-- <link rel="stylesheet" href="{{asset('admin/plugins/fullcalendar/main.css')}}"> --}}
     <link rel="stylesheet" href="{{ asset('admin/font-awesome/css/font-awesome.min.css')}}">
 
-
+    {{-- <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" /> --}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -70,6 +70,11 @@
     <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
     <!-- Select2 -->
     <script src="{{asset('admin/plugins/select2/js/select2.full.min.js')}}"></script>
+
+    {{-- <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+
+<script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script> --}}
 
 @yield('script')
 <script>

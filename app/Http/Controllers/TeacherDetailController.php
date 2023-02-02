@@ -14,21 +14,27 @@ use Illuminate\Foundation\Http\FormRequest;
 class TeacherDetailController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     *index 
      */
     public function index(Request $request)
     {
         $rows = TeacherDetail::query();
         // search with name and with name foreign keys
         if($request->search) {
-            $u = Teacher::where('teacher_name_en', 'like', '%' . $request->search . '%')->select('id')->take(4)->pluck('id')->toArray();
-            $rows->where(function ($w) use ($u){     // use where function for call name from table user
-                $w->whereIn('teacher_id', $u);
+            $t = Teacher::where('teacher_name_en', 'like', '%' . $request->search . '%')->select('id')->take(4)->pluck('id')->toArray();
+            $p = Position::where('name', 'like', '%' . $request->search . '%')->select('id')->take(4)->pluck('id')->toArray();
+            $rows->where(function ($w) use ($t){     // use where function for call name from table user
+                $w->whereIn('teacher_id', $t);
             });
-            $rows->Orwhere('teacher_code', 'like', '%' .$request->search .'%')->Orwhere('phone', 'like', '%' . $request->search.'%')->get();
 
+            $rows->Orwhere(function ($o) use ($p){
+                $o->Orwhere('position_id', $p);
+            });
+           
+            $rows->Orwhere('teacher_code', 'like', '%' .$request->search .'%')
+                ->Orwhere('phone', 'like', '%' . $request->search.'%')
+                ->Orwhere('address', 'like', '%' . $request->search.'%')
+                ->get();
          }
 
          // search with button selection
@@ -61,9 +67,7 @@ class TeacherDetailController extends Controller
           }
       }
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * create a new teacher
      */
     public function create()
     {
@@ -73,10 +77,7 @@ class TeacherDetailController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * store data
      */
     public function store(FormTeacehrRequest $request)
     {
@@ -96,10 +97,7 @@ class TeacherDetailController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\TeacherDetail  $teacherDetail
-     * @return \Illuminate\Http\Response
+     * show information
      */
     public function show(TeacherDetail $teacherDetail)
     {
@@ -107,10 +105,7 @@ class TeacherDetailController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\TeacherDetail  $teacherDetail
-     * @return \Illuminate\Http\Response
+     * edit information
      */
     public function edit(TeacherDetail $teachers_detail)
     {
@@ -121,17 +116,13 @@ class TeacherDetailController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TeacherDetail  $teacherDetail
-     * @return \Illuminate\Http\Response
+     
      */
     public function update(FormTeacehrRequest $request, TeacherDetail $teachers_detail)
     {
         $input = $request->all();
         // $input['updated_by'] = Auth::user()->id;
         $teachers_detail['updated_by'] = Auth::user()->id;
-
 
         if($request->hasfile('image')){
 
@@ -152,9 +143,7 @@ class TeacherDetailController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\TeacherDetail  $teacherDetail
-     * @return \Illuminate\Http\Response
+     
      */
     public function destroy(TeacherDetail $teachers_detail)
     {

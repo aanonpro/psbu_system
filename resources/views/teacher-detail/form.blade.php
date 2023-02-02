@@ -6,11 +6,55 @@
 
 <style>
 
+label.img {
+	display: block;
+	width: 60vw;
+	max-width: 300px;
+	margin: 0 auto;
+	background-color: rgb(34, 155, 74);
+	border-radius: 2px;
+	font-size: 1em;
+	line-height: 2.5em;
+	text-align: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+label.img:hover {
+	background-color: cornflowerblue;
+}
+
+label.img:active {
+	background-color: mediumaquamarine;
+}
+
+input.up-img {
+	border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px; 
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+   
+}
+
+/* body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	background-color: black;
+} */
+
     .box-img{
         width: 100px;
         height: 100px;
-        border: 1px solid #ccc;
-        background-image: url("{{ url('uploads/upload.png') }}");
+        /* border: 1px solid #ccc; */
+        /* background-image: url("{{ url('uploads/upload.png') }}"); */
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
@@ -22,6 +66,12 @@
         opacity: 0;
         align-content: center;
         cursor: pointer;
+    }
+    .box-img img{
+        width: 140px;
+        height: 140px;
+        align-content: center;
+        /* cursor: pointer; */
     }
     .del-img-box{
         width: 20px;
@@ -56,7 +106,7 @@
                     <div class="col-sm-12">
                         <h1 class="m-0">
                             <a href="{{ route('teachers-details.index') }}" class="btn btn-danger text-light "><i
-                                class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+                                class="fa fa-arrow-left" aria-hidden="true"></i> {{isset($teachers_detail) ? 'Cancel' : 'Back'}}</a>
                         </h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -189,48 +239,34 @@
                                         <div class="form-group">
                                             <label>Upload Photo</label>
                                             <div class="box-img">
-                                                {{-- <div class="loading"></div> --}}
-                                                <input type="file" name="image" id="text_file" onchange="previewFile(this);">
-                                                {{-- <div class="del-img-box"></div> --}}
+                                                <label class="img" style="max-width: 140px !important;" >
+                                                    <input class="up-img" type="file" name="image" id="image" accept="image/*,.pdf">Browse image
+                                                </label>
+                                                @if (isset($teachers_detail))
+                                                    <div class="mt-2 box-img">
+                                                        <img id="preview-image-before-upload" src="{{url('uploads/teacher/'.$teachers_detail->image)}}"
+                                                        alt="preview image" style="max-width: 140px;">
+                                                    </div>
+                                                @else
+                                                    <div class="mt-2 box-img">
+                                                        <img id="preview-image-before-upload" src="https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg"
+                                                        alt="preview image" style="max-width: 140px;">
+                                                    </div>
+                                                @endif
+                                            </div>                                           
+                                            {{-- <div class="box-img">
+                                                <div class="loading"></div>
+                                                <input type="file" name="image" id="image">
+                                                <div class="del-img-box"></div>
+                                                @error('image')
+                                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="mt-4">
-                                                <img id="previewImg" style="width: 100px;" src="https://e7.pngegg.com/pngimages/84/165/png-clipart-united-states-avatar-organization-information-user-avatar-service-computer-wallpaper-thumbnail.png" alt="Placeholder">
-
-                                            </div>
-                                          
-                                            {{-- <label>File count demo</label>
-                                            <input type="file" id="filecount" multiple="multiple"> --}}
-                                            {{-- <div class="custom-file"> --}}
-                                              
-                                                {{-- <label class="custom-file-label" for="exampleInputFile" data-browse="Browser">Browser image</label> --}}
-                                                {{-- <input type="file" name="image" class="form-control" style="max-width: 50%; background-color: #159153 !important;">
-                                              </div> --}}
-                                            {{-- <label>Upload photo</label>  
-                                            <input class="form-control" name="image" type="file" accept="image/*" />
-                                            @if (isset($teachers_detail))
-                                                <img class="file-upload-image" src="{{ url('uploads/teacher/'.$teachers_detail->image) }}" 
-                                                alt="{{($teachers_detail->image) }}" style="width: 200px;"/>
-                                            @endif --}}
-                                            {{-- <div class="file-upload">
-                                                <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
-                                                <div class="image-upload-wrap">
-                                                    <input class="file-upload-input" name="image" type="file" onchange="readURL(this);" accept="image/*" />
-                                                    <div class="drag-text">
-                                                        <h3>
-                                                        <i class="fa fa-cloud-upload  fa-3x" aria-hidden="true"></i><br>
-                                                            Drag and drop Image</h3>
-                                                    </div>
-                                                </div>
-                                                <div class="file-upload-content">
-                                                    @if (isset($teachers_detail))
-                                                        <img class="file-upload-image" src="{{ url('uploads/teacher/'.$teachers_detail->image) }}" alt="your image" />
-                                                    @endif
-                                               
-                                                    <div class="image-title-wrap">                                                    
-                                                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-                                                    </div>
-                                                </div>
+                                                <img id="preview-image-before-upload" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjLE9Ylr4f4BXaJfXkLC0YGydJDZVQoxK0Dg&usqp=CAU"
+                                                alt="preview image" style="max-height: 200px;">
                                             </div> --}}
+                                          
                                         </div>
                                       <!-- /.form-group -->
                                     </div>
@@ -254,20 +290,20 @@
 @endsection
 @section('script')
 <script>
-    function previewFile(input){
-        var file = $("input[type=file]").get(0).files[0];
- 
-        if(file){
-            var reader = new FileReader();
- 
-            reader.onload = function(){
-                $("#previewImg").attr("src", reader.result);
-            }
- 
-            reader.readAsDataURL(file);
+
+$(document).ready(function (e) { 
+   
+    $('#image').change(function(){                
+        let reader = new FileReader();
+        reader.onload = (e) => { 
+            $('#preview-image-before-upload').attr('src', e.target.result); 
         }
-    }
+        reader.readAsDataURL(this.files[0]);         
+        });    
+    });
+
 </script>
+
 @endsection
 
 @if ($errors->any())
