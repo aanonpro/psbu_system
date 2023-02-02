@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->date('expired_date')->nullable();
             $table->string('noted')->nullable();
-            $table->string('photo')->nullable();
+            $table->string('image')->nullable();
             $table->string('status',1)->default(1);
             $table->string('trash',1)->default(0);
             $table->string('password')->nullable();

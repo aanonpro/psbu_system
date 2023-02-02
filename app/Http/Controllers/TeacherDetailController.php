@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Position;
 use App\Models\Teacher;
+use App\Models\Position;
 use Illuminate\Http\Request;
 use App\Models\TeacherDetail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use App\Http\Requests\FormTeacehrRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
 class TeacherDetailController extends Controller
 {
@@ -75,31 +78,19 @@ class TeacherDetailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormTeacehrRequest $request)
     {
-        $this->Validate($request, [
-            'teacher_id' => 'required',
-            'position_id' => 'required',
-            'status' => 'required',
-        ]);
         $input = $request->all();
         $input['created_by'] = Auth::user()->id;
 
-        if ($image = $request->file('photo')) {
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['photo'] = "$profileImage";
+        
+        if($request->hasfile('image')){
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file ->move('uploads/teacher', $filename);
+            $input['image'] = $filename;
         }
-
-        // if($request->hasfile('image')){
-        //     $file = $request->file('image');
-        //     $filename = time() . '.' . $file->getClientOriginalExtension();
-        //     $file ->move('uploads/post', $filename);
-        //     $input -> photo = $filename;
-        // }
-
-
+       
         TeacherDetail::create($input);
         return redirect()->route('teachers-details.index')->with('message','Teacher details created ');
     }
@@ -135,27 +126,26 @@ class TeacherDetailController extends Controller
      * @param  \App\Models\TeacherDetail  $teacherDetail
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TeacherDetail $teachers_detail)
+    public function update(FormTeacehrRequest $request, TeacherDetail $teachers_detail)
     {
-        $this->Validate($request, [
-            'teacher_id' => 'required',
-            'position_id' => 'required',
-            'status' => 'required',
-        ]);
-
         $input = $request->all();
-        $input['updated_by'] = Auth::user()->id;
+        // $input['updated_by'] = Auth::user()->id;
+        $teachers_detail['updated_by'] = Auth::user()->id;
 
-        if ($image = $request->file('photo')) {
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['photo'] = "$profileImage";
-        }else{
-            unset($input['photo']);
+
+        if($request->hasfile('image')){
+
+            $destination = 'uploads/teacher/'. $teachers_detail->image;
+            if(File::exists($destination)){
+                unlink($destination);
+            }
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file ->move('uploads/teacher', $filename);
+            $input['image'] = $filename;
+            $teachers_detail->update($input);
         }
 
-        // $teachers_detail['updated_by'] = Auth::user()->id;
         $teachers_detail->update($input);
         return redirect()->route('teachers-details.index')->with('message','teacherDetail updated ');
     }
@@ -166,8 +156,17 @@ class TeacherDetailController extends Controller
      * @param  \App\Models\TeacherDetail  $teacherDetail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TeacherDetail $teacherDetail)
+    public function destroy(TeacherDetail $teachers_detail)
     {
-        //
+        if($teachers_detail){
+            $destination = 'uploads/teacher/' . $teachers_detail->image;
+            if(File::exists($destination)){
+                File::delete($destination);
+            }
+            $teachers_detail->delete();
+            return redirect()->route('teachers-details.index')->with('message','teacherDetail deleted ');
+        }else{
+            return redirect()->route('teachers-details.index')->with('message','Teacher detail Not Found ');
+        }
     }
 }

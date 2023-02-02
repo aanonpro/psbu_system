@@ -14,7 +14,7 @@ class TeacherDetail extends Model
     protected $fillable =[
         'teacher_id','position_id','teacher_code','sex','dob',
         'nationality','email','phone','address','expired_date',
-        'noted','photo','status','trash','password','created_by','updated_by'
+        'noted','image','status','trash','password','created_by','updated_by'
     ];
 
     public function teacher(){

@@ -3,120 +3,50 @@
     {{isset($teachers_detail) ? 'Edit teacher details':'Create teacher details '}}
 @endsection
 @section('content')
+
 <style>
 
-    .file-upload {
-  background-color: #ffffff;
-  max-width: 500px;
-  margin: 0 auto;
-  /* padding: 20px; */
-}
+    .box-img{
+        width: 100px;
+        height: 100px;
+        border: 1px solid #ccc;
+        background-image: url("{{ url('uploads/upload.png') }}");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        position: relative !important;
+    }
+    .box-img input{
+        width: 120px;
+        height: 120px;
+        opacity: 0;
+        align-content: center;
+        cursor: pointer;
+    }
+    .del-img-box{
+        width: 20px;
+        height: 20px;
+        background-image: url("{{ url('uploads/close.png') }}");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        position: absolute !important;
+        top: -10px;
+        right: -10px;
+        cursor: pointer;
+    }
+    .loading{
+        width: 20px;
+        height: 20px;
+        background-image: url("{{ url('uploads/loading.gif') }}");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        position: absolute !important;
+        top: 40px;
+        left: 40px;
+    }
 
-.file-upload-btn {
-  width: 100%;
-  margin: 0;
-  color: #fff;
-  background: #1FB264;
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
-  border-bottom: 4px solid #15824B;
-  transition: all .2s ease;
-  outline: none;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-.file-upload-btn:hover {
-  background: #1AA059;
-  color: #ffffff;
-  transition: all .2s ease;
-  cursor: pointer;
-}
-
-.file-upload-btn:active {
-  border: 0;
-  transition: all .2s ease;
-}
-
-.file-upload-content {
-  display: none;
-  text-align: center;
-}
-
-.file-upload-input {
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  outline: none;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.image-upload-wrap {
-  /* margin-top: 10px; */
-  border: 4px dashed #1FB264;
-  position: relative;
-  max-height: 210px;
-}
-
-.image-dropping,
-.image-upload-wrap:hover {
-  background-color: #1FB264;
-  border: 4px dashed #ffffff;
-}
-
-.image-title-wrap {
-  padding: 0 15px 15px 15px;
-  color: #222;
-}
-
-.drag-text {
-  text-align: center;
-}
-
-.drag-text h3 {
-  font-weight: 50;
-  /* text-transform: uppercase; */
-  color: #15824B;
-  padding: 60px 0;
-}
-
-.file-upload-image {
-  max-height: 200px;
-  max-width: 200px;
-  margin: auto;
-  padding: 20px;
-}
-
-.remove-image {
-  width: 200px;
-  margin: 0;
-  color: #fff;
-  background: #cd4535;
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
-  border-bottom: 4px solid #b02818;
-  transition: all .2s ease;
-  outline: none;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-.remove-image:hover {
-  background: #c13b2a;
-  color: #ffffff;
-  transition: all .2s ease;
-  cursor: pointer;
-}
-
-.remove-image:active {
-  border: 0;
-  transition: all .2s ease;
-}
 </style>
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -143,7 +73,7 @@
                             <div class="card-header">
                                 <h3 class="card-title" style="text-transform: uppercase">{{ isset($teachers_detail) ? 'teacher details Edit' : 'teacher details Add' }}</h3>
                             </div>
-                            <form action="{{ isset($teachers_detail) ? route('teachers-details.update',$teachers_detail->id) : route('teachers-details.store') }}" method="POST">
+                            <form action="{{ isset($teachers_detail) ? route('teachers-details.update',$teachers_detail->id) : route('teachers-details.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @if (isset($teachers_detail))
                                     @method('PUT')
@@ -233,32 +163,11 @@
                                     </div>
                                     <!-- /.col -->
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Photo</label>
-                                            <input class=" form-control" name="photo" type="file">
-                                            <img src="/photo/{{ $teachers_detail->photo }}" width="300px">
-                                            {{-- <div class="file-upload">
-                                                <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
-                                                <div class="image-upload-wrap">
-                                                <input class="file-upload-input" name="photo" type="file" onchange="readURL(this);" accept="image/*" />
-                                                <div class="drag-text">
-                                                    <h3>
-                                                    <i class="fa fa-cloud-upload  fa-3x" aria-hidden="true"></i><br>
-                                                        Drag and drop Image</h3>
-                                                </div>
-                                                </div>
-                                                <div class="file-upload-content">
-                                                <img class="file-upload-image" src="#" alt="your image" />
-                                                <div class="image-title-wrap">
-                                                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-                                                </div>
-                                                </div>
-                                            </div> --}}
-                                        </div>
+                                       
                                         <div class="form-group">
                                             <label>Date of birth</label>
                                             <div class="md-form md-outline input-with-post-icon datepicker">
-                                                <input placeholder="Select date" type="date" name="dob" id="example" class="form-control">
+                                                <input placeholder="Select date" type="date" name="dob"  @if(isset($teachers_detail)) value="{{$teachers_detail->dob}}" @endif id="example" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -269,13 +178,59 @@
                                       <!-- /.form-group -->
                                         <div class="form-group">
                                             <label>Noted</label>
-                                            <textarea name="noted" class="form-control" cols="50" rows="3"> @if (isset($teachers_detail)) {{$teachers_detail->noted}} @endif </textarea>
+                                            <textarea name="noted" class="form-control" cols="50" placeholder="Describe (Optional)" rows="3">@if(isset($teachers_detail)){{$teachers_detail->noted}}@endif</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Expired date</label>
                                             <div class="md-form md-outline input-with-post-icon datepicker">
-                                                <input placeholder="Select date" type="date" name="expired_date" id="example" class="form-control">
+                                                <input placeholder="Select date" type="date" name="expired_date" id="example" @if(isset($teachers_detail)) value="{{$teachers_detail->expired_date}}" @endif class="form-control">
                                             </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Upload Photo</label>
+                                            <div class="box-img">
+                                                {{-- <div class="loading"></div> --}}
+                                                <input type="file" name="image" id="text_file" onchange="previewFile(this);">
+                                                {{-- <div class="del-img-box"></div> --}}
+                                            </div>
+                                            <div class="mt-4">
+                                                <img id="previewImg" style="width: 100px;" src="https://e7.pngegg.com/pngimages/84/165/png-clipart-united-states-avatar-organization-information-user-avatar-service-computer-wallpaper-thumbnail.png" alt="Placeholder">
+
+                                            </div>
+                                          
+                                            {{-- <label>File count demo</label>
+                                            <input type="file" id="filecount" multiple="multiple"> --}}
+                                            {{-- <div class="custom-file"> --}}
+                                              
+                                                {{-- <label class="custom-file-label" for="exampleInputFile" data-browse="Browser">Browser image</label> --}}
+                                                {{-- <input type="file" name="image" class="form-control" style="max-width: 50%; background-color: #159153 !important;">
+                                              </div> --}}
+                                            {{-- <label>Upload photo</label>  
+                                            <input class="form-control" name="image" type="file" accept="image/*" />
+                                            @if (isset($teachers_detail))
+                                                <img class="file-upload-image" src="{{ url('uploads/teacher/'.$teachers_detail->image) }}" 
+                                                alt="{{($teachers_detail->image) }}" style="width: 200px;"/>
+                                            @endif --}}
+                                            {{-- <div class="file-upload">
+                                                <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+                                                <div class="image-upload-wrap">
+                                                    <input class="file-upload-input" name="image" type="file" onchange="readURL(this);" accept="image/*" />
+                                                    <div class="drag-text">
+                                                        <h3>
+                                                        <i class="fa fa-cloud-upload  fa-3x" aria-hidden="true"></i><br>
+                                                            Drag and drop Image</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="file-upload-content">
+                                                    @if (isset($teachers_detail))
+                                                        <img class="file-upload-image" src="{{ url('uploads/teacher/'.$teachers_detail->image) }}" alt="your image" />
+                                                    @endif
+                                               
+                                                    <div class="image-title-wrap">                                                    
+                                                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                                    </div>
+                                                </div>
+                                            </div> --}}
                                         </div>
                                       <!-- /.form-group -->
                                     </div>
@@ -297,40 +252,24 @@
         <!-- /.content -->
     </div>
 @endsection
+@section('script')
 <script>
-    function readURL(input) {
-  if (input.files && input.files[0]) {
-
-    var reader = new FileReader();
-
-    reader.onload = function(e) {
-      $('.image-upload-wrap').hide();
-
-      $('.file-upload-image').attr('src', e.target.result);
-      $('.file-upload-content').show();
-
-      $('.image-title').html(input.files[0].name);
-    };
-
-    reader.readAsDataURL(input.files[0]);
-
-  } else {
-    removeUpload();
-  }
-}
-
-function removeUpload() {
-  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-  $('.file-upload-content').hide();
-  $('.image-upload-wrap').show();
-}
-$('.image-upload-wrap').bind('dragover', function () {
-    $('.image-upload-wrap').addClass('image-dropping');
-  });
-  $('.image-upload-wrap').bind('dragleave', function () {
-    $('.image-upload-wrap').removeClass('image-dropping');
-});
+    function previewFile(input){
+        var file = $("input[type=file]").get(0).files[0];
+ 
+        if(file){
+            var reader = new FileReader();
+ 
+            reader.onload = function(){
+                $("#previewImg").attr("src", reader.result);
+            }
+ 
+            reader.readAsDataURL(file);
+        }
+    }
 </script>
+@endsection
+
 @if ($errors->any())
     @foreach ($errors->all() as $error)
         @section('script')

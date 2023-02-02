@@ -1,15 +1,13 @@
 <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th style="width: 10px">#</th>
+        <th style="max-width: 15px;">#</th>
+        <th  style="max-width: 40px;">Teacher code</th>
         <th>Photo</th>
         <th>Teacher name</th>
-        <th>Teacher code</th>
         <th>Gender</th>
-        <th>Date of birth</th>
         <th>Address</th>
         <th>Phone</th>
-        <th>Email</th>
         <th>Status</th>
         <th style="width: 150px">{{__('Action')}}</th>
       </tr>
@@ -18,21 +16,18 @@
       @forelse ($teachers_details as $key => $item )
       <tr>
         <td>{{$key+1}}</td>
+        <td>{{$item->teacher_code ?? '---'}}</td>
         <td>
-          @if($item->photo)
-          <img src="/photo/{{ $item->photo }}" width="100px">
+          @if($item->image)
+          <img src="{{ url('uploads/teacher/'.$item->image) }}" width="50px">
           @else
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjLE9Ylr4f4BXaJfXkLC0YGydJDZVQoxK0Dg&usqp=CAU" width="100px">
           @endif
         </td>
         <td>{{$item->teacher->teacher_name_en}}</td>
-        <td>{{$item->teacher_code ?? '---'}}</td>
         <td>{{$item->sex ?? '---'}}</td>
-        <td>{{$item->dob ??'---'}}</td>
         <td>{{$item->address ??'---'}}</td>
         <td>{{$item->phone ??'---'}}</td>
-        <td>{{$item->email ??'---'}}</td>
-
           <td>
             @if ($item->status == 1)
             <span class="badge bg-defalt text-dark">Active <i class="fa fa-circle text-success" aria-hidden="true"></i></span>

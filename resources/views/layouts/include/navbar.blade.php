@@ -1,4 +1,4 @@
- <!-- Navbar -->
+<!-- Navbar -->
  <nav class="main-header navbar navbar-expand navbar-default navbar-light" style="background-color: rgb(231, 231, 231);">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -38,8 +38,19 @@
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
-        {{-- logout  --}}       
-        <div class="dropdown">
+        {{-- logout  --}}      
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                {{ __('Logout') }}
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+        </li>
+          
+        {{-- <div class="dropdown">
             <button class="btn dropdown-toggle text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="{{ asset('admin/img/anon.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                 style=" width: 30px;" > {{ Auth::user()->name }}
@@ -57,7 +68,7 @@
                     @csrf
                 </form>
             </div>
-        </div>
+        </div> --}}
     </ul>
 </nav>
 <!-- /.navbar -->
