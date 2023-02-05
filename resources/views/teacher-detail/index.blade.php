@@ -23,6 +23,30 @@
                           <li><hr class="dropdown-divider"></li>
                           </ul>
                         </div>
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{$search_pos}}
+                            </button>
+                            <ul class="dropdown-menu" >
+                              @foreach ($positions as $item)
+                              <li><a class="dropdown-item" href="{{route('teachers-details.index','position='.$item->name)}}">{{ $item->name }}</a></li>
+                              @endforeach
+                            <li><hr class="dropdown-divider"></li>
+                            </ul>
+                          </div>
+
+                          {{-- <select class="form-control " id="position" name="position" >
+                          <option value="" selected disabled>---</option>
+                         
+                              @foreach ($positions as $item)
+                                  <option value="{{ $item->id }}">
+                                      {{ $item->name }}
+                                  </option>
+                              @endforeach
+                         
+                      </select> --}}
+                      
+
                     </h1>
                     <div class="mt-3">
                       <span>All teachers details ({{ $counts }}) | Public : <span class="text-success">({{$count_stt}})</span></span>
@@ -99,6 +123,8 @@
                 }
             });
         }
+        // end pagination  
     });
+   
 </script>
 @endsection

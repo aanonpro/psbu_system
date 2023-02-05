@@ -9,6 +9,7 @@ use App\Models\TeacherDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\FormTeacehrRequest;
+use Symfony\Component\Console\Input\Input;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TeacherDetailController extends Controller
@@ -19,6 +20,15 @@ class TeacherDetailController extends Controller
     public function index(Request $request)
     {
         $rows = TeacherDetail::query();
+        $positions = Position::all();
+        // $pos_id = $positions->where('id');
+
+        // ajaxy search dropdown
+        // if($request->ajax()){
+        //     $teachers_details = $rows->where(['position_id'=>$request->position])->get();
+        //     return response()->json(['teachers_details' => $teachers_details]);
+        // }
+
         // search with name and with name foreign keys
         if($request->search) {
             $t = Teacher::where('teacher_name_en', 'like', '%' . $request->search . '%')->select('id')->take(4)->pluck('id')->toArray();
@@ -35,10 +45,10 @@ class TeacherDetailController extends Controller
                 ->Orwhere('phone', 'like', '%' . $request->search.'%')
                 ->Orwhere('address', 'like', '%' . $request->search.'%')
                 ->get();
-         }
+        }
 
-         // search with button selection
-         if ($request->status == 'active') {
+        // search status with button selection
+        if ($request->status == 'active') {
             $rows->where('status',1);
             $status = 'Active';
         }
@@ -50,11 +60,21 @@ class TeacherDetailController extends Controller
             $status = 'All Status';
         }
 
+        //  search position with button selection
+         if ($request->position == $positions) {
+            $rows->where('position_id',Position::where('id'));
+            $search_pos = $positions;
+        }
+        else {
+            $search_pos = 'All positions';
+        }
+
+
         $teachers_details = $rows->simplePaginate(6);
         $counts = $rows->count();
         $count_stt = $rows->where('status','1')->count();
 
-        return view('teacher-detail.index',compact('teachers_details','status', 'counts','count_stt'));
+        return view('teacher-detail.index',compact('teachers_details','positions','search_pos','status', 'counts','count_stt'));
     }
 
       // paginate with ajax request
@@ -128,8 +148,9 @@ class TeacherDetailController extends Controller
 
             $destination = 'uploads/teacher/'. $teachers_detail->image;
             if(File::exists($destination)){
-                unlink($destination);
+                File::delete($destination);
             }
+           
             $file = $request->file('image');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file ->move('uploads/teacher', $filename);
