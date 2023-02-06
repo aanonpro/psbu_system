@@ -23,19 +23,18 @@
                           <li><hr class="dropdown-divider"></li>
                           </ul>
                         </div>
-                         
-                          <div class="btn-group">
-                            <select class="form-control" id="position" name="position" >
-                              <option value="" selected disabled>--search position--</option>                         
-                                @foreach ($positions as $item)
-                                    <option value="{{ $item->id }}">
-                                        {{ $item->name }}
-                                    </option>
-                                @endforeach                         
-                            </select>
-                          </div>
-                        
-                      
+
+                        <div class="btn-group">
+
+                        <select class="form-select" id="position" name="position" >
+                            <option value="" selected disabled>select for search</option>
+                            @foreach ($positions as $item)
+                                <option value="{{ $item->id }}">
+                                    {{ $item->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        </div>
 
                     </h1>
                     <div class="mt-3">
@@ -66,8 +65,7 @@
                 </form>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body" id="show-teachers-details">
-
+                <div class="card-body " id="show-teachers-details">
                  @include('teacher-detail.table-paginate')
                 </div>
                 <!-- /.card-body -->
@@ -113,7 +111,7 @@
                 }
             });
         }
-        // end pagination  
+        // end pagination
 
           $("#position").on('change', function(){
           var position = $(this).val();
@@ -122,9 +120,10 @@
             url: "{{route('teachers-details.index')}}",
             type: "GET",
             data: {_token: _token, position: position},
+
             success:function(data){
               $("#tbody").html("");
-            
+
                 $.each(data.teachers_details, function(key, item){
                   $("#tbody").append('<tr>\
                                         <td>'+item.id+'</td>\
@@ -146,11 +145,11 @@
                                         </td>\
                                       </tr>');
                 });
-             
+
             }
-          }); 
-        });    
+          });
+        });
     });
-   
+
 </script>
 @endsection

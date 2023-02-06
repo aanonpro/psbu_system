@@ -55,14 +55,26 @@
                     </a>
                 </li>
                 {{-- faculties  --}}
-                <li class="nav-item {{ Request::is('rooms*')|| Request::is('faculties*')|| Request::is('majors*') || Request::is('departments*') || Request::is('shifts*') ? 'menu-open active':'' }}">
-                    <a href="#" class="nav-link {{ Request::is('rooms*')|| Request::is('faculties*') || Request::is('majors*') || Request::is('departments*') || Request::is('shifts*') ? 'active':'' }}">
+                <li class="nav-item {{ Request::is('degrees*')|| Request::is('rooms*')|| Request::is('faculties*')|| Request::is('majors*') || Request::is('departments*') || Request::is('shifts*') ? 'menu-open active':'' }}">
+                    <a href="#" class="nav-link {{ Request::is('degrees*')|| Request::is('rooms*')|| Request::is('faculties*') || Request::is('majors*') || Request::is('departments*') || Request::is('shifts*') ? 'active':'' }}">
                         <i class="fa fa-university" aria-hidden="true"></i>
                         <p style="padding-left: 20px">
                             {{__('Academic')}}
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item ">
+                            <a href="{{route('degrees.index')}}" class="nav-link  {{ Request::is('degrees*')  ? 'active':''  }}">
+                                @if (Request::is('degrees*'))
+                                <i class="fa fa-circle pl-3" aria-hidden="true"></i>
+                                @else
+                                <i class="fa fa-circle-o pl-3" aria-hidden="true"></i>
+                                @endif
+                                <p class="pl-3">{{__('degrees')}}</p>
+                            </a>
+                        </li>
+                    </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item ">
                             <a href="{{route('faculties.index')}}" class="nav-link  {{ Request::is('faculties*')  ? 'active':''  }}">

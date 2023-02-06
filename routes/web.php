@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\DegreeController;
 use App\Http\Controllers\MajorsController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\SubjectController;
@@ -70,6 +71,9 @@ Route::middleware(['auth','isAdmin'])->group(function(){
 //
     Route::resource('positions', PositionController::class);
     Route::post('positions/fetch_positions', [PositionController::class, 'fetch_positions'])->name('positions.fetch_positions');
+//
+    Route::resource('degrees', DegreeController::class);
+    Route::post('degrees/fetch_degrees', [DegreeController::class, 'fetch_degrees'])->name('degrees.fetch_degrees');
 //
 
 
