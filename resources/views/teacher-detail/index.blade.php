@@ -23,28 +23,18 @@
                           <li><hr class="dropdown-divider"></li>
                           </ul>
                         </div>
+                         
                           <div class="btn-group">
-                            <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                          {{$search_pos}}
-                            </button>
-                            <ul class="dropdown-menu" >
-                              @foreach ($positions as $item)
-                              <li><a class="dropdown-item" href="{{route('teachers-details.index','position='.$item->name)}}">{{ $item->name }}</a></li>
-                              @endforeach
-                            <li><hr class="dropdown-divider"></li>
-                            </ul>
+                            <select class="form-control" id="position" name="position" >
+                              <option value="" selected disabled>--search position--</option>                         
+                                @foreach ($positions as $item)
+                                    <option value="{{ $item->id }}">
+                                        {{ $item->name }}
+                                    </option>
+                                @endforeach                         
+                            </select>
                           </div>
-
-                          {{-- <select class="form-control " id="position" name="position" >
-                          <option value="" selected disabled>---</option>
-                         
-                              @foreach ($positions as $item)
-                                  <option value="{{ $item->id }}">
-                                      {{ $item->name }}
-                                  </option>
-                              @endforeach
-                         
-                      </select> --}}
+                        
                       
 
                     </h1>
@@ -124,6 +114,42 @@
             });
         }
         // end pagination  
+
+          $("#position").on('change', function(){
+          var position = $(this).val();
+          var _token = $("input[name=_token]").val();
+          $.ajax({
+            url: "{{route('teachers-details.index')}}",
+            type: "GET",
+            data: {_token: _token, position: position},
+            success:function(data){
+              $("#tbody").html("");
+            
+                $.each(data.teachers_details, function(key, item){
+                  $("#tbody").append('<tr>\
+                                        <td>'+item.id+'</td>\
+                                        <td>'+item.teacher_code+'</td>\
+                                        <td> <img src="uploads/teacher/'+item.image+'" width="50px"></td>\
+                                        <td>'+item.teacher.teacher_name_en+'</td>\
+                                        <td>'+item.position.name+'</td>\
+                                        <td>'+item.address+'</td>\
+                                        <td>'+item.phone+'</td>\
+                                        <td> <span class="badge bg-defalt text-dark"> '+((item.status) == 1 ? 'active <i class="fa fa-circle text-success" aria-hidden="true"></i>':'inactive <i class="fa fa-circle text-danger" aria-hidden="true"></i>' )+' </span></td>\
+                                        <td>\
+                                            <form action="teachers-details/'+item.id+'" method="POST">\
+                                              <a href="teachers-details/'+item.id+'" class=" btn btn-sm btn-success text-light"><i class="fa fa-eye" aria-hidden="true"></i></a>\
+                                              <a href="teachers-details/'+item.id+'/edit/" class=" btn btn-sm btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>\
+                                              @csrf\
+                                              @method('DELETE')\
+                                              <button class="btn btn-sm btn-danger "><i class="fa fa-trash-o" aria-hidden="true"></i></button>\
+                                            </form>\
+                                        </td>\
+                                      </tr>');
+                });
+             
+            }
+          }); 
+        });    
     });
    
 </script>

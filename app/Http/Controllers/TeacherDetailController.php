@@ -24,10 +24,13 @@ class TeacherDetailController extends Controller
         // $pos_id = $positions->where('id');
 
         // ajaxy search dropdown
-        // if($request->ajax()){
-        //     $teachers_details = $rows->where(['position_id'=>$request->position])->get();
-        //     return response()->json(['teachers_details' => $teachers_details]);
-        // }
+        if($request->ajax()){
+            // $rows->select('*','teacher.teacher_name_en')->get();
+
+            $teachers_details = $rows->where(['position_id'=>$request->position],)->get()->load('teacher','position');
+          
+            return response()->json(['teachers_details' => $teachers_details]);
+        }
 
         // search with name and with name foreign keys
         if($request->search) {
