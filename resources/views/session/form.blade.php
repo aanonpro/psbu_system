@@ -40,34 +40,65 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
                                         <div class="form-group">
-                                            <select class="form-control select2" name="status" style="width: 100%;">
-                                               <option value="" disabled selected>Choose shift </option>
+                                            <select class="form-control" name="shift_id" style="width: 100%;">
+                                               <option value="" disabled selected>Select shift </option>
                                                 @if (isset($session))
                                                     @foreach ($shifts as $item )
-                                                        <option value="{{$item->id}}" {{ $session->shift_id == $item->id ? 'selected' : '' }}>{{$item->name}}</option>                                            
+                                                        <option value="{{$item->id}}" {{ $session->shift_id == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
                                                     @endforeach
                                                 @else
-                                                    @foreach ($shifts as $item )
-                                                        <option value="{{$item->id}}">{{$item->name}}</option>                                            
-                                                    @endforeach
-                                                @endif                                              
-                                           
+                                                    @forelse ($shifts as $item )
+                                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                                    @empty
+                                                    <option value="">No shift available</option>
+                                                    @endforelse
+                                                @endif
+
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Name </label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="name"
-                                        @if (isset($session)) value="{{ $session->name }}" @endif placeholder="Name en" autofocus>
+                                    <label class="col-sm-2 col-form-label">Name <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="name" type="radio" value="1"
+                                                @if (isset($session)) {{ $session->name == '1' ? 'checked' : '' }}  @endif>
+                                                <label style="width: 100px; font-weight: normal;" >Morning</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="name" type="radio" value="2"
+                                                @if (isset($session)) {{ $session->name == '2' ? 'checked' : '' }}  @endif>
+                                                <label style="width: 100px; font-weight: normal;" >Afternoon</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="name" type="radio" value="3"
+                                                @if (isset($session)) {{ $session->name == '3' ? 'checked' : '' }}  @endif>
+                                                <label style="width: 100px; font-weight: normal;" >Evening</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Khmer</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="khmer"
-                                        @if (isset($session)) value="{{$session->khmer}}" @endif  placeholder="Name kh">
+                                    <label class="col-sm-2 col-form-label">Time start</label>
+                                    <div class="col-sm-4">
+                                        <input type="time" class="form-control " name="start_date"
+                                        @if (isset($session)) value="{{$session->start_date}}"  @endif/>
+                                    </div>
+                                    <label class="col-sm-2 col-form-label">Time end</label>
+                                    <div class="col-sm-4">
+                                        <input type="time" class="form-control " name="end_date"
+                                        @if (isset($session)) value="{{$session->end_date}}"  @endif/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -111,3 +142,6 @@
         @endsection
     @endforeach
 @endif
+
+@section('script')
+@endsection

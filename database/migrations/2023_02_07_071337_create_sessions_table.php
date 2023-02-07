@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('shift_id')->index()->nullable();
             $table->integer('name')->nullable();
             $table->string('khmer')->nullable();
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->time('start_date')->nullable();
+            $table->time('end_date')->nullable();
             $table->string('status',1)->default(1);
             $table->string('trash',1)->default(0);
             $table->integer('created_by')->default(1);

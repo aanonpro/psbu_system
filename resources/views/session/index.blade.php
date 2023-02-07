@@ -82,10 +82,10 @@
         $('body').delegate('.sessions_paginate a','click',function (){
             event.preventDefault();
             var page = $(this).attr('href').split('page=')[1];
-            fetch_data(page);
+            fetch_sessions(page);
         });
 
-        function fetch_data(page){
+        function fetch_sessions(page){
             var _token = $("input[name=_token]").val();
             $.ajax({
                 method: "POST",

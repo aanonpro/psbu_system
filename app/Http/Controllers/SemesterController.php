@@ -18,7 +18,7 @@ class SemesterController extends Controller
         $rows = Semester::query();
         //search name
           //search name
-          if($request->search) {
+        if($request->search) {
             $rows->orWhere('name', 'LIKE', '%' . $request->search . '%')
             ->orWhere('khmer', 'LIKE', '%' . $request->search . '%')
             ->first();
@@ -127,6 +127,6 @@ class SemesterController extends Controller
     public function destroy(Semester $semester)
     {
         $semester->delete();
-        return redirect()->back()->with('message','Semester updated');   
+        return redirect()->back()->with('message','Semester updated');
     }
 }

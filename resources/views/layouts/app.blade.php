@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{{ asset('admin/font-awesome/css/font-awesome.min.css')}}">
 
     {{-- <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" /> --}}
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -71,24 +72,19 @@
     <!-- Select2 -->
     <script src="{{asset('admin/plugins/select2/js/select2.full.min.js')}}"></script>
 
-    {{-- <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-    <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
-
-<script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script> --}}
-
 @yield('script')
 <script>
-      $(function () {
+    $(function () {
     //Initialize Select2 Elements
-    $('.select2').select2()
+        $('.select2').select2()
 
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
-});
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+        theme: 'bootstrap4'
+        })
+
+    });
 
 </script>
-
 </body>
 </html>

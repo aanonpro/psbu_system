@@ -17,8 +17,8 @@
                 <td>{{ $key + 1 }}</td>
                 <td>{{$item->shift->name}}</td>
                 <td>{{ $item->name ?? '--' }}</td>
-                <td>{{ $item->start_date ?? '--' }}</td>
-                <td>{{ $item->end_date ?? '--' }}</td>
+                <td>{{ date('h:i A', strtotime($item->start_date)) ?? '--' }}</td>
+                <td>{{ date('h:i A', strtotime($item->end_date)) ?? '--' }}</td>
                 <td>{{ $item->khmer ?? '--' }}</td>
 
                 <td>
@@ -46,7 +46,7 @@
 
             </tr>
         @empty
-            <td colspan="5" class="text-center py-3">No Data Available</td>
+            <td colspan="8" class="text-center py-3">No Data Available</td>
         @endforelse
 
     </tbody>
