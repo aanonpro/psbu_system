@@ -54,6 +54,7 @@
                         <p style="padding-left: 20px">{{__('Dashboard')}}</p>
                     </a>
                 </li>
+
                 {{-- faculties  --}}
                 <li class="nav-item {{ Request::is('degrees*')|| Request::is('rooms*')|| Request::is('faculties*')|| Request::is('majors*') || Request::is('departments*') || Request::is('shifts*') ? 'menu-open active':'' }}">
                     <a href="#" class="nav-link {{ Request::is('degrees*')|| Request::is('rooms*')|| Request::is('faculties*') || Request::is('majors*') || Request::is('departments*') || Request::is('shifts*') ? 'active':'' }}">
@@ -136,6 +137,55 @@
                         </li>
                     </ul>
                 </li>
+
+                 {{-- set up  --}}
+                <li class="nav-item {{  Request::is('sessions*') ||  Request::is('academics*') || Request::is('semesters*') ? 'menu-open active':'' }}">
+                    <a href="#" class="nav-link {{ Request::is('sessions*') || Request::is('academics*') || Request::is('semesters*') ? 'active':'' }}">
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                        <p style="padding-left: 20px">
+                            Setups
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item ">
+                            <a href="{{route('academics.index')}}" class="nav-link  {{ Request::is('academics*')  ? 'active':''  }}">
+                                @if (Request::is('academics*'))
+                                <i class="fa fa-circle pl-3" aria-hidden="true"></i>
+                                @else
+                                <i class="fa fa-circle-o pl-3" aria-hidden="true"></i>
+                                @endif
+                                <p class="pl-3">Academics</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item ">
+                            <a href="{{route('semesters.index')}}" class="nav-link  {{ Request::is('semesters*')  ? 'active':''  }}">
+                                @if (Request::is('semesters*'))
+                                <i class="fa fa-circle pl-3" aria-hidden="true"></i>
+                                @else
+                                <i class="fa fa-circle-o pl-3" aria-hidden="true"></i>
+                                @endif
+                                <p class="pl-3">Semesters</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item ">
+                            <a href="{{route('sessions.index')}}" class="nav-link  {{ Request::is('sessions*')  ? 'active':''  }}">
+                                @if (Request::is('sessions*'))
+                                <i class="fa fa-circle pl-3" aria-hidden="true"></i>
+                                @else
+                                <i class="fa fa-circle-o pl-3" aria-hidden="true"></i>
+                                @endif
+                                <p class="pl-3">Sessions</p>
+                            </a>
+                        </li>
+                    </ul>
+                  
+                </li>
+
                 {{-- students  --}}
                 <li class="nav-item {{ Request::is('students*') || Request::is('subjects*') ? 'menu-open active':'' }}">
                     <a href="#" class="nav-link  {{ Request::is('subjects*') || Request::is('students/lists') || Request::is('students/reports') || Request::is('students/create') ? 'active':'' }}">
@@ -162,10 +212,11 @@
                         </li>
                     </ul>
                 </li>
+                
                 {{-- techer  --}}
                 <li class="nav-item {{  Request::is('teachers*') || Request::is('teachers-details*') || Request::is('positions*') ? 'menu-open active':'' }}">
                     <a href="#" class="nav-link {{  Request::is('teachers*') || Request::is('teachers-details*') || Request::is('positions*') ? 'active':'' }}">
-                        <i class="fa fa-university" aria-hidden="true"></i>
+                        <i class="fa fa-users" aria-hidden="true"></i>
                         <p style="padding-left: 20px">
                             {{__('Teacher')}}
                             <i class="right fas fa-angle-left"></i>

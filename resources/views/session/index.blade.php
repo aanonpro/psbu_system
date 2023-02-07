@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Degrees Dashboard')
+@section('title', 'Session Dashboard')
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -8,22 +8,22 @@
                 <div class="row mb-2">
                     <div class="col-sm-12">
                         <h1 class="m-0">
-                            <a href="{{ route('degrees.create') }}" class="btn btn-outline-success  text-success  "><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+                            <a href="{{ route('sessions.create') }}" class="btn btn-outline-success  text-success  "><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
                                <!-- Example single danger button -->
                             <div class="btn-group">
                                 <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{$status}}
                                 </button>
                                 <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{route('degrees.index')}}">All Status</a></li>
-                                <li><a class="dropdown-item" href="{{route('degrees.index','status=active')}}">Active</a></li>
-                                <li><a class="dropdown-item" href="{{route('degrees.index','status= inactive')}}">Inactive</a></li>
+                                <li><a class="dropdown-item" href="{{route('sessions.index')}}">All Status</a></li>
+                                <li><a class="dropdown-item" href="{{route('sessions.index','status=active')}}">Active</a></li>
+                                <li><a class="dropdown-item" href="{{route('sessions.index','status= inactive')}}">Inactive</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 </ul>
                             </div>
                         </h1>
                         <div class="mt-3">
-                            <span>All degrees ({{ $counts }}) | Public : <span class="text-success">({{$count_stt}})</span></span>
+                            <span>All sessions ({{ $counts }}) | Public : <span class="text-success">({{$count_stt}})</span></span>
                         </div>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -38,8 +38,8 @@
                     <div class="col-md-12">
                         <div class="card card-info card-outline">
                             <div class="card-header">
-                                <h3 class="card-title" style="text-transform: uppercase">degrees list</h3>
-                                <form action="{{route('degrees.index')}}" method="GET" class="d-flex float-right" role="search">
+                                <h3 class="card-title" style="text-transform: uppercase">sessions list</h3>
+                                <form action="{{route('sessions.index')}}" method="GET" class="d-flex float-right" role="search">
                                     <div class="form-row ">
                                         <div class="d-flex">
                                             <input class="form-control" value="{{ \Request::get('search') }}" title="type to search"
@@ -50,8 +50,8 @@
                                 </form>
                             </div>
                             <!-- /.card-header -->
-                            <div class="card-body" id="show-degrees">
-                            @include('degree.table-paginate')
+                            <div class="card-body" id="show-sessions">
+                            @include('session.table-paginate')
                         </div>
                         <!-- /.card-body -->
                       </div>
@@ -79,7 +79,7 @@
 <script>
       // pagination
    $(function (){
-        $('body').delegate('.degrees_paginate a','click',function (){
+        $('body').delegate('.sessions_paginate a','click',function (){
             event.preventDefault();
             var page = $(this).attr('href').split('page=')[1];
             fetch_data(page);
@@ -89,11 +89,11 @@
             var _token = $("input[name=_token]").val();
             $.ajax({
                 method: "POST",
-                url: "{{route('degrees.fetch_degrees')}}",
+                url: "{{route('sessions.fetch_sessions')}}",
                 data:  {_token: _token, page:page},
                 success: function(data) {
 
-                    $('#show-degrees').html(data);
+                    $('#show-sessions').html(data);
                 }
             });
         }

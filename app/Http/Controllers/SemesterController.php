@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Degree;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DegreeController extends Controller
+class SemesterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,18 +15,14 @@ class DegreeController extends Controller
      */
     public function index(Request $request)
     {
-        $rows = Degree::query();
-        // search name
-        $rows->where([
-            ['name', '!=', Null],
-            [function ($query) use ($request) {
-                if (($s = $request->search)) {
-                    $query->orWhere('name', 'LIKE', '%' . $s . '%')
-                        ->orWhere('khmer', 'LIKE', '%' . $s . '%')
-                        ->first();
-                }
-            }]
-        ]);
+        $rows = Semester::query();
+        //search name
+          //search name
+          if($request->search) {
+            $rows->orWhere('name', 'LIKE', '%' . $request->search . '%')
+            ->orWhere('khmer', 'LIKE', '%' . $request->search . '%')
+            ->first();
+        }
 
          // search with button selection
         if ($request->status == 'active') {
@@ -41,22 +37,21 @@ class DegreeController extends Controller
             $status = 'All Status';
         }
 
-        $degrees = $rows->simplePaginate(6);
+        $semesters = $rows->simplePaginate(6);
         $counts = $rows->count();
         $count_stt = $rows->where('status','1')->count();
-        return view('degree.index', compact('degrees','counts','count_stt', 'status'));
+        return view('semester.index', compact('semesters','counts','count_stt', 'status'));
     }
 
-    // paginate with ajax request
-    public function fetch_degrees(Request $request)
-    {
-        if($request->ajax())
-        {
-            $degrees = Degree::simplePaginate(6);
-            return view('degree.table-paginate', compact('degrees'))->render();
-        }
-    }
-
+     // paginate with ajax request
+     public function fetch_semesters(Request $request)
+     {
+         if($request->ajax())
+         {
+             $semesters = Semester::simplePaginate(6);
+             return view('semester.table-paginate', compact('semesters'))->render();
+         }
+     }
     /**
      * Show the form for creating a new resource.
      *
@@ -64,7 +59,7 @@ class DegreeController extends Controller
      */
     public function create()
     {
-        return view('degree.form');
+        return view('semester.form');
     }
 
     /**
@@ -80,17 +75,17 @@ class DegreeController extends Controller
         ]);
         $input = $request->all();
         $input['created_by'] = Auth::user()->id;
-        Degree::create($input);
-        return redirect()->route('degrees.index')->with('message','Degree created');
+        Semester::create($input);
+        return redirect()->route('semesters.index')->with('message','Semester created');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Degree  $degree
+     * @param  \App\Models\Semester  $semester
      * @return \Illuminate\Http\Response
      */
-    public function show(Degree $degree)
+    public function show(Semester $semester)
     {
         //
     }
@@ -98,41 +93,40 @@ class DegreeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Degree  $degree
+     * @param  \App\Models\Semester  $semester
      * @return \Illuminate\Http\Response
      */
-    public function edit(Degree $degree)
+    public function edit(Semester $semester)
     {
-        return view('degree.form', compact('degree'));
-
+        return view('semester.form', compact('semester'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Degree  $degree
+     * @param  \App\Models\Semester  $semester
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Degree $degree)
+    public function update(Request $request, Semester $semester)
     {
         $this->Validate($request, [
             'status' => 'required'
         ]);
-        $degree['updated_by'] = Auth::user()->id;
-        $degree->update($request->all());
-        return redirect()->route('degrees.index')->with('message','Degree updated');
+        $semester['updated_by'] = Auth::user()->id;
+        $semester->update($request->all());
+        return redirect()->route('semesters.index')->with('message','Semester updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Degree  $degree
+     * @param  \App\Models\Semester  $semester
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Degree $degree)
+    public function destroy(Semester $semester)
     {
-        $degree->delete();
-        return redirect()->back()->with('message','degree updated');
+        $semester->delete();
+        return redirect()->back()->with('message','Semester updated');   
     }
 }

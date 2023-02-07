@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AcademicController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\DepartmentsController;
+use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\TeacherDetailController;
 
 Auth::routes();
@@ -75,7 +78,14 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::resource('degrees', DegreeController::class);
     Route::post('degrees/fetch_degrees', [DegreeController::class, 'fetch_degrees'])->name('degrees.fetch_degrees');
 //
-
+    Route::resource('academics', AcademicController::class);
+    Route::post('academics/fetch_academics', [AcademicController::class, 'fetch_academics'])->name('academics.fetch_academics');
+//
+    Route::resource('semesters', SemesterController::class);
+    Route::post('semesters/fetch_semesters', [SemesterController::class, 'fetch_semesters'])->name('semesters.fetch_semesters');
+//
+    Route::resource('sessions', SectionController::class);
+    Route::post('sessions/fetch_sessions', [SectionController::class, 'fetch_sessions'])->name('sections.fetch_sessions');
 
 
     // route users

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Degree;
+use App\Models\Academic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DegreeController extends Controller
+class AcademicController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,13 @@ class DegreeController extends Controller
      */
     public function index(Request $request)
     {
-        $rows = Degree::query();
+        $rows = Academic::query();
         // search name
         $rows->where([
-            ['name', '!=', Null],
+            ['year', '!=', Null],
             [function ($query) use ($request) {
                 if (($s = $request->search)) {
-                    $query->orWhere('name', 'LIKE', '%' . $s . '%')
+                    $query->orWhere('year', 'LIKE', '%' . $s . '%')
                         ->orWhere('khmer', 'LIKE', '%' . $s . '%')
                         ->first();
                 }
@@ -41,19 +41,18 @@ class DegreeController extends Controller
             $status = 'All Status';
         }
 
-        $degrees = $rows->simplePaginate(6);
+        $academics = $rows->simplePaginate(6);
         $counts = $rows->count();
         $count_stt = $rows->where('status','1')->count();
-        return view('degree.index', compact('degrees','counts','count_stt', 'status'));
+        return view('academic.index', compact('academics','counts','count_stt', 'status'));
     }
-
     // paginate with ajax request
-    public function fetch_degrees(Request $request)
+    public function fetch_academics(Request $request)
     {
         if($request->ajax())
         {
-            $degrees = Degree::simplePaginate(6);
-            return view('degree.table-paginate', compact('degrees'))->render();
+            $academics = Academic::simplePaginate(6);
+            return view('academic.table-paginate', compact('academics'))->render();
         }
     }
 
@@ -64,7 +63,7 @@ class DegreeController extends Controller
      */
     public function create()
     {
-        return view('degree.form');
+        return view('academic.form');
     }
 
     /**
@@ -80,17 +79,17 @@ class DegreeController extends Controller
         ]);
         $input = $request->all();
         $input['created_by'] = Auth::user()->id;
-        Degree::create($input);
-        return redirect()->route('degrees.index')->with('message','Degree created');
+        Academic::create($input);
+        return redirect()->route('academics.index')->with('message','Academic created');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Degree  $degree
+     * @param  \App\Models\Academic  $academic
      * @return \Illuminate\Http\Response
      */
-    public function show(Degree $degree)
+    public function show(Academic $academic)
     {
         //
     }
@@ -98,41 +97,40 @@ class DegreeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Degree  $degree
+     * @param  \App\Models\Academic  $academic
      * @return \Illuminate\Http\Response
      */
-    public function edit(Degree $degree)
+    public function edit(Academic $academic)
     {
-        return view('degree.form', compact('degree'));
-
+        return view('academic.form', compact('academic'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Degree  $degree
+     * @param  \App\Models\Academic  $academic
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Degree $degree)
+    public function update(Request $request, Academic $academic)
     {
         $this->Validate($request, [
             'status' => 'required'
         ]);
-        $degree['updated_by'] = Auth::user()->id;
-        $degree->update($request->all());
-        return redirect()->route('degrees.index')->with('message','Degree updated');
+        $academic['updated_by'] = Auth::user()->id;
+        $academic->update($request->all());
+        return redirect()->route('academics.index')->with('message','Academic updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Degree  $degree
+     * @param  \App\Models\Academic  $academic
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Degree $degree)
+    public function destroy(Academic $academic)
     {
-        $degree->delete();
-        return redirect()->back()->with('message','degree updated');
+        $academic->delete();
+        return redirect()->back()->with('message','Academic updated');        
     }
 }
