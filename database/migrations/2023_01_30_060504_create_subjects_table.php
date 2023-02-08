@@ -15,11 +15,16 @@ return new class extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
-            $table->string('parent')->nullable();
+            $table->integer('faculty_id')->index()->nullable();
+            $table->integer('department_id')->index()->nullable();
+            $table->integer('major_id')->index()->nullable();
+            $table->integer('semester_id')->index()->nullable();
+            $table->integer('academic_id')->index()->nullable();
             $table->string('title_en')->nullable();
             $table->string('title_kh')->nullable();
+            $table->integer('credit')->nullable();
             $table->string('shortcut')->nullable();
-            $table->integer('score_parent')->nullable();
+            $table->string('noted')->nullable();
             $table->string('status',1)->default(1);
             $table->string('trash',1)->default(0);
             $table->integer('created_by');

@@ -8,7 +8,6 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\DegreeController;
 use App\Http\Controllers\MajorsController;
 use App\Http\Controllers\FacultyController;
-use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;

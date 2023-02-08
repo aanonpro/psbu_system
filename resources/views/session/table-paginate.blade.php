@@ -3,10 +3,8 @@
         <tr>
             <th style="width: 50px">#</th>
             <th>Shift name</th>
-            <th>Name</th>
             <th>Time start</th>
-            <th>Time end</th>
-            <th>Khmer</th>
+            {{-- <th>Time end</th> --}}
             <th>Status</th>
             <th style="width: 16%">Action</th>
         </tr>
@@ -16,10 +14,8 @@
             <tr>
                 <td>{{ $key + 1 }}</td>
                 <td>{{$item->shift->name}}</td>
-                <td>{{ $item->name ?? '--' }}</td>
-                <td>{{ date('h:i A', strtotime($item->start_date)) ?? '--' }}</td>
-                <td>{{ date('h:i A', strtotime($item->end_date)) ?? '--' }}</td>
-                <td>{{ $item->khmer ?? '--' }}</td>
+                <td>{{ date('h:i A', strtotime($item->start_date)) ?? '--' }} - {{ date('h:i A', strtotime($item->end_date)) ?? '--' }}</td>
+                {{-- <td>{{ date('h:i A', strtotime($item->end_date)) ?? '--' }}</td> --}}
 
                 <td>
                     @if ($item->status == 1)

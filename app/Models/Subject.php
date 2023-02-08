@@ -10,6 +10,7 @@ class Subject extends Model
     use HasFactory;
     protected $table = 'subjects';
     protected $fillable =[
-        'parent','title_en','title_kh','shortcut','score_parent','status','trash','created_by','updated_by',
+        'faculty_id','department_id','major_id','semester_id','academic_id','title_en','title_kh',
+        'credit','noted','shortcut','status','trash','created_by','updated_by',
     ];
 }

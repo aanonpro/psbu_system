@@ -35,13 +35,188 @@
                                 @endif
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">{{ __('Parent') }} </label>
+                                    <label class="col-sm-2 col-form-label">Faculty type <span
+                                            class="text-danger">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="parent"
-                                        @if (isset($subject)) value="{{ $subject->parent }}" @endif placeholder="Parent" autofocus>
+                                        <div class="form-group">
+                                            <select class="form-control select2" name="status" style="width: 100%;">
+                                                <option value="" disabled selected>---</option>
+                                                @if (isset($subject))
+                                                    @foreach ($faculties as $item)
+                                                        <option value="{{$item->id}}"{{ $subject->faculty_id == $item->id ? 'selected' : '' }}>
+                                                            {{ $item->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @else
+                                                    @forelse ($faculties as $item )
+                                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                                    @empty
+                                                        <option value="" disabled>No faculties available</option>
+                                                    @endforelse
+                                                @endif                                             
+                                             
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Department type <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <select class="form-control select2" name="status" style="width: 100%;">
+                                                <option value="" disabled selected>---</option>
+                                                @if (isset($subject))
+                                                    @foreach ($departments as $item)
+                                                        <option value="{{$item->id}}"{{ $subject->department_id == $item->id ? 'selected' : '' }}>
+                                                            {{ $item->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @else
+                                                    @forelse ($departments as $item )
+                                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                                    @empty
+                                                        <option value="" disabled>No department available</option>
+                                                    @endforelse
+                                                @endif                                             
+                                             
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Majors type <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <select class="form-control select2" name="status" style="width: 100%;">
+                                                <option value="" disabled selected>---</option>
+                                                @if (isset($subject))
+                                                    @foreach ($majors as $item)
+                                                        <option value="{{$item->id}}"{{ $subject->majors_id == $item->id ? 'selected' : '' }}>
+                                                            {{ $item->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @else
+                                                    @forelse ($majors as $item )
+                                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                                    @empty
+                                                        <option value="" disabled>No majors available</option>
+                                                    @endforelse
+                                                @endif                                             
+                                             
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Semester <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <select class="form-control" name="status" style="width: 100%;">
+                                                <option value="" disabled selected>---</option>
+                                                @if (isset($subject))
+                                                    @foreach ($semesters as $item)
+                                                        <option value="{{$item->id}}"{{ $subject->semester_id == $item->id ? 'selected' : '' }}>
+                                                            {{ $item->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @else
+                                                    @forelse ($semesters as $item )
+                                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                                    @empty
+                                                        <option value="" disabled>No semesters available</option>
+                                                    @endforelse
+                                                @endif       
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Academic <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <select class="form-control" name="status" style="width: 100%;">
+                                                <option value="" disabled selected>---</option>
+                                                @if (isset($subject))
+                                                    @foreach ($academics as $item)
+                                                        <option value="{{$item->id}}"{{ $subject->academic_id == $item->id ? 'selected' : '' }}>
+                                                            {{ $item->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @else
+                                                    @forelse ($academics as $item )
+                                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                                    @empty
+                                                        <option value="" disabled>No academics available</option>
+                                                    @endforelse
+                                                @endif       
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Subjects Section<span
+                                        class="text-danger">*</span> </label>
+                                    <div class="col-sm-10">
+                                        <table class="table table-bordered">
+                                            <thead class=" bg-primary">
+                                                <tr>
+                                                    <th>Name en</th>
+                                                    <th>Name kh</th>
+                                                    <th>ShortCut</th>
+                                                    <th >Credit</th>
+                                                    <th>Noted</th>
+                                                    <th>Status</th>
+                                                    <th> 
+                                                        <a href="javascript:void(0)" class="btn btn-sm btn-success text-light addRow"><i class="fa fa-plus" aria-hidden="true"></i>
+                                                        </a>
+                                                    </th>
+                                                </tr>                                       
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="title_en"
+                                                        @if (isset($subject)) value="{{ $subject->title_en }}" @endif placeholder="Name en">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="title_kh"
+                                                        @if (isset($subject)) value="{{ $subject->title_kh }}" @endif placeholder="Name kh">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="shortcut"
+                                                        @if (isset($subject)) value="{{ $subject->shortcut }}" @endif placeholder="Shortcut">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="credit"
+                                                        @if (isset($subject)) value="{{ $subject->credit }}" @endif placeholder="Credit">
+                                                    </td>
+                                                    <td>
+                                                        <textarea class="form-control" name="noted" rows="2" placeholder="(Optional)"> 
+                                                        @if (isset($subject)) {{ $subject->noted }} @endif </textarea>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-select" name="status" style="width: 100%;">
+                                                            <option value="" disabled selected>Choose Status</option>
+                                                            <option value="1"@if (isset($subject)) {{ $subject->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option>
+                                                            <option value="0"@if (isset($subject)) {{ $subject->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:void(0)" class="btn btn-sm btn-danger text-light deleteRow"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                                {{-- <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">{{ __('Name') }} </label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="title_en"
@@ -82,7 +257,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                              <!-- /.card-body -->
                              <div class="card-footer">
                                 <button type="submit" class="btn btn-success "> {{isset($subject) ? 'Update':'Publish' }}</button>
@@ -110,3 +285,48 @@
         @endsection
     @endforeach
 @endif
+@section('script')
+
+<script>
+    $(document).ready(function(){
+        $('thead').on('click','.addRow', function(){
+            var tr = "<tr>"+
+
+                        "<td><input type='text' class='form-control' name='title_en'"+
+                            "@if (isset($subject)) value=' $subject->title_en ' @endif placeholder='Name en'>"+
+                        "</td>"+
+                        "<td><input type='text' class='form-control' name='title_kh'"+
+                            "@if (isset($subject)) value=' $subject->title_kh' @endif placeholder='Name kh'>"+
+                        "</td>"+
+                        "<td><input type='text' class='form-control' name='shortcut'"+
+                           "@if (isset($subject)) value=' $subject->shortcut ' @endif placeholder='Shortcut'>"+
+                        "</td>"+
+                        "<td><input type='text' class='form-control' name='credit'"+
+                            "@if (isset($subject)) value=' $subject->credit ' @endif placeholder='Credit'>"+
+                        "</td>"+
+                        "<td><textarea class='form-control' name='noted' rows='2' placeholder='(Optional)'>"
+                            "@if (isset($subject)) $subject->noted @endif </textarea>"+
+                        "</td>"+
+                        "<td>"+
+                            "<select class='form-select' name='status' style='width: 100%;'>"+
+                              "  <option value='' disabled selected>Choose Status</option>"+
+                                "<option value='1' @if (isset($subject)) $subject->status == '1' ? 'selected' : ''  @endif>{{__('Active')}}</option>"+
+                                "<option value='0' @if (isset($subject)) $subject->status == '0' ? 'selected' : ''  @endif>{{__('Inactive')}}</option>"+
+                           " </select>"+
+                        "</td>"+
+                        "<td>"+
+                            "<a href='javascript:void(0)' class='btn btn-sm btn-danger text-light deleteRow'><i class='fa fa-minus' aria-hidden='true'></i></a>"+
+                        "</td>"+
+
+                    "</tr>"+
+
+            $('tbody').append(tr);
+        });
+
+        $('tbody').on('click', '.deleteRow', function(){
+            $(this).parent().parent().remove();
+        });
+    });
+</script>
+
+@endsection

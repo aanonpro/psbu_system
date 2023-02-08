@@ -48,6 +48,30 @@
                                         @if (isset($shift)) value="{{$shift->khmer}}" @endif  placeholder="name kh">
                                     </div>
                                 </div>
+                                {{-- <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Session<span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <div class="form-group">
+                                            <select class="form-control" name="session_id" style="width: 100%;">
+                                                <option value="" disabled selected>Choose Status</option>
+                                                @if (isset($shift)) 
+                                                    @foreach ($sessions as $item)
+                                                        <option value="{{$item->id}}" >
+                                                            sdfd
+                                                            {{date('h:i A', strtotime($item->start_date))}} - {{date('h:i A', strtotime($item->end_date))}} 
+                                                        </option>          
+                                                    @endforeach
+                                                @else
+                                                    @foreach ($sessions as $item)
+                                                        <option value="{{$item->id}}">{{date('h:i A', strtotime($item->start_date))}} - {{date('h:i A', strtotime($item->end_date))}}  </option>          
+                                                    @endforeach
+                                                @endif
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> --}}
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">{{ __('Stutus') }} <span
                                             class="text-danger">*</span></label>

@@ -139,8 +139,8 @@
                 </li>
 
                  {{-- set up  --}}
-                <li class="nav-item {{  Request::is('sessions*') ||  Request::is('academics*') || Request::is('semesters*') ? 'menu-open active':'' }}">
-                    <a href="#" class="nav-link {{ Request::is('sessions*') || Request::is('academics*') || Request::is('semesters*') ? 'active':'' }}">
+                <li class="nav-item {{ Request::is('subjects*') || Request::is('sessions*') ||  Request::is('academics*') || Request::is('semesters*') ? 'menu-open active':'' }}">
+                    <a href="#" class="nav-link {{ Request::is('subjects*') || Request::is('sessions*') || Request::is('academics*') || Request::is('semesters*') ? 'active':'' }}">
                         <i class="fa fa-cogs" aria-hidden="true"></i>
                         <p style="padding-left: 20px">
                             Setups
@@ -183,12 +183,20 @@
                             </a>
                         </li>
                     </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item ">
+                            <a href="{{ route('subjects.index')}}" class="nav-link {{ Request::is('subjects*') ? 'active':'' }}">
+                                <i class="fa fa-file-pdf-o pl-3" aria-hidden="true"></i>
+                                <p class="pl-3">{{__('Subjects')}}</p>
+                            </a>
+                        </li>
+                    </ul>
                   
                 </li>
 
                 {{-- students  --}}
-                <li class="nav-item {{ Request::is('students*') || Request::is('subjects*') ? 'menu-open active':'' }}">
-                    <a href="#" class="nav-link  {{ Request::is('subjects*') || Request::is('students/lists') || Request::is('students/reports') || Request::is('students/create') ? 'active':'' }}">
+                <li class="nav-item {{ Request::is('students*') ? 'menu-open active':'' }}">
+                    <a href="#" class="nav-link  {{Request::is('students/lists') || Request::is('students/reports') || Request::is('students/create') ? 'active':'' }}">
                         <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                         <p style="padding-left: 20px">
                             {{__('Students')}}
@@ -204,11 +212,7 @@
                             <a href="{{url('students/reports')}}" class="nav-link  {{ Request::is('students/reports') ? 'active':'' }}">
                                 <i class="fa fa-file-pdf-o pl-3" aria-hidden="true"></i>
                                 <p class="pl-3">{{__('Student Reports')}}</p>
-                            </a>
-                            <a href="{{ route('subjects.index')}}" class="nav-link {{ Request::is('subjects*') ? 'active':'' }}">
-                                <i class="fa fa-file-pdf-o pl-3" aria-hidden="true"></i>
-                                <p class="pl-3">{{__('Subjects')}}</p>
-                            </a>
+                            </a>                          
                         </li>
                     </ul>
                 </li>

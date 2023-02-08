@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Academic;
+use App\Models\Majors;
+use App\Models\faculty;
 use App\Models\Subject;
+use App\Models\Semester;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,19 +22,14 @@ class SubjectController extends Controller
     {
         $rows=Subject::query();
         // search name
-        $rows->where([
-            ['parent', '!=', Null],
-            [function ($query) use ($request) {
-                if (($s = $request->search)) {
-                    $query->orWhere('parent', 'LIKE', '%' . $s . '%')
-                        ->orWhere('title_en', 'LIKE', '%' . $s . '%')
-                        ->orWhere('title_kh', 'LIKE', '%' . $s . '%')
-                        ->orWhere('shortcut', 'LIKE', '%' . $s . '%')
-                        ->orWhere('score_parent', 'LIKE', '%' . $s . '%')
-                        ->first();
-                }
-            }]
-        ]);
+        if($request->search){
+    
+            $rows->orWhere('title_en', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('title_kh', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('shortcut', 'LIKE', '%' .$request->search. '%')
+                ->first();
+           
+        }
         // search with button selection
         if ($request->status == 'active') {
             $rows->where('status',1);
@@ -66,7 +66,12 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        return view('subject.form');
+        $faculties = faculty::all();
+        $departments = Department::all();
+        $majors = Majors::all();
+        $semesters= Semester::all();
+        $academics = Academic::all();
+        return view('subject.form',compact('faculties', 'departments', 'majors','semesters','academics'));
     }
 
     /**
