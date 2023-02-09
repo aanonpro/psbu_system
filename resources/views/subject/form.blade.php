@@ -42,7 +42,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label"><span class="f-khmer">មហាវិទ្យាល័យ</span> / Faculty <span
                                             class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <select class="form-control select2" name="faculty_id" style="width: 100%;">
                                                 <option value="" disabled selected>Select Faculty</option>
@@ -56,17 +56,16 @@
                                                     @foreach ($faculties as $item )
                                                         <option value="{{$item->id}}">{{$item->name}}</option>
                                                     @endforeach
-                                                      
-                                                @endif                                             
-                                             
+
+                                                @endif
+
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
+
                                     <label class="col-sm-2 col-form-label"><span class="f-khmer">ដឺប៉ាតេម៉ង់</span> / Department <span
-                                            class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
+                                        class="text-danger">*</span></label>
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <select class="form-control select2" name="department_id" style="width: 100%;">
                                                 <option value="" disabled selected>Select Department</option>
@@ -80,17 +79,19 @@
                                                     @foreach ($departments as $item )
                                                         <option value="{{$item->id}}">{{$item->name}}</option>
                                                     @endforeach
-                                                       
-                                                @endif                                             
-                                             
+
+                                                @endif
+
                                             </select>
                                         </div>
                                     </div>
+
                                 </div>
+
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label"><span class="f-khmer">ជំនាញ</span> / Majors <span
                                             class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <select class="form-control select2" name="major_id" style="width: 100%;">
                                                 <option value="" disabled selected>Select Majors</option>
@@ -104,19 +105,18 @@
                                                     @foreach ($majors as $item )
                                                         <option value="{{$item->id}}">{{$item->name}}</option>
                                                     @endforeach
-                                                        
-                                                @endif                                             
-                                             
+
+                                                @endif
+
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
+
                                     <label class="col-sm-2 col-form-label"><span class="f-khmer">ឆមាស</span> / Semester <span
-                                            class="text-danger">*</span></label>
-                                    <div class="col-sm-10">
+                                        class="text-danger">*</span></label>
+                                    <div class="col-sm-4">
                                         <div class="form-group">
-                                            <select class="form-control" name="semester_id" style="width: 100%;">
+                                            <select class="form-select" name="semester_id" style="width: 100%;">
                                                 <option value="" disabled selected>Select Semester</option>
                                                 @if (isset($subject))
                                                     @foreach ($semesters as $item)
@@ -128,8 +128,7 @@
                                                     @foreach ($semesters as $item )
                                                         <option value="{{$item->id}}">{{$item->name}}</option>
                                                     @endforeach
-                                                       
-                                                @endif       
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -139,7 +138,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-10">
                                         <div class="form-group">
-                                            <select class="form-control" name="academic_id" style="width: 100%;">
+                                            <select class="form-select" name="academic_id" style="width: 100%;">
                                                 <option value="" disabled selected>Select Academic</option>
                                                 @if (isset($subject))
                                                     @foreach ($academics as $item)
@@ -151,8 +150,8 @@
                                                     @foreach ($academics as $item )
                                                         <option value="{{$item->id}}">{{$item->year}}</option>
                                                     @endforeach
-                                                       
-                                                @endif       
+
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -165,14 +164,14 @@
                                         <table class="table table-bordered">
                                             <thead class=" bg-dark">
                                                 <tr>
-                                                    <th style="width: 300px;">Name en</th>
-                                                    <th style="width: 300px;">Name kh</th>
+                                                    <th>Name en</th>
+                                                    <th>Name kh</th>
                                                     <th>ShortCut</th>
                                                     <th >Credit</th>
                                                     <th>Noted</th>
                                                     <th>Status</th>
                                                     <th> Actions</th>
-                                                </tr>                                       
+                                                </tr>
                                             </thead>
                                             <tbody id="subjectAdd">
                                                 <tr>
@@ -185,7 +184,7 @@
                                                             <option value="1"selected @if (isset($subject)) {{ $subject->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option>
                                                             <option value="0"@if (isset($subject)) {{ $subject->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
                                                         </select></td>
-                                                    <th> 
+                                                    <th>
                                                         <a href="javascript:void(0)" class="btn btn-sm btn-success text-light addRow"><i class="fa fa-plus" aria-hidden="true"></i></a>
                                                     </th>
                                                 </tr>
@@ -238,7 +237,7 @@
                                         $('#subjectAdd').append(tr);
                                     });
 
-       
+
 
         $('tbody').on('click', '.deleteRow', function(){
             $(this).parent().parent().remove();
