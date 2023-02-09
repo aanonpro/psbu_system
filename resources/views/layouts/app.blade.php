@@ -35,8 +35,11 @@
 
     {{-- font khmer google  --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Battambang:wght@100;300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@100;300&display=swap" rel="stylesheet">
+
+    {{-- date range picker  --}}
+    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}}
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -76,6 +79,13 @@
     <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
     <!-- Select2 -->
     <script src="{{asset('admin/plugins/select2/js/select2.full.min.js')}}"></script>
+    
+    {{-- date range picker script  --}}
+    {{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> --}}
+
+  
 
 @yield('script')
 <script>

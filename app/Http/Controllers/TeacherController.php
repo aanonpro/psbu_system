@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
+use App\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use App\Http\Requests\FormTeacehrRequest;
 
 class TeacherController extends Controller
 {
@@ -17,16 +20,12 @@ class TeacherController extends Controller
     {
         $rows=Teacher::query();
          // search name
-         $rows->where([
-            ['teacher_name_en', '!=', Null],
-            [function ($query) use ($request) {
-                if (($s = $request->search)) {
-                    $query->orWhere('teacher_name_en', 'LIKE', '%' . $s . '%')
-                        ->orWhere('teacher_name_kh', 'LIKE', '%' . $s . '%')
-                        ->first();
-                }
-            }]
-        ]);
+        if($request->search){
+            $rows->orWhere('name_en', 'LIKE', '%' .$request->search. '%')
+                ->orWhere('name_kh', 'LIKE', '%' . $request->search. '%')
+                ->first();
+        }
+         
         // search with button selection
         if ($request->status == 'active') {
             $rows->where('status',1);
@@ -62,7 +61,8 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        return view('teacher.form');
+        $positions = Position::where('status','1')->get();
+        return view('teacher.form',compact('positions'));
     }
 
     /**
@@ -71,13 +71,18 @@ class TeacherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormTeacehrRequest $request)
     {
-        $this->Validate($request, [
-            'status' => 'required'
-        ]);
         $input = $request->all();
         $input['created_by'] = Auth::user()->id;
+
+        if($request->hasfile('image')){
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file ->move('uploads/teacher', $filename);
+            $input['image'] = $filename;
+        }
+
         Teacher::create($input);
         return redirect()->route('teachers.index')->with('message','Teacher created');
     }
@@ -101,7 +106,8 @@ class TeacherController extends Controller
      */
     public function edit(Teacher $teacher)
     {
-        return view('teacher.form',compact('teacher'));
+        $positions = Position::where('status','1')->get();
+        return view('teacher.form',compact('teacher','positions'));
     }
 
     /**
@@ -111,13 +117,26 @@ class TeacherController extends Controller
      * @param  \App\Models\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(FormTeacehrRequest $request, Teacher $teacher)
     {
-        $this->Validate($request, [
-            'status' => 'required'
-        ]);
+        $input = $request->all();
         $teacher['updated_by'] = Auth::user()->id;
-        $teacher->update($request->all());
+
+        if($request->hasfile('image')){
+
+            $destination = 'uploads/teacher/'. $teacher->image;
+            if(File::exists($destination)){
+                File::delete($destination);
+            }
+           
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file ->move('uploads/teacher', $filename);
+            $input['image'] = $filename;
+            $teacher->update($input);
+        }
+
+        $teacher->update($input);
         return redirect()->route('teachers.index')->with('message','Teachers updated');
     }
 
@@ -129,7 +148,18 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-        $teacher->delete();
-        return redirect()->route('teachers.index')->with('message','Teacher deleted');
+        if($teacher){
+            $destination = 'uploads/teacher/' . $teacher->image;
+            if(File::exists($destination)){
+                File::delete($destination);
+            }
+            $teacher->delete();
+            return redirect()->route('teachers.index')->with('message','teacher deleted ');
+        }else{
+            return redirect()->route('teachers.index')->with('message','Teacher  Not Found ');
+        }
+
+        // $teacher->delete();
+        // return redirect()->route('teachers.index')->with('message','Teacher deleted');
     }
 }

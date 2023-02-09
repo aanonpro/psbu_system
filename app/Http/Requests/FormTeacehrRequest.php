@@ -24,20 +24,12 @@ class FormTeacehrRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'teacher_id' => [
-                'required',
-                'integer'
-            ],
-            'position_id' => [
-                'required',
-                'integer',
-            ],
             'status' => [
                 'required'
             ],
             'image' => [
                 'nullable',
-                'mimes:jpeg,jpg,png'
+                'mimes:jpeg,png,jpg,gif,webp,svg|max:2048'
             ],
         ];
         return $rules;

@@ -10,6 +10,8 @@ class Teacher extends Model
     use HasFactory;
     protected $table= 'teachers';
     protected $fillable = [
-        'teacher_name_en', 'teacher_name_kh','status','trash','created_by','updated_by'
+        'position_id','code','sex','dob','pob','nationlity','email','phone',
+        'address','expired_date','noted','image',
+        'name_en', 'name_kh','status','trash','created_by','updated_by'
     ];
 }

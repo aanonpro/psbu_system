@@ -55,6 +55,10 @@
                                 @include('teacher.table-paginate')
                             </div>
                         </div>
+
+                        {{-- <div id="show-teachers">
+                            @include('teacher.table-paginate')
+                        </div> --}}
                         <!-- /.card -->
                     </div>
                 </div>
