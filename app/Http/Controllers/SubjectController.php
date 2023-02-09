@@ -82,12 +82,36 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        $this->Validate($request, [
-            'status' => 'required'
-        ]);
-        $input = $request->all();
-        $input['created_by'] = Auth::user()->id;
-        Subject::create($input);
+
+        $faculty_id = $request->faculty_id;
+        $department_id = $request->department_id;
+        $major_id = $request->major_id;
+        $semester_id = $request->semester_id;
+        $academic_id = $request->academic_id;
+        $title_en = $request->title_en;
+        $title_kh = $request->title_kh;
+        $credit = $request->credit;
+        $shortcut = $request->shortcut;
+        $noted = $request->noted;
+        $status = $request->status;
+
+        for($i=0; $i < count($title_en); $i++){
+            $input = [
+                'faculty_id' => $faculty_id,
+                'department_id' => $department_id,
+                'major_id' => $major_id,
+                'semester_id' => $semester_id,
+                'academic_id' => $academic_id,
+                'title_en' => $title_en[$i],
+                'title_kh' => $title_kh[$i],
+                'credit' => $credit[$i],
+                'shortcut' => $shortcut[$i],
+                'noted' => $noted[$i],
+                'status' => $status[$i],
+            ];
+            $input['created_by'] = Auth::user()->id;
+            Subject::create($input);
+        }
         return redirect()->route('subjects.index')->with('message','Subject created');
     }
 
