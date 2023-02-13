@@ -12,8 +12,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-12">
                         <h1 class="m-0">
-                            <a href="{{ route('majors.index') }}" class="btn btn-danger text-light "><i
-                                class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+                            <a href="{{ route('majors.index') }}" class="btn btn-danger text-light ">Back</a>
                         </h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -94,7 +93,7 @@
                             </div>
                              <!-- /.card-body -->
                              <div class="card-footer">
-                                <button type="submit" class="btn btn-success"> {{isset($major) ? 'Update':'Publish' }}</button>
+                                <button type="submit" class="btn btn-info"> {{isset($major) ? 'Update':'Publish' }}</button>
                               </div>
                               <!-- /.card-footer -->
                             </form>

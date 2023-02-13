@@ -3,20 +3,36 @@
     <thead>
         <tr>
             <th style="width: 10px">#</th>
-            <th>Teacher name en</th>
-            <th>Teacher name kh</th>
-            <th>Date</th>
+            <th>Code#</th>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Position</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Email</th>
             <th>Status</th>
             <th style="width: 200px">Action</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="show_position">
         @forelse ($teachers as $key => $item)
             <tr>
                 <td>{{ $key + 1 }}</td>
-                <td>{{ $item->teacher_name_en ?? '--' }}</td>
-                <td>{{ $item->teacher_name_kh ?? '--' }}</td>
-                <td>{{ $item->created_at }}</td>
+                <td>{{$item->code ?? '--'}}</td>
+                <td>
+                    @if($item->image)
+                    <img src="{{ url('uploads/teacher/'.$item->image) }}" width="40px" style="border-radius: 50%; ">
+                    @else
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjLE9Ylr4f4BXaJfXkLC0YGydJDZVQoxK0Dg&usqp=CAU" width="40px" style="border-radius: 50%; ">
+                    @endif
+                </td>
+                <td>{{ $item->name_en ?? '--' }}</td>
+                <td>{{ $item->sex ?? '--' }}</td>
+                <td>{{ $item->position->name ?? '--' }}</td>
+                <td>{{ $item->address ?? '--' }}</td>
+                <td>{{ $item->phone ?? '--' }}</td>
+                <td>{{ $item->email ?? '--' }}</td>
 
                 <td>
                     @if ($item->status == 1)
@@ -29,7 +45,7 @@
                     <form action="{{ route('teachers.destroy', $item->id) }}"
                         method="POST">
                         <a href="{{ route('teachers.show', $item->id) }}"
-                            class=" btn btn-sm btn-success text-light"><i class="fa fa-eye"
+                            class=" btn btn-sm btn-info text-light"><i class="fa fa-eye"
                                 aria-hidden="true"></i></a>
                         <a href="{{ route('teachers.edit', $item->id) }}"
                             class=" btn btn-sm btn-warning"><i class="fa fa-pencil-square-o"
@@ -43,7 +59,7 @@
 
             </tr>
         @empty
-            <td colspan="6" class="text-center py-3">No Data Available</td>
+            <td colspan="11" class="text-center py-3">No Data Available</td>
         @endforelse
 
     </tbody>

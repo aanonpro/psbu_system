@@ -5,96 +5,96 @@
 @section('content')
 <style>
     
-label.img {
-	display: block;
-	width: 60vw;
-	max-width: 300px;
-	margin: 0 auto;
-	background-color: rgb(34, 155, 74);
-	border-radius: 2px;
-	font-size: 1em;
-	line-height: 2.5em;
-	text-align: center;
-    color: #fff;
-    cursor: pointer;
-}
-
-label.img:hover {
-	background-color: cornflowerblue;
-}
-
-label.img:active {
-	background-color: mediumaquamarine;
-}
-
-input.up-img {
-	border: 0;
-    clip: rect(1px, 1px, 1px, 1px);
-    height: 1px; 
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-   
-}
-
-/* body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	width: 100vw;
-	overflow: hidden;
-	background-color: black;
-} */
-
-    .box-img{
-        width: 100px;
-        height: 100px;
-        /* border: 1px solid #ccc; */
-        /* background-image: url("{{ url('uploads/upload.png') }}"); */
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-        position: relative !important;
-    }
-    .box-img input{
-        width: 120px;
-        height: 120px;
-        opacity: 0;
-        align-content: center;
+    label.img {
+        display: block;
+        width: 60vw;
+        max-width: 300px;
+        margin: 0 auto;
+        background-color: rgb(43, 161, 190);
+        border-radius: 2px;
+        font-size: 1em;
+        line-height: 2.5em;
+        text-align: center;
+        color: #fff;
         cursor: pointer;
     }
-    .box-img img{
-        width: 140px;
-        height: 140px;
-        align-content: center;
-        /* cursor: pointer; */
+
+    label.img:hover {
+        background-color: cornflowerblue;
     }
-    .del-img-box{
-        width: 20px;
-        height: 20px;
-        background-image: url("{{ url('uploads/close.png') }}");
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-        position: absolute !important;
-        top: -10px;
-        right: -10px;
-        cursor: pointer;
+
+    label.img:active {
+        background-color: mediumaquamarine;
     }
-    .loading{
-        width: 20px;
-        height: 20px;
-        background-image: url("{{ url('uploads/loading.gif') }}");
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-        position: absolute !important;
-        top: 40px;
-        left: 40px;
-    }   
+
+    input.up-img {
+        border: 0;
+        clip: rect(1px, 1px, 1px, 1px);
+        height: 1px; 
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    
+    }
+
+    /* body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        background-color: black;
+    } */
+
+        .box-img{
+            width: 100px;
+            height: 100px;
+            /* border: 1px solid #ccc; */
+            /* background-image: url("{{ url('uploads/upload.png') }}"); */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            position: relative !important;
+        }
+        .box-img input{
+            width: 120px;
+            height: 120px;
+            opacity: 0;
+            align-content: center;
+            cursor: pointer;
+        }
+        .box-img img{
+            width: 140px;
+            height: 140px;
+            align-content: center;
+            /* cursor: pointer; */
+        }
+        .del-img-box{
+            width: 20px;
+            height: 20px;
+            background-image: url("{{ url('uploads/close.png') }}");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            position: absolute !important;
+            top: -10px;
+            right: -10px;
+            cursor: pointer;
+        }
+        .loading{
+            width: 20px;
+            height: 20px;
+            background-image: url("{{ url('uploads/loading.gif') }}");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            position: absolute !important;
+            top: 40px;
+            left: 40px;
+        }   
 
 </style>
     <div class="content-wrapper">
@@ -104,8 +104,7 @@ input.up-img {
                 <div class="row mb-2">
                     <div class="col-sm-12">
                         <h1 class="m-0">
-                            <a href="{{ route('teachers.index') }}" class="btn btn-danger text-light "><i
-                                class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+                            <a href="{{ route('teachers.index') }}" class="btn btn-danger text-light ">{{isset($teacher)? 'Cancel':'Back'}}</a>
                         </h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -145,10 +144,9 @@ input.up-img {
                                             <input type="email" class="form-control"@if(isset($teacher)) value="{{$teacher->email}}" @endif name="email" >                                            
                                         </div>
                                         <div class="form-group">
-                                            <label>Describe</label>
-                                            <textarea name="noted" class="form-control" placeholder="Say something ( Optional )" rows="7">
-                                                @if(isset($teacher)){{$teacher->noted}} @endif
-                                            </textarea>
+                                            <label for="inputDescription">Describe</label>
+                                            <textarea id="inputDescription" name="noted" class="form-control" rows="7">  @if(isset($teacher)){{$teacher->noted}} @endif</textarea>
+                                           
                                         </div>
                                     </div>
                                     {{-- end section 1 --}}
@@ -261,7 +259,7 @@ input.up-img {
                             </div>
                              <!-- /.card-body -->
                              <div class="card-footer">
-                                <button type="submit"  class="btn bg-success "> {{isset($teacher) ? 'Update':'Publish' }}</button>
+                                <button type="submit"  class="btn bg-info "> {{isset($teacher) ? 'Update':'Publish' }}</button>
                               </div>
                               <!-- /.card-footer -->
                             </form>

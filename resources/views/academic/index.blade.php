@@ -8,10 +8,10 @@
                 <div class="row mb-2">
                     <div class="col-sm-12">
                         <h1 class="m-0">
-                            <a href="{{ route('academics.create') }}" class="btn btn-outline-success  text-success  "><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+                            <a href="{{ route('academics.create') }}" class="btn btn-outline-info  text-info  "><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
                                <!-- Example single danger button -->
                             <div class="btn-group">
-                                <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{$status}}
                                 </button>
                                 <ul class="dropdown-menu">
@@ -23,7 +23,7 @@
                             </div>
                         </h1>
                         <div class="mt-3">
-                            <span>All academics ({{ $counts }}) | Public : <span class="text-success">({{$count_stt}})</span></span>
+                            <span>All academics ({{ $counts }}) | Public : <span class="text-info">({{$count_stt}})</span></span>
                         </div>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -44,7 +44,7 @@
                                         <div class="d-flex">
                                             <input class="form-control" value="{{ \Request::get('search') }}" title="type to search"
                                             name="search" id="search" type="text" placeholder="Search...">
-                                            <button class="btn btn-success" type="submit" title="search"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                            <button class="btn btn-info" type="submit" title="search"><i class="fa fa-search" aria-hidden="true"></i></button>
                                         </div>
                                     </div>
                                 </form>

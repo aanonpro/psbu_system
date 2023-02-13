@@ -186,8 +186,16 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item ">
                             <a href="{{ route('subjects.index')}}" class="nav-link {{ Request::is('subjects*') ? 'active':'' }}">
-                                <i class="fa fa-file-pdf-o pl-3" aria-hidden="true"></i>
-                                <p class="pl-3">{{__('Subjects')}}</p>
+                                <i class="fa fa-tasks pl-3" aria-hidden="true"></i>
+                                <p class="pl-3">Subjects</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item ">
+                            <a href="{{ route('schedules.index')}}" class="nav-link {{ Request::is('schedules*') ? 'active':'' }}">
+                                <i class="fa fa-calendar pl-3" aria-hidden="true"></i>
+                                <p class="pl-3">Schedules</p>
                             </a>
                         </li>
                     </ul>

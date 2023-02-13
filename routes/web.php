@@ -13,6 +13,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AcademicController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\TeacherDetailController;
@@ -86,6 +87,9 @@ Route::middleware(['auth','isAdmin'])->group(function(){
 //
     Route::resource('sessions', SessionController::class);
     Route::post('sessions/fetch_sessions', [SessionController::class, 'fetch_sessions'])->name('sessions.fetch_sessions');
+
+    Route::resource('schedules', ScheduleController::class);
+    Route::post('schedules/fetch_schedules', [ScheduleController::class, 'fetch_schedules'])->name('schedules.fetch_schedules');
 
 
     // route users

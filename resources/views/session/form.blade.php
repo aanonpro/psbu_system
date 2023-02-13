@@ -117,7 +117,7 @@
                             </div>
                              <!-- /.card-body -->
                              <div class="card-footer">
-                                <button type="submit" class="btn btn-success "> {{isset($session) ? 'Update':'Publish' }}</button>
+                                <button type="submit" class="btn btn-info "> {{isset($session) ? 'Update':'Publish' }}</button>
                               </div>
                               <!-- /.card-footer -->
                             </form>

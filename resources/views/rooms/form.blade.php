@@ -107,7 +107,7 @@
                             </div>
                              <!-- /.card-body -->
                              <div class="card-footer">
-                                <button type="submit" class="btn btn-success"  id="success"> {{isset($room) ? 'Update':'Publish' }}</button>
+                                <button type="submit" class="btn btn-info"  id="success"> {{isset($room) ? 'Update':'Publish' }}</button>
                               </div>
                               <!-- /.card-footer -->
                             </form>

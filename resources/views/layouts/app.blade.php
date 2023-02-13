@@ -38,9 +38,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@100;300&display=swap" rel="stylesheet">
 
-    {{-- date range picker  --}}
-    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}}
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -81,11 +78,8 @@
     <script src="{{asset('admin/plugins/select2/js/select2.full.min.js')}}"></script>
     
     {{-- date range picker script  --}}
-    {{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> --}}
-
-  
+    {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/> --}}
 
 @yield('script')
 <script>
@@ -97,6 +91,26 @@
         $('.select2bs4').select2({
         theme: 'bootstrap4'
         })
+
+        //date range dob        
+        // var dob_input=$('input[name="dob"]'); //our date input has the name "date"
+        // var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        // dob_input.datepicker({
+        //     format: 'mm-dd-yyyy',
+        //     container: container,
+        //     todayHighlight: true,
+        //     autoclose: true,
+        // })
+        // //date range expired        
+        // var date_input=$('input[name="expired_date"]'); //our date input has the name "date"
+        // var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        // date_input.datepicker({
+        //     format: 'mm-dd-yyyy',
+        //     container: container,
+        //     todayHighlight: true,
+        //     autoclose: true,
+        // })
+  
 
     });
 

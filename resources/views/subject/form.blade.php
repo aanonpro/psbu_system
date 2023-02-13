@@ -185,7 +185,7 @@
                                                             <option value="0"@if (isset($subject)) {{ $subject->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
                                                         </select></td>
                                                     <th>
-                                                        <a href="javascript:void(0)" class="btn btn-sm btn-success text-light addRow"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                                        <a href="javascript:void(0)" class="btn btn-sm btn-info text-light addRow"><i class="fa fa-plus" aria-hidden="true"></i></a>
                                                     </th>
                                                 </tr>
                                             </tbody>
@@ -194,7 +194,7 @@
                                 </div>
                              <!-- /.card-body -->
                              <div class="card-footer">
-                                <button type="submit" class="btn btn-success "> {{isset($subject) ? 'Update':'Publish' }}</button>
+                                <button type="submit" class="btn btn-info "> {{isset($subject) ? 'Update':'Publish' }}</button>
                               </div>
                               <!-- /.card-footer -->
                             </form>

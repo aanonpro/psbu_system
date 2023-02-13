@@ -12,8 +12,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1 class="m-0">
-                            <a href="{{ route('departments.index') }}" class="btn btn-danger text-light "><i
-                                class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+                            <a href="{{ route('departments.index') }}" class="btn btn-danger text-light ">Back</a>
                         </h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">

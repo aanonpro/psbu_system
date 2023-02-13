@@ -70,7 +70,7 @@
                             </div>
                              <!-- /.card-body -->
                              <div class="card-footer">
-                                <button type="submit" class="btn btn-success "> {{isset($position) ? 'Update':'Publish' }}</button>
+                                <button type="submit" class="btn btn-info "> {{isset($position) ? 'Update':'Publish' }}</button>
                               </div>
                               <!-- /.card-footer -->
                             </form>
