@@ -139,8 +139,8 @@
                 </li>
 
                  {{-- set up  --}}
-                <li class="nav-item {{ Request::is('subjects*') || Request::is('sessions*') ||  Request::is('academics*') || Request::is('semesters*') ? 'menu-open active':'' }}">
-                    <a href="#" class="nav-link {{ Request::is('subjects*') || Request::is('sessions*') || Request::is('academics*') || Request::is('semesters*') ? 'active':'' }}">
+                <li class="nav-item {{ Request::is('schedules*') || Request::is('subjects*') || Request::is('sessions*') ||  Request::is('academics*') || Request::is('semesters*') ? 'menu-open active':'' }}">
+                    <a href="#" class="nav-link {{ Request::is('schedules*') || Request::is('subjects*') || Request::is('sessions*') || Request::is('academics*') || Request::is('semesters*') ? 'active':'' }}">
                         <i class="fa fa-cogs" aria-hidden="true"></i>
                         <p style="padding-left: 20px">
                             Setups
