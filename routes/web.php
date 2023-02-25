@@ -9,6 +9,7 @@ use App\Http\Controllers\DegreeController;
 use App\Http\Controllers\MajorsController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AcademicController;
@@ -37,9 +38,11 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::resource('departments', DepartmentController::class);
 
     //route students
-    Route::get('students/lists', [App\Http\Controllers\StudentsController::class, 'index']);
-    Route::get('students/reports', [App\Http\Controllers\StudentsController::class, 'report']);
-    Route::get('students/create', [App\Http\Controllers\StudentsController::class, 'create']);
+    Route::resource('students', StudentController::class);
+    Route::post('students/fetch_students', [StudentController::class, 'fetch_students'])->name('students.fetch_students');
+    // Route::get('students/lists', [App\Http\Controllers\StudentsController::class, 'index']);
+    // Route::get('students/reports', [App\Http\Controllers\StudentsController::class, 'report']);
+    // Route::get('students/create', [App\Http\Controllers\StudentsController::class, 'create']);
 
     // get pdf
     Route::get('generate-pdf', [App\Http\Controllers\StudentsController::class, 'generatePDF']);

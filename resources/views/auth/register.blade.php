@@ -86,7 +86,7 @@
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
       <div class="card-header text-center">
-        <a href="/" class="h1"><b>PSBU</b> </a>
+        <a href="#!" class="h1"><b>UMS</b> </a>
       </div>
       <div class="card-body">
         {{-- <p class="login-box-msg">Sign in to start your session</p> --}}

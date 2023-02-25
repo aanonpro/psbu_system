@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('department_id')->index()->nullable();
             $table->integer('major_id')->index()->nullable();
             $table->integer('semester_id')->index()->nullable();
-            $table->integer('academic_id')->index()->nullable();
+            $table->integer('batch_id')->index()->nullable();
             $table->string('title_en')->nullable();
             $table->string('title_kh')->nullable();
             $table->integer('credit')->nullable();

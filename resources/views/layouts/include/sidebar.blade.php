@@ -29,7 +29,7 @@
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="form-inline">
                 <div class="input-group" data-widget="sidebar-search">
                   <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
@@ -39,8 +39,8 @@
                     </button>
                   </div>
                 </div>
-              </div>
-          </div>
+            </div>
+        </div> --}}
 
           <!-- SidebarSearch Form -->
 
@@ -48,6 +48,13 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
+                <li class="nav-item ">
+                    <a href="#!" class="nav-link" target="_blank">
+                        <i class="fa fa-slideshare" aria-hidden="true"></i>
+                        <p style="padding-left: 20px">Goto website</p>
+                    </a>
+                </li>
+
                 <li class="nav-item ">
                     <a href="{{url('dashboard')}}" class="nav-link {{ Request::is('dashboard') ? 'active':'' }}">
                         <i class="fa fa-tachometer" aria-hidden="true"></i>
@@ -204,23 +211,19 @@
 
                 {{-- students  --}}
                 <li class="nav-item {{ Request::is('students*') ? 'menu-open active':'' }}">
-                    <a href="#" class="nav-link  {{Request::is('students/lists') || Request::is('students/reports') || Request::is('students/create') ? 'active':'' }}">
+                    <a href="#" class="nav-link">
                         <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                         <p style="padding-left: 20px">
-                            {{__('Students')}}
+                            Student
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview ">
                         <li class="nav-item ">
-                            <a href="{{url('students')}}" class="nav-link  {{ Request::is('students') ? 'active':'' }}">
+                            <a href="{{route('students.index')}}" class="nav-link  {{ Request::is('students*') ? 'active':'' }}">
                                 <i class="fa fa-bars pl-3" aria-hidden="true"></i>
-                                <p class="pl-3">{{__('List Students')}}</p>
-                            </a>
-                            <a href="{{url('students/reports')}}" class="nav-link  {{ Request::is('students/reports') ? 'active':'' }}">
-                                <i class="fa fa-file-pdf-o pl-3" aria-hidden="true"></i>
-                                <p class="pl-3">{{__('Student Reports')}}</p>
-                            </a>                          
+                                <p class="pl-3">{{__('Students')}}</p>
+                            </a>                        
                         </li>
                     </ul>
                 </li>

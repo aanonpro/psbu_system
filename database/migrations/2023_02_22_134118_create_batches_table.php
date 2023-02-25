@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sessions', function (Blueprint $table) {
+        Schema::create('batches', function (Blueprint $table) {
             $table->id();
-            $table->integer('shift_id')->index()->nullable();
-            $table->time('start_date')->nullable();
-            $table->time('end_date')->nullable();
+            $table->string('batch_number',100)->nullable();
             $table->string('status',1)->default(1);
             $table->string('trash',1)->default(0);
             $table->integer('created_by')->default(1);
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sessions');
+        Schema::dropIfExists('batches');
     }
 };

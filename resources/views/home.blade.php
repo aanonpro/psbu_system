@@ -41,8 +41,8 @@
     <!-- icheck bootstrap -->
   <link rel="stylesheet" href="{{url('')}}/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 
-</head>
-<body class="hold-transition login-page"  id="vanta_bg">
+</head> 
+<body class="hold-transition login-page">
 
     @yield('content')
 
