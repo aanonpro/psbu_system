@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentRequest;
 use Carbon\Carbon;
 use App\Models\Batch;
 use App\Models\Shift;
 use App\Models\Degree;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -90,9 +92,21 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
-        //
+        $input = $request->all();
+        $input['created_by'] = Auth::user()->id;
+        $input['stu_id'] = $this->getStudentID();
+
+        // if($request->hasfile('image')){
+        //     $file = $request->file('image');
+        //     $filename = time() . '.' . $file->getClientOriginalExtension();
+        //     $file ->move('uploads/student', $filename);
+        //     $input['image'] = $filename;
+        // }
+
+        Student::create($input);
+        return redirect()->route('students.index')->with('message','students created');
     }
 
     /**

@@ -15,16 +15,16 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('stu_id');
-            $table->string('stu_name');
-            $table->string('stu_name_latin');
-            $table->string('stu_gender');
-            $table->date('stu_dob');
-            $table->text('stu_address');
+            $table->string('stu_id')->nullable();
+            $table->string('stu_name')->nullable();
+            $table->string('stu_name_latin')->nullable();
+            $table->string('stu_gender')->nullable();
+            $table->date('stu_dob')->nullable();
+            $table->text('stu_address')->nullable();
             $table->string('stu_phone')->unique();
             $table->string('stu_email')->nullable();
-            $table->integer('degrees_id');
-            $table->integer('shift_id');
+            $table->integer('degrees_id')->nullable();
+            $table->integer('shift_id')->nullable();
             $table->integer('batch_id')->nullable();
             $table->string('status',1)->default('1');
             $table->string('trash',1)->default('0');
