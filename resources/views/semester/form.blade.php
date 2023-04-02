@@ -54,7 +54,7 @@
                                     <div class="col-sm-10">
                                         <div class="form-group">
                                             <select class="form-control" name="status" style="width: 100%;">
-                                               <option value="" disabled selected>Choose Status </option>
+                                               {{-- <option value="" disabled selected>Choose Status </option> --}}
                                                 <option value="1"@if (isset($semester)) {{ $semester->status == '1' ? 'selected' : '' }}  @endif>{{__('Active')}}</option>
                                                 <option value="0"@if (isset($semester)) {{ $semester->status == '0' ? 'selected' : '' }}  @endif>{{__('Inactive')}}</option>
                                             </select>

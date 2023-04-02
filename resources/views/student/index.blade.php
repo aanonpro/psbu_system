@@ -22,36 +22,50 @@
                                 </ul>
                             </div>
                             <a href="{{ route('students.index') }}" class="btn btn-info text-light"><i class="fa fa-history" aria-hidden="true"></i> Reload page</a>
-          
+
                         </h1>
                         <div class="mt-3">
                             <span>All students ({{ $counts }}) | Public : <span class="text-info">({{$count_stt}})</span></span>
-                        </div>                     
+                        </div>
                     </div>
                     <div class="col-md-12 mt-4">
                         <div class="row">
                             <div class="col-md-4">
-                                {{-- <select class="form-control select2 bg-info" id="position" name="position" >
-                                    <option value="" selected disabled>Search by position...</option>
-                                    @foreach ($positions as $item)
-                                        <option value="{{ $item->id }}">
-                                            {{ $item->name }}
-                                        </option>
-                                    @endforeach
-                                </select> --}}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <select class="form-control select2 bg-info" id="degree" name="degree" >
+                                            <option value="" selected disabled>By Degree</option>
+                                            @foreach ($degrees as $item)
+                                                <option value="{{ $item->id }}">
+                                                    {{ $item->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="form-control select2 bg-info" id="shift" name="shift" >
+                                            <option value="" selected disabled>By shift</option>
+                                            @foreach ($shifts as $item)
+                                                <option value="{{ $item->id }}">
+                                                    {{ $item->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-4">
-                               
+
                             </div>
                             <div class="col-md-4">
-                                <form action="{{route('teachers.index')}}" method="GET" class="d-flex" role="search">
+                                <form action="{{route('students.index')}}" method="GET" class="d-flex" role="search">
                                     <input class="form-control d-flex" value="{{ \Request::get('search') }}" required title="type to search"
                                     name="search" id="search" type="text" placeholder="Search...">
                                     <button class="btn btn-info" type="submit" title="search"><i class="fa fa-search" aria-hidden="true"></i></button>
                                 </form>
                             </div>
                         </div>
-                       
+
                     </div>
 
 
@@ -68,8 +82,8 @@
                         <div class="card card-info card-outline">
                             <div class="card-header">
                                 <h3 class="card-title" style="text-transform: uppercase">students list</h3>
-                                
-                               
+
+
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" id="show-students">
@@ -123,46 +137,45 @@
                 }
             });
         }
-            // end pagination 
 
+        // end pagination
+        $("#degree, #shift").on('change', function(){
+        var degree = $(this).val();
+        var shift = $(this).val();
+        var _token = $("input[name=_token]").val();
+        $.ajax({
+            url: "{{route('students.index')}}",
+            type: "GET",
+            data: {_token: _token, degree: degree, shift: shift},
 
-        // $("#position").on('change', function(){
-        // var position = $(this).val();
-        // var _token = $("input[name=_token]").val();
-        // $.ajax({
-        //     url: "{{route('teachers.index')}}",
-        //     type: "GET",
-        //     data: {_token: _token, position: position},
-
-        //     success:function(data){
-        //       $("#show_position").html("");
-        //         $.each(data.teachers, function(key, item){
-        //           $("#show_position").append('<tr>\
-        //                                 <td>'+item.id+'</td>\
-        //                                 <td>'+item.code+'</td>\
-        //                                 <td> <img src="uploads/teacher/'+item.image+'" width="50px"></td>\
-        //                                 <td>'+item.name_en+'</td>\
-        //                                 <td>'+item.sex+'</td>\
-        //                                 <td>'+item.position.name+'</td>\
-        //                                 <td>'+item.address+'</td>\
-        //                                 <td>'+item.phone+'</td>\
-        //                                 <td>'+item.email+'</td>\
-        //                                 <td> <span class="badge bg-defalt text-dark"> '+((item.status) == 1 ? 'active <i class="fa fa-circle text-success" aria-hidden="true"></i>':'inactive <i class="fa fa-circle text-danger" aria-hidden="true"></i>' )+' </span></td>\
-        //                                 <td>\
-        //                                     <form action="teachers/'+item.id+'" method="POST">\
-        //                                       <a href="teachers/'+item.id+'" class=" btn btn-sm btn-success text-light"><i class="fa fa-eye" aria-hidden="true"></i></a>\
-        //                                       <a href="teachers/'+item.id+'/edit/" class=" btn btn-sm btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>\
-        //                                       @csrf\
-        //                                       @method('DELETE')\
-        //                                       <button class="btn btn-sm btn-danger "><i class="fa fa-trash-o" aria-hidden="true"></i></button>\
-        //                                     </form>\
-        //                                 </td>\
-        //                               </tr>');
-        //         });
-
-        //     }
-        //   });
-        // });
+            success:function(data){
+              $("#show_degree").html("");
+                $.each(data.students, function(key, item){
+                  $("#show_degree").append('<tr>\
+                                        <td>'+item.id+'</td>\
+                                        <td>'+item.stu_id+'</td>\
+                                        <td>'+item.stu_name+'</td>\
+                                        <td>'+item.stu_name_latin+'</td>\
+                                        <td>'+item.degree.name+'</td>\
+                                        <td>'+item.shift.name+'</td>\
+                                        <td>'+item.stu_gender+'</td>\
+                                        <td>'+item.stu_address+'</td>\
+                                        <td>'+item.stu_phone+'</td>\
+                                        <td> <span class="badge bg-defalt text-dark"> '+((item.status) == 1 ? 'active <i class="fa fa-circle text-success" aria-hidden="true"></i>':'inactive <i class="fa fa-circle text-danger" aria-hidden="true"></i>' )+' </span></td>\
+                                        <td>\
+                                            <form action="students/'+item.id+'" method="POST">\
+                                              <a href="students/'+item.id+'" class=" btn btn-sm btn-success text-light"><i class="fa fa-eye" aria-hidden="true"></i></a>\
+                                              <a href="students/'+item.id+'/edit/" class=" btn btn-sm btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>\
+                                              @csrf\
+                                              @method('DELETE')\
+                                              <button class="btn btn-sm btn-danger "><i class="fa fa-trash-o" aria-hidden="true"></i></button>\
+                                            </form>\
+                                        </td>\
+                                      </tr>');
+                });
+            }
+          });
+        });
         //end search position with ajax
     });
 </script>

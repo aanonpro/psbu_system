@@ -25,6 +25,9 @@ class FormTeacehrRequest extends FormRequest
     {
         $rules = [
             'status' => [
+                'nullable'
+            ],
+            'name_kh'=>[
                 'required'
             ],
             'image' => [

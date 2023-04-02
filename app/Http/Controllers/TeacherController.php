@@ -37,10 +37,10 @@ class TeacherController extends Controller
 
          // ajaxy search dropdown
         if($request->ajax()){
-            $teachers = $rows->where(['position_id'=>$request->position],)->get()->load('position');          
+            $teachers = $rows->where(['position_id'=>$request->position],)->get()->load('position');
             return response()->json(['teachers' => $teachers]);
         }
-         
+
         // search with button selection
         if ($request->status == 'active') {
             $rows->where('status',1);
@@ -76,8 +76,9 @@ class TeacherController extends Controller
      */
     public function create()
     {
+        $id = $this->getTeacherID();
         $positions = Position::where('status','1')->get();
-        return view('teacher.form',compact('positions'));
+        return view('teacher.form',compact('positions','id'));
     }
 
     /**
@@ -122,8 +123,9 @@ class TeacherController extends Controller
      */
     public function edit(Teacher $teacher)
     {
+        $id = $teacher->code;
         $positions = Position::where('status','1')->get();
-        return view('teacher.form',compact('teacher','positions'));
+        return view('teacher.form',compact('teacher','positions','id'));
     }
 
     /**
@@ -144,7 +146,7 @@ class TeacherController extends Controller
             if(File::exists($destination)){
                 File::delete($destination);
             }
-           
+
             $file = $request->file('image');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file ->move('uploads/teacher', $filename);
@@ -177,5 +179,13 @@ class TeacherController extends Controller
 
         // $teacher->delete();
         // return redirect()->route('teachers.index')->with('message','Teacher deleted');
+    }
+
+    private function getTeacherID()
+    {
+        $id = Teacher::max('id') + 1;
+        // $batch = Batch::latest()->first();
+        // $year = date('Y');
+        return  'PSBUTID-'. str_pad($id, 4, '0', STR_PAD_LEFT);
     }
 }

@@ -48,12 +48,12 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
-                <li class="nav-item ">
+                {{-- <li class="nav-item ">
                     <a href="#!" class="nav-link" target="_blank">
                         <i class="fa fa-slideshare" aria-hidden="true"></i>
                         <p style="padding-left: 20px">Goto website</p>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item ">
                     <a href="{{url('dashboard')}}" class="nav-link {{ Request::is('dashboard') ? 'active':'' }}">
@@ -206,7 +206,7 @@
                             </a>
                         </li>
                     </ul>
-                  
+
                 </li>
 
                 {{-- students  --}}
@@ -223,11 +223,11 @@
                             <a href="{{route('students.index')}}" class="nav-link  {{ Request::is('students*') ? 'active':'' }}">
                                 <i class="fa fa-bars pl-3" aria-hidden="true"></i>
                                 <p class="pl-3">{{__('Students')}}</p>
-                            </a>                        
+                            </a>
                         </li>
                     </ul>
                 </li>
-                
+
                 {{-- techer  --}}
                 <li class="nav-item {{  Request::is('teachers*') || Request::is('teachers-details*') || Request::is('positions*') ? 'menu-open active':'' }}">
                     <a href="#" class="nav-link {{  Request::is('teachers*') || Request::is('teachers-details*') || Request::is('positions*') ? 'active':'' }}">

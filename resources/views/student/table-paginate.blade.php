@@ -2,38 +2,31 @@
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th style="width: 10px">#</th>
-            <th>Code#</th>
-            <th>Photo</th>
-            <th>Name</th>
+            <th>N0</th>
+            <th>ID</th>
+            <th>Name Kh</th>
+            <th>Name En</th>
+            <th>Degree</th>
+            <th>Shift</th>
             <th>Gender</th>
-            <th>Position</th>
             <th>Address</th>
             <th>Phone</th>
-            <th>Email</th>
             <th>Status</th>
-            <th style="width: 200px">Action</th>
+            <th style="width: 130px">Action</th>
         </tr>
     </thead>
-    <tbody id="show_position">
+    <tbody id="show_degree">
         @forelse ($students as $key => $item)
             <tr>
                 <td>{{ $key + 1 }}</td>
-                <td>{{$item->code ?? '--'}}</td>
-                <td>
-                    @if($item->image)
-                    <img src="{{ url('uploads/teacher/'.$item->image) }}" width="40px" style="border-radius: 50%; ">
-                    @else
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjLE9Ylr4f4BXaJfXkLC0YGydJDZVQoxK0Dg&usqp=CAU" width="40px" style="border-radius: 50%; ">
-                    @endif
-                </td>
-                <td>{{ $item->name_en ?? '--' }}</td>
-                <td>{{ $item->sex ?? '--' }}</td>
-                <td>{{ $item->position->name ?? '--' }}</td>
-                <td>{{ $item->address ?? '--' }}</td>
-                <td>{{ $item->phone ?? '--' }}</td>
-                <td>{{ $item->email ?? '--' }}</td>
-
+                <td>{{$item->stu_id ?? '--'}}</td>
+                <td>{{ $item->stu_name ?? '--' }}</td>
+                <td>{{ $item->stu_name_latin ?? '--' }}</td>
+                <td>{{ $item->degree->name ?? '--' }}</td>
+                <td>{{ $item->shift->name ?? '--' }}</td>
+                <td>{{ $item->stu_gender ?? '--' }}</td>
+                <td>{{ $item->stu_address ?? '--' }}</td>
+                <td>{{ $item->stu_phone ?? '--' }}</td>
                 <td>
                     @if ($item->status == 1)
                     <span class="badge bg-defalt text-dark">Active <i class="fa fa-circle text-success" aria-hidden="true"></i></span>

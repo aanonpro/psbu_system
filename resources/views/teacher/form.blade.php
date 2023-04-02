@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 <style>
-    
+
     label.img {
         display: block;
         width: 60vw;
@@ -30,13 +30,13 @@
     input.up-img {
         border: 0;
         clip: rect(1px, 1px, 1px, 1px);
-        height: 1px; 
+        height: 1px;
         margin: -1px;
         overflow: hidden;
         padding: 0;
         position: absolute;
         width: 1px;
-    
+
     }
 
     /* body {
@@ -94,7 +94,7 @@
             position: absolute !important;
             top: 40px;
             left: 40px;
-        }   
+        }
 
 </style>
     <div class="content-wrapper">
@@ -121,6 +121,11 @@
                             <div class="card-header">
                                 <h3 class="card-title" style="text-transform: uppercase">{{ isset($teacher) ? 'teachers Edit' : 'teachers Add' }}</h3>
                             </div>
+                            @if(session()->has('message'))
+                                <div class="alert alert-success">
+                                    {{ session()->get('message') }}
+                                </div>
+                            @endif
                             <form action="{{ isset($teacher) ?  route('teachers.update',$teacher->id) : route('teachers.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @if (isset($teacher))
@@ -129,31 +134,31 @@
                             <div class="card-body mb-5">
 
                                 <div class="row">
-                                    <div class="col-md-3">  
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label>Name khmer</label>
-                                            <input type="text" class="form-control" @if(isset($teacher)) value="{{$teacher->name_kh}}" @endif name="name_kh" autofocus>                                            
-                                        </div>                                     
-                                      
+                                            <label>Name khmer <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" @if(isset($teacher)) value="{{$teacher->name_kh}}" @endif name="name_kh" autofocus>
+                                        </div>
+
                                         <div class="form-group">
-                                            <label>Teacher code</label>
-                                            <input type="text" class="form-control"@if(isset($teacher)) value="{{$teacher->name_en}}" @endif name="code" >                                            
+                                            <label>ID</label>
+                                            <input type="text" class="form-control" value="{{ old('code', $id) }}" name="code" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input type="email" class="form-control"@if(isset($teacher)) value="{{$teacher->email}}" @endif name="email" >                                            
+                                            <input type="email" class="form-control"@if(isset($teacher)) value="{{$teacher->email}}" @endif name="email" >
                                         </div>
                                         <div class="form-group">
                                             <label for="inputDescription">Describe</label>
                                             <textarea id="inputDescription" name="noted" class="form-control" rows="7">  @if(isset($teacher)){{$teacher->noted}} @endif</textarea>
-                                           
+
                                         </div>
                                     </div>
                                     {{-- end section 1 --}}
-                                    <div class="col-md-3">                                       
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Name english</label>
-                                            <input type="text" class="form-control" @if(isset($teacher)) value="{{$teacher->name_en}}" @endif name="name_en" >                                            
+                                            <input type="text" class="form-control" @if(isset($teacher)) value="{{$teacher->name_en}}" @endif name="name_en" >
                                         </div>
                                         <div class="form-group">
                                             <label>Position</label>
@@ -174,7 +179,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Phone</label>
-                                            <input type="text" class="form-control"@if(isset($teacher)) value="{{$teacher->phone}}" @endif name="phone" >                                            
+                                            <input type="text" class="form-control"@if(isset($teacher)) value="{{$teacher->phone}}" @endif name="phone" >
                                         </div>
                                         <div class="form-group">
                                             <label>Upload Photo</label>
@@ -193,13 +198,13 @@
                                                         alt="preview image" style="max-width: 140px;">
                                                     </div>
                                                 @endif
-                                            </div>                                              
+                                            </div>
                                         </div>
-                                     
+
                                     </div>
                                     {{-- end section 2 --}}
 
-                                    <div class="col-md-3">                                       
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Gender <span class="text-danger">*</span></label>
                                             <select class="form-control select2" id="sex" name="sex" >
@@ -207,33 +212,33 @@
                                                 <option value="male"@if (isset($teacher)) {{ $teacher->sex == 'male' ? 'selected' : '' }}  @endif >Male</option>
                                                 <option value="female"@if (isset($teacher)) {{ $teacher->sex == 'female' ? 'selected' : '' }}  @endif >Female</option>
                                                 <option value="other"@if (isset($teacher)) {{ $teacher->sex == 'other' ? 'selected' : '' }}  @endif >Other</option>
-                                            </select>                                      
+                                            </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Place of birth <span class="text-danger">*</span></label>                                        
+                                            <label>Place of birth <span class="text-danger">*</span></label>
 
                                             <select class="form-control select2" id="pob" name="pob" >
                                                 <option value="" disabled selected>Please select country</option>
-                                                <option value="1"@if (isset($teacher)) {{ $teacher->sex == '1' ? 'selected' : '' }}  @endif  >Phnom penh</option>
-                                            </select>                                      
+                                                <option value="1"@if (isset($teacher)) {{ $teacher->pob == '1' ? 'selected' : '' }}  @endif  >Phnom penh</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>
-                                            <input type="text" class="form-control" name="address" @if(isset($teacher)) value="{{$teacher->address}}" @endif>                                            
+                                            <input type="text" class="form-control" name="address" @if(isset($teacher)) value="{{$teacher->address}}" @endif>
                                         </div>
                                         <div class="form-group">
                                             <label>Status <span class="text-danger">*</span></label>
                                             <select class="form-control select2" id="status" name="status" >
-                                                <option value="" disabled selected>Please select Status</option>
+                                                {{-- <option value="" disabled selected>Please select Status</option> --}}
                                                 <option value="1"@if (isset($teacher)) {{ $teacher->status == '1' ? 'selected' : '' }}  @endif>Active</option>
                                                 <option value="0"@if (isset($teacher)) {{ $teacher->status == '0' ? 'selected' : '' }}  @endif>Inactive</option>
                                             </select>
                                         </div>
-                                       
+
                                     </div>
                                     {{-- end section 3 --}}
 
-                                    <div class="col-md-3">                                       
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Date of birth</label>
                                             <div class="md-form md-outline input-with-post-icon datepicker">
@@ -243,7 +248,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Nationality</label>
-                                            <input type="text" class="form-control"@if(isset($teacher)) value="{{$teacher->nationality}}" @endif name="nationality">                                            
+                                            <input type="text" class="form-control"@if(isset($teacher)) value="{{$teacher->nationality}}" @endif name="nationality">
                                         </div>
                                         <div class="form-group">
                                             <label>Expired_date</label>
@@ -289,14 +294,14 @@
 <script>
     $(function() {
 
-        //image 
-        $('#image').change(function(){                
+        //image
+        $('#image').change(function(){
         let reader = new FileReader();
-        reader.onload = (e) => { 
-            $('#preview-image-before-upload').attr('src', e.target.result); 
+        reader.onload = (e) => {
+            $('#preview-image-before-upload').attr('src', e.target.result);
         }
-        reader.readAsDataURL(this.files[0]);         
-        });  
+        reader.readAsDataURL(this.files[0]);
+        });
     });
 </script>
 @endsection

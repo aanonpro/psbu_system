@@ -50,7 +50,7 @@
                                 <p>{{__('Departments')}}</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
+                                <i class="ion ion-briefcase"></i>
                             </div>
                             <a href="{{route('departments.index')}}" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
@@ -61,13 +61,13 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>44</h3>
-                                <p>User Registrations</p>
+                                <h3>{{$teacher}}</h3>
+                                <p>Teacher</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-person-add"></i>
+                                <i class="ion ion-person-stalker"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
+                            <a href="{{route('teachers.index')}}" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -76,14 +76,13 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>65</h3>
-
-                                <p>Unique Visitors</p>
+                                <h3>{{$student}}</h3>
+                                <p>Students</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-pie-graph"></i>
+                                <i class="ion ion-university"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
+                            <a href="{{route('students.index')}}" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>

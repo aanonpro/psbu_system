@@ -14,12 +14,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-12">
-                        
+
                         <h1 class="m-0">
                             <a href="{{ route('students.index') }}" class="btn btn-danger text-light ">{{isset($student)? 'Cancel':'Back'}}</a>
                         </h1>
                     </div><!-- /.col -->
-                  
+
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
@@ -41,20 +41,20 @@
                             <div class="card-body mb-5">
 
                                 <div class="row">
-                                    <div class="col-md-3">  
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Student ID</label>
-                                            <input type="text" class="form-control" value="{{ old('stu_id', $id) }}" name="stu_id" readonly>                                            
+                                            <input type="text" class="form-control" value="{{ old('stu_id', $id) }}" name="stu_id" readonly>
                                         </div>
 
                                         <div class="form-group">
                                             <label>Date of birth</label>
                                             <div class="md-form md-outline input-with-post-icon datepicker">
-                                                <input placeholder="Select date" type="date" name="stu_dob"  @if(isset($student)) value="{{$student->dob}}" @endif id="example" class="form-control">
+                                                <input placeholder="Select date" type="date" name="stu_dob"  @if(isset($student)) value="{{$student->stu_dob}}" @endif id="example" class="form-control">
                                             </div>
                                             {{-- <input type="text" class="form-control" name="dob"@if(isset($teacher)) value="{{$teacher->dob}}" @else value="10/24/2023" @endif> --}}
-                                        </div>  
-                                        
+                                        </div>
+
                                         <div class="form-group">
                                             <label>Degree</label>
                                             <select class="form-control select2" id="degrees_id" name="degrees_id" >
@@ -74,27 +74,27 @@
                                         </div>
                                     </div>
                                     {{-- end section 1 --}}
-                                    <div class="col-md-3">    
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Student name kh</label>
-                                            <input type="text" class="form-control" @if(isset($student)) value="{{$student->name_kh}}" @endif name="stu_name" autofocus>                                            
-                                        </div>                                         
+                                            <input type="text" class="form-control" @if(isset($student)) value="{{$student->stu_name_latin}}" @endif name="stu_name" autofocus>
+                                        </div>
                                         <div class="form-group">
                                             <label>Address</label>
-                                            <input type="text" class="form-control" name="stu_address" @if(isset($student)) value="{{$student->address}}" @endif>                                            
+                                            <input type="text" class="form-control" name="stu_address" @if(isset($student)) value="{{$student->stu_address}}" @endif>
                                         </div>
                                         <div class="form-group">
                                             <label>Shift</label>
                                             <select class="form-control select2" id="shift_id" name="shift_id" >
                                                 <option value="" selected disabled >Please select shift</option>
                                                 @if(isset($student))
-                                                    @foreach ($shifts as $item)
+                                                    @foreach($shifts as $item)
                                                         <option value="{{ $item->id }}" {{ $student->shift_id == $item->id ? 'selected' : '' }}>
                                                             {{ $item->name }}
                                                         </option>
                                                     @endforeach
                                                 @else
-                                                    @foreach ($shifts as $item)
+                                                    @foreach($shifts as $item)
                                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                     @endforeach
                                                 @endif
@@ -104,21 +104,21 @@
                                     </div>
                                     {{-- end section 2 --}}
 
-                                    <div class="col-md-3">    
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label>student name en</label>
-                                            <input type="text" class="form-control" @if(isset($student)) value="{{$student->name_en}}" @endif name="stu_name_latin" >                                            
-                                        </div>   
+                                            <label>Student name en <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" @if(isset($student)) value="{{$student->stu_name}}" @endif name="stu_name_latin" >
+                                        </div>
                                         <div class="form-group">
                                             <label>Phone</label>
-                                            <input type="text" class="form-control"@if(isset($student)) value="{{$student->phone}}" @endif name="stu_phone" >                                            
-                                        </div> 
+                                            <input type="text" class="form-control"@if(isset($student)) value="{{$student->stu_phone}}" @endif name="stu_phone" >
+                                        </div>
                                         <div class="form-group">
                                             <label>Status <span class="text-danger">*</span></label>
                                             <select class="form-control select2" id="status" name="status" >
                                                 {{-- <option value="" disabled selected>Please select Status</option> --}}
                                                 <option value="1" selected @if (isset($student)) {{ $student->status == '1' ? 'selected' : '' }}  @endif>Active</option>
-                                                <option value="0"@if (isset($student)) {{ $student->status == '0' ? 'selected' : '' }}  @endif>Inactive</option>
+                                                <option value="0"@if (isset($student)) {{ $student->stu_status == '0' ? 'selected' : '' }}  @endif>Inactive</option>
                                             </select>
                                         </div>
                                         {{-- <div class="form-group">
@@ -138,29 +138,30 @@
                                                 @endif
                                             </select>
                                         </div>                                 --}}
-                                       
+
                                     </div>
                                     {{-- end section 3 --}}
 
-                                    <div class="col-md-3"> 
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Gender <span class="text-danger">*</span></label>
                                             <select class="form-control select2" id="sex" name="stu_gender" >
                                                 <option value="" disabled selected>Please select gender</option>
-                                                <option value="male"@if (isset($student)) {{ $student->sex == 'male' ? 'selected' : '' }}  @endif >Male</option>
-                                                <option value="female"@if (isset($student)) {{ $student->sex == 'female' ? 'selected' : '' }}  @endif >Female</option>
-                                                <option value="other"@if (isset($student)) {{ $student->sex == 'other' ? 'selected' : '' }}  @endif >Other</option>
-                                            </select>                                      
-                                        </div>    
+                                                <option value="M"@if (isset($student)) {{ $student->stu_gender == 'M' ? 'selected' : '' }}  @endif >Male</option>
+                                                <option value="F"@if(isset($student)) {{ $student->stu_gender == 'F' ? 'selected' : '' }}  @endif >Female</option>
+                                                <option value="O"@if (isset($student)) {{ $student->stu_gender == 'O' ? 'selected' : '' }}  @endif >Other</option>
+                                            </select>
+                                        </div>
 
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input type="email" class="form-control"@if(isset($student)) value="{{$student->email}}" @endif name="stu_email" >                                            
+                                            <input type="email" class="form-control"@if(isset($student)) value="{{$student->stu_email}}" @endif name="stu_email"
+                                            placeholder="@gmail.com">
                                         </div>
 
-                                       
 
-                                      
+
+
                                     </div>
                                     {{-- end section 4 --}}
                                 </div>

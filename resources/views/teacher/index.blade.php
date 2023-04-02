@@ -22,17 +22,17 @@
                                 </ul>
                             </div>
                             <a href="{{ route('teachers.index') }}" class="btn btn-info text-light"><i class="fa fa-history" aria-hidden="true"></i> Reload page</a>
-          
+
                         </h1>
                         <div class="mt-3">
                             <span>All teachers ({{ $counts }}) | Public : <span class="text-info">({{$count_stt}})</span></span>
-                        </div>                     
+                        </div>
                     </div>
                     <div class="col-md-12 mt-4">
                         <div class="row">
                             <div class="col-md-4">
                                 <select class="form-control select2 bg-info" id="position" name="position" >
-                                    <option value="" selected disabled>Search by position...</option>
+                                    <option value="" selected disabled>Search position</option>
                                     @foreach ($positions as $item)
                                         <option value="{{ $item->id }}">
                                             {{ $item->name }}
@@ -41,7 +41,6 @@
                                 </select>
                             </div>
                             <div class="col-md-4">
-                               
                             </div>
                             <div class="col-md-4">
                                 <form action="{{route('teachers.index')}}" method="GET" class="d-flex" role="search">
@@ -51,10 +50,7 @@
                                 </form>
                             </div>
                         </div>
-                       
                     </div>
-
-
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
@@ -68,8 +64,6 @@
                         <div class="card card-info card-outline">
                             <div class="card-header">
                                 <h3 class="card-title" style="text-transform: uppercase">teachers list</h3>
-                                
-                               
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body" id="show-teachers">
@@ -123,7 +117,7 @@
                 }
             });
         }
-            // end pagination 
+            // end pagination
 
 
         $("#position").on('change', function(){
@@ -141,12 +135,11 @@
                                         <td>'+item.id+'</td>\
                                         <td>'+item.code+'</td>\
                                         <td> <img src="uploads/teacher/'+item.image+'" width="50px"></td>\
+                                        <td>'+item.name_kh+'</td>\
                                         <td>'+item.name_en+'</td>\
-                                        <td>'+item.sex+'</td>\
                                         <td>'+item.position.name+'</td>\
                                         <td>'+item.address+'</td>\
                                         <td>'+item.phone+'</td>\
-                                        <td>'+item.email+'</td>\
                                         <td> <span class="badge bg-defalt text-dark"> '+((item.status) == 1 ? 'active <i class="fa fa-circle text-success" aria-hidden="true"></i>':'inactive <i class="fa fa-circle text-danger" aria-hidden="true"></i>' )+' </span></td>\
                                         <td>\
                                             <form action="teachers/'+item.id+'" method="POST">\

@@ -3,16 +3,15 @@
     <thead>
         <tr>
             <th style="width: 10px">#</th>
-            <th>Code#</th>
+            <th>ID</th>
             <th>Photo</th>
-            <th>Name</th>
-            <th>Gender</th>
+            <th>Name Kh</th>
+            <th>Name En</th>
             <th>Position</th>
             <th>Address</th>
             <th>Phone</th>
-            <th>Email</th>
             <th>Status</th>
-            <th style="width: 200px">Action</th>
+            <th style="width: 130px">Action</th>
         </tr>
     </thead>
     <tbody id="show_position">
@@ -27,12 +26,12 @@
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjLE9Ylr4f4BXaJfXkLC0YGydJDZVQoxK0Dg&usqp=CAU" width="40px" style="border-radius: 50%; ">
                     @endif
                 </td>
+                <td>{{ $item->name_kh ?? '--' }}</td>
                 <td>{{ $item->name_en ?? '--' }}</td>
-                <td>{{ $item->sex ?? '--' }}</td>
+                {{-- <td>{{ $item->sex ?? '--' }}</td> --}}
                 <td>{{ $item->position->name ?? '--' }}</td>
                 <td>{{ $item->address ?? '--' }}</td>
                 <td>{{ $item->phone ?? '--' }}</td>
-                <td>{{ $item->email ?? '--' }}</td>
 
                 <td>
                     @if ($item->status == 1)

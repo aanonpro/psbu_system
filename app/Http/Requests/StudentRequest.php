@@ -25,16 +25,16 @@ class StudentRequest extends FormRequest
     {
         $rules = [
             'status' => [
-                'required'
+                'nullable'
             ],
             'stu_id' => [
                 'nullable'
             ],
-            'stu_name' => ['nullable'],
-            'stu_name_latin' => ['nullable'],
+            'stu_name' => ['string','nullable'],
+            'stu_name_latin' => ['string','required'],
             'stu_gender' => ['nullable'],
             'stu_dob' => ['nullable'],
-            'stu_address' => ['nullable'],
+            'stu_address' => ['string','nullable'],
             'stu_phone' => ['nullable'],
             'stu_email' => ['nullable'],
             'degrees_id' => ['nullable'],
